@@ -13,6 +13,7 @@
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json}\" --cache --ignore-path .gitignore"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "lucide-react": "^0.544.0",
     "next": "15.5.4",
     "react": "19.1.0",
