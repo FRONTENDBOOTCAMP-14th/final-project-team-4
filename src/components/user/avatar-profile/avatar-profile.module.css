@@ -1,0 +1,45 @@
+@import "@/styles/main.css";
+
+:root {
+  --edit-button-border: #3a3a3a;
+  --edit-button-bg: #fafafa;
+}
+
+.avatarImageContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.editButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 80%;
+  right: 5%;
+  width: 26.571px;
+  height: 26.571px;
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--edit-button-border);
+  background-color: var(--edit-button-bg);
+
+  .editIcon {
+    display: flex;
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media (min-width: 581px) {
+  .editButton {
+    width: 30px;
+    height: 30px;
+  }
+
+  .editIcon {
+    width: 17px;
+    height: 17px;
+  }
+}

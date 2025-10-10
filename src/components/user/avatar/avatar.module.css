@@ -1,0 +1,49 @@
+@import "@/styles/main.css";
+
+:root {
+  --border-color: #f6c944;
+  --bg-color: #fafafa;
+}
+
+.avatar {
+  position: relative;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+
+  .avatarImage {
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+  }
+}
+
+.linkSizes {
+  width: 37px;
+  height: 37px;
+}
+
+@media (min-width: 581px) and (max-width: 1200px) {
+  .linkSizes {
+    width: 31px;
+    height: 31px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .linkSizes {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.profileSizes {
+  width: 124px;
+  height: 124px;
+}
+
+@media (min-width: 581px) {
+  .profileSizes {
+    width: 140px;
+    height: 140px;
+  }
+}
