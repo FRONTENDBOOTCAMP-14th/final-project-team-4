@@ -1,0 +1,32 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+
+  > input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + label {
+      background-color: var(--brand-main);
+      color: var(--text-default-main);
+    }
+
+    &:focus-visible + label {
+      outline: 1px solid var(--brand-main);
+    }
+  }
+
+  > label {
+    display: inline-flex;
+    color: var(--text-color-main);
+    padding: 10px 14px;
+    font-size: 18px;
+    font-weight: 700;
+    border: 1px solid var(--text-color-main);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+  }
+}
