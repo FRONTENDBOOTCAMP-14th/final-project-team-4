@@ -1,0 +1,124 @@
+@layer normalize {
+  html {
+    -webkit-text-size-adjust: 100%;
+    tab-size: 2;
+  }
+  body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  b,
+  strong {
+    font-weight: 700;
+  }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family:
+      ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+      monospace;
+    font-size: 1em;
+  }
+  small {
+    font-size: 80%;
+  }
+
+  sub,
+  sup {
+    position: relative;
+    vertical-align: baseline;
+    font-size: 75%;
+    line-height: 0;
+  }
+  sup {
+    top: -0.5em;
+  }
+  sub {
+    bottom: -0.25em;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  button,
+  input {
+    overflow: visible;
+    text-transform: none;
+  }
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    margin: 0;
+    font: inherit;
+    line-height: 1.2;
+  }
+
+  [type="number"]::-webkit-inner-spin-button,
+  [type="number"]::-webkit-outer-spin-button {
+    height: auto;
+  }
+
+  [type="search"] {
+    outline-offset: -2px;
+  }
+  [type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+  ::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit;
+  }
+
+  [type="button"],
+  [type="reset"],
+  [type="submit"],
+  button {
+    cursor: pointer;
+  }
+  [type="button"]:-moz-focusring,
+  [type="reset"]:-moz-focusring,
+  [type="submit"]:-moz-focusring,
+  button:-moz-focusring {
+    outline: 1px dotted ButtonText;
+  }
+
+  fieldset {
+    padding: 0.35em 0.75em 0.625em;
+  }
+  legend {
+    box-sizing: inherit;
+    display: table;
+    color: inherit;
+    max-width: 100%;
+    padding: 0;
+    white-space: normal;
+  }
+
+  progress {
+    vertical-align: baseline;
+  }
+  details {
+    display: block;
+  }
+  summary {
+    display: list-item;
+  }
+
+  table {
+    border-color: currentColor;
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
