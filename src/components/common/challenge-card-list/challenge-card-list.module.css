@@ -1,0 +1,170 @@
+.section {
+  width: 100%;
+  padding-block: 2rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--text-color-main);
+  margin-block-end: 2rem;
+  padding-inline: 1rem;
+}
+
+.swiperContainer {
+  position: relative;
+  width: 100%;
+  padding-inline: 1rem;
+}
+
+.swiper {
+  width: 100%;
+  height: auto;
+  padding-block-end: 1rem;
+}
+
+.swiper :global(.swiper-wrapper) {
+  align-items: stretch;
+}
+
+.swiper :global(.swiper-button-next),
+.swiper :global(.swiper-button-prev) {
+  background-color: #ffffff;
+  width: 2.5rem; /* smaller circle */
+  height: 2.5rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+.swiper :global(.swiper-button-next)::after,
+.swiper :global(.swiper-button-prev)::after {
+  content: "" !important;
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.swiper :global(.swiper-button-next)::before,
+.swiper :global(.swiper-button-prev)::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.625rem;
+  height: 0.625rem;
+  border: solid #000000;
+  border-width: 0 3px 3px 0;
+  padding: 2px;
+}
+
+.swiper :global(.swiper-button-next)::before {
+  transform: translate(-60%, -50%) rotate(-45deg);
+}
+
+.swiper :global(.swiper-button-prev)::before {
+  transform: translate(-40%, -50%) rotate(135deg);
+}
+
+.swiper :global(.swiper-button-next):hover,
+.swiper :global(.swiper-button-prev):hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.swiper :global(.swiper-button-disabled) {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.slide {
+  height: auto;
+  display: flex;
+  width: 100%;
+}
+
+.slide > * {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .swiper :global(.swiper-button-next),
+  .swiper :global(.swiper-button-prev) {
+    width: 2.375rem;
+    height: 2.375rem;
+  }
+
+  .swiper :global(.swiper-button-next)::before,
+  .swiper :global(.swiper-button-prev)::before {
+    width: 0.5625rem;
+    height: 0.5625rem;
+    border-width: 0 2.5px 2.5px 0;
+    padding: 2px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-block: 1.5rem;
+  }
+
+  .sectionTitle {
+    margin-block-end: 1.5rem;
+    padding-inline: 0.75rem;
+  }
+
+  .swiperContainer {
+    padding-inline: 0.75rem;
+  }
+
+  .swiper :global(.swiper-button-next),
+  .swiper :global(.swiper-button-prev) {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .swiper :global(.swiper-button-next)::before,
+  .swiper :global(.swiper-button-prev)::before {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-width: 0 2.5px 2.5px 0;
+    padding: 1.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding-block: 1rem;
+  }
+
+  .sectionTitle {
+    margin-block-end: 1rem;
+    padding-inline: 0.5rem;
+  }
+
+  .swiperContainer {
+    padding-inline: 0.5rem;
+  }
+
+  .swiper :global(.swiper-button-next),
+  .swiper :global(.swiper-button-prev) {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .swiper :global(.swiper-button-next)::before,
+  .swiper :global(.swiper-button-prev)::before {
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-width: 0 2px 2px 0;
+    padding: 1.5px;
+  }
+}
+
