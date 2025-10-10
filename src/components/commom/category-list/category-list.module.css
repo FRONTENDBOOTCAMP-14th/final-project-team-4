@@ -1,0 +1,16 @@
+@import "@/styles/main.css";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0;
+  border-style: none;
+
+  > legend {
+    margin-bottom: 20px;
+    color: var(--text-color-sub);
+    font-size: 22px;
+    font-weight: 700;
+  }
+}
