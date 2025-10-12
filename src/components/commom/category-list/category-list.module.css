@@ -10,8 +10,9 @@
   > legend {
     margin-bottom: 20px;
     color: var(--text-color-sub);
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
+    line-height: normal;
   }
 }
 
@@ -41,9 +42,33 @@
     padding: 10px 14px;
     font-size: 18px;
     font-weight: 700;
+    line-height: normal;
     border: 1px solid var(--text-color-main);
     border-radius: 100px;
     cursor: pointer;
     transition: background-color 0.4s ease;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container > legend {
+    font-size: 22px;
+  }
+  .wrapper > label {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 580px) {
+  .container {
+    gap: 8px;
+
+    > legned {
+      font-size: 20px;
+    }
+  }
+  .wrapper > label {
+    padding: 8px 10px;
+    font-size: 12px;
   }
 }
