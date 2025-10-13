@@ -1,0 +1,6 @@
+@import "@/styles/main.css";
+
+.link {
+  display: inline-block;
+  border-radius: 50%;
+}
