@@ -1,3 +1,14 @@
 .header {
-}
+  position: fixed;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 54px;
+  height: 100vh;
+  padding: 96px 52px 34px 48px;
+  background: var(--surface-bg-main);
+  border-right: 1px solid var(--divider);
 
+  > nav {
+    flex-grow: 1;
+  }
+}
