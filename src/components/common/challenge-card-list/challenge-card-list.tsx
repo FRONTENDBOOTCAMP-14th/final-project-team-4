@@ -27,22 +27,9 @@ export default function ChallengeCardList({
         <Swiper
           modules={[Navigation]}
           spaceBetween={12}
-          slidesPerView={2}
+          slidesPerView="auto"
           navigation={true}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 12,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 16,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-          }}
+          centeredSlides={false}
           className={styles.swiper}
         >
           {displayChallenges.map((challenge, index) => (

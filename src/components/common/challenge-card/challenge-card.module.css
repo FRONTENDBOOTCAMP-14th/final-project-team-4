@@ -5,8 +5,8 @@
   border-radius: 1rem;
   overflow: hidden;
   cursor: pointer;
-  height: 100%;
-  min-height: 20rem;
+  block-size: 100%;
+  min-block-size: 20rem;
   transition: transform 0.3s ease;
 }
 
@@ -17,22 +17,22 @@
 .imageWrapper {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   z-index: 0;
 }
 
 .thumbnail {
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   object-fit: cover;
 }
 
 .gradient {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.2) 0%,
@@ -48,7 +48,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 1.25rem;
+  padding-block: 1.25rem;
+  padding-inline: 1.25rem;
   gap: 0.625rem;
   z-index: 2;
 }
@@ -89,7 +90,8 @@
 }
 
 .tag {
-  padding: 0.4375rem 0.875rem;
+  padding-block: 0.4375rem;
+  padding-inline: 0.875rem;
   font-size: 0.8125rem;
   font-weight: 700;
   color: var(--brand-main);
@@ -100,7 +102,8 @@
 }
 
 .tagDay {
-  padding: 0.4375rem 0.875rem;
+  padding-block: 0.4375rem;
+  padding-inline: 0.875rem;
   font-size: 0.8125rem;
   font-weight: 600;
   color: #ffffff;
@@ -111,8 +114,9 @@
 }
 
 .primaryButton {
-  width: 100%;
-  padding: 0.875rem;
+  inline-size: 100%;
+  padding-block: 0.875rem;
+  padding-inline: 0.875rem;
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--text-default-main);
@@ -138,13 +142,15 @@
   display: none;
 }
 
-@media (max-width: 1024px) {
+/* 태블릿 뷰: 581px - 1200px */
+@media (max-width: 1200px) and (min-width: 581px) {
   .card {
-    min-height: 18rem;
+    min-block-size: 18rem;
   }
 
   .content {
-    padding: 1.125rem;
+    padding-block: 1.125rem;
+    padding-inline: 1.125rem;
     gap: 0.5rem;
   }
 
@@ -158,28 +164,33 @@
   }
 
   .tag {
-    padding: 0.375rem 0.75rem;
+    padding-block: 0.375rem;
+    padding-inline: 0.75rem;
     font-size: 0.75rem;
   }
 
   .tagDay {
-    padding: 0.375rem 0.75rem;
+    padding-block: 0.375rem;
+    padding-inline: 0.75rem;
     font-size: 0.75rem;
   }
 
   .primaryButton {
-    padding: 0.75rem;
+    padding-block: 0.75rem;
+    padding-inline: 0.75rem;
     font-size: 0.875rem;
   }
 }
 
-@media (max-width: 768px) {
+/* 모바일 뷰: 451px - 580px */
+@media (max-width: 580px) and (min-width: 451px) {
   .card {
-    min-height: 16rem;
+    min-block-size: 16rem;
   }
 
   .content {
-    padding: 1rem;
+    padding-block: 1rem;
+    padding-inline: 1rem;
     gap: 0.4375rem;
   }
 
@@ -204,35 +215,93 @@
   }
 
   .tag {
-    padding: 0.3125rem 0.625rem;
+    padding-block: 0.3125rem;
+    padding-inline: 0.625rem;
     font-size: 0.6875rem;
     border: 1px solid var(--brand-main);
   }
 
   .tagDay {
-    padding: 0.3125rem 0.625rem;
+    padding-block: 0.3125rem;
+    padding-inline: 0.625rem;
     font-size: 0.6875rem;
     border: 1px solid #ffffff;
   }
 
   .primaryButton {
-    padding: 0.625rem;
+    padding-block: 0.625rem;
+    padding-inline: 0.625rem;
     font-size: 0.8125rem;
   }
 }
 
-@media (max-width: 480px) {
+/* 소형 모바일 뷰 1: 401px - 450px */
+@media (max-width: 450px) and (min-width: 401px) {
   .card {
-    min-height: 14rem;
+    min-block-size: 15rem;
   }
 
   .content {
-    padding: 0.875rem;
-    gap: 0.375rem;
+    padding-block: 0.875rem;
+    padding-inline: 0.875rem;
+    gap: 0.4rem;
   }
 
   .title {
     font-size: 0.875rem;
+    line-height: 1.2;
+    -webkit-line-clamp: 2;
+  }
+
+  .categoryTags {
+    gap: 0.28rem;
+    margin-block-end: 0.28rem;
+  }
+
+  .categoryTag {
+    font-size: 0.65rem;
+  }
+
+  .tags {
+    gap: 0.35rem;
+    margin-block-end: 0.4rem;
+  }
+
+  .tag {
+    padding-block: 0.28rem;
+    padding-inline: 0.56rem;
+    font-size: 0.65rem;
+    border: 1px solid var(--brand-main);
+  }
+
+  .tagDay {
+    padding-block: 0.28rem;
+    padding-inline: 0.56rem;
+    font-size: 0.65rem;
+    border: 1px solid #ffffff;
+  }
+
+  .primaryButton {
+    padding-block: 0.56rem;
+    padding-inline: 0.56rem;
+    font-size: 0.78rem;
+  }
+}
+
+/* 소형 모바일 뷰 2: 381px - 400px */
+@media (max-width: 400px) and (min-width: 381px) {
+  .card {
+    min-block-size: 14rem;
+  }
+
+  .content {
+    padding-block: 0.75rem;
+    padding-inline: 0.75rem;
+    gap: 0.35rem;
+  }
+
+  .title {
+    font-size: 0.8125rem;
     line-height: 1.2;
     -webkit-line-clamp: 2;
   }
@@ -243,77 +312,85 @@
   }
 
   .categoryTag {
-    font-size: 0.625rem;
+    font-size: 0.6rem;
   }
 
   .tags {
-    gap: 0.3125rem;
-    margin-block-end: 0.375rem;
+    gap: 0.3rem;
+    margin-block-end: 0.35rem;
   }
 
   .tag {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.625rem;
+    padding-block: 0.25rem;
+    padding-inline: 0.5rem;
+    font-size: 0.6rem;
     border: 1px solid var(--brand-main);
   }
 
   .tagDay {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.625rem;
+    padding-block: 0.25rem;
+    padding-inline: 0.5rem;
+    font-size: 0.6rem;
     border: 1px solid #ffffff;
   }
 
   .primaryButton {
-    padding: 0.5rem;
-    font-size: 0.75rem;
+    padding-block: 0.5rem;
+    padding-inline: 0.5rem;
+    font-size: 0.72rem;
   }
 }
 
-@media (max-width: 400px) {
+/* 초소형 모바일 뷰: 360px - 380px */
+@media (max-width: 380px) {
   .card {
-    min-height: 12rem;
+    min-block-size: 13rem;
   }
 
   .content {
-    padding: 0.75rem;
-    gap: 0.3125rem;
+    padding-block: 0.625rem;
+    padding-inline: 0.625rem;
+    gap: 0.3rem;
   }
 
   .title {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     line-height: 1.2;
     -webkit-line-clamp: 2;
   }
 
   .categoryTags {
-    gap: 0.1875rem;
-    margin-block-end: 0.1875rem;
+    gap: 0.2rem;
+    margin-block-end: 0.2rem;
   }
 
   .categoryTag {
-    font-size: 0.5625rem;
+    font-size: 0.56rem;
   }
 
   .tags {
     gap: 0.25rem;
-    margin-block-end: 0.3125rem;
+    margin-block-end: 0.3rem;
   }
 
   .tag {
-    padding: 0.1875rem 0.4375rem;
-    font-size: 0.5625rem;
+    padding-block: 0.2rem;
+    padding-inline: 0.4rem;
+    font-size: 0.56rem;
     border: 1px solid var(--brand-main);
   }
 
   .tagDay {
-    padding: 0.1875rem 0.4375rem;
-    font-size: 0.5625rem;
+    padding-block: 0.2rem;
+    padding-inline: 0.4rem;
+    font-size: 0.56rem;
     border: 1px solid #ffffff;
   }
 
   .primaryButton {
-    padding: 0.4375rem;
-    font-size: 0.6875rem;
+    padding-block: 0.44rem;
+    padding-inline: 0.44rem;
+    font-size: 0.66rem;
   }
 }
 
