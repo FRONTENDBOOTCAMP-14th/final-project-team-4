@@ -20,6 +20,7 @@
     --divider: light-dark(#d3d3d3, #666666);
 
     --brand-main: #f6c944;
+    --main-highLight: #f3b90c;
     --brand-sub1: #a78bf8;
     --brand-sub2: #bcf062;
     --brand-sub3: #ed6f6e;
@@ -32,6 +33,7 @@
     --text-color-main: light-dark(#201e1f, #f5f5f5);
     --text-color-sub: light-dark(#3a3a3a, #fafafa);
     --text-color-sub2: light-dark(#afafaf, #eaeaea);
+    --text-color-reverse: light-dark(#f5f5f5, #201e1f);
 
     --text-default-main: #201e1f;
     --text-default-sub2: #3a3a3a;
