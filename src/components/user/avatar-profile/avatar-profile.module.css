@@ -15,8 +15,8 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  inset-block-start: 80%;
-  inset-inline-end: 5%;
+  top: 80%;
+  right: 5%;
   inline-size: 27px;
   block-size: 27px;
   aspect-ratio: 1;
