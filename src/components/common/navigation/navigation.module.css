@@ -1,0 +1,33 @@
+.container {
+  > h2 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 26px;
+  height: 100%;
+
+  > li {
+    &:last-child {
+      margin-top: auto;
+    }
+  }
+
+  a {
+    display: inline-flex;
+    gap: 14px;
+    color: var(--text-color-main);
+    text-decoration: none;
+
+    &.active {
+      color: light-dark(var(--text-color-main), var(--brand-main));
+      font-weight: 700;
+    }
+  }
+}
