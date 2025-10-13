@@ -19,6 +19,9 @@
 
     --divider: light-dark(#d3d3d3, #666666);
 
+    --white: #fff;
+    --black: #000;
+
     --brand-main: #f6c944;
     --main-highLight: #f3b90c;
     --brand-sub1: #a78bf8;
