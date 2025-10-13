@@ -15,10 +15,10 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 80%;
-  right: 5%;
-  width: 26.571px;
-  height: 26.571px;
+  inset-block-start: 80%;
+  inset-inline-end: 5%;
+  inline-size: 27px;
+  block-size: 27px;
   aspect-ratio: 1;
   padding: 0;
   border-radius: 50%;
@@ -27,19 +27,19 @@
 
   .editIcon {
     display: flex;
-    width: 15px;
-    height: 15px;
+    inline-size: 15px;
+    block-size: 15px;
   }
 }
 
 @media (min-width: 581px) {
   .editButton {
-    width: 30px;
-    height: 30px;
+    inline-size: 30px;
+    block-size: 30px;
   }
 
   .editIcon {
-    width: 17px;
-    height: 17px;
+    inline-size: 17px;
+    block-size: 17px;
   }
 }
