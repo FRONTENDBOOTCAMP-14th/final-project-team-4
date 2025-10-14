@@ -1,11 +1,3 @@
-:root {
-  --text-color: #201e1f;
-  --study-tag: #a78bf8;
-  --habit-tag: #bcf062;
-  --hobby-tag: #ed6f6e;
-  --health-tag: #93c5f9;
-}
-
 .category {
   padding: 8px 12px;
   border-radius: 50px;
@@ -14,14 +6,14 @@
 }
 
 .studyCategory {
-  background-color: var(--study-tag);
+  background-color: var(--brand-sub1);
 }
 .habitCategory {
-  background-color: var(--habit-tag);
+  background-color: var(--brand-sub2);
 }
 .hobbyCategory {
-  background-color: var(--hobby-tag);
+  background-color: var(--brand-sub3);
 }
 .healthCategory {
-  background-color: var(--health-tag);
+  background-color: var(--brand-sub5);
 }
