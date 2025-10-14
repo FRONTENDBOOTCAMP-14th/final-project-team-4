@@ -1,10 +1,3 @@
-@import "@/styles/main.css";
-
-:root {
-  --border-color: #f6c944;
-  --bg-color: #fafafa;
-}
-
 .avatar {
   position: relative;
   display: inline-block;
