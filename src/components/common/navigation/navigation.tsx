@@ -70,7 +70,7 @@ export default function Navigation() {
 
   return (
     <nav className={styles.container}>
-      <h2>사이트 네비게이션</h2>
+      <span>사이트 네비게이션</span>
       <ul className={styles.wrapper}>
         {navItems.map((item) => (
           <NavItem key={item.href} {...item} pathname={pathname} />
