@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/consistent-indexed-object-style */
-
 export type Json =
   | string
   | number
@@ -8,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
@@ -172,6 +170,7 @@ export interface Database {
           id: string
           is_finished: boolean
           is_public: boolean
+          participants_count: number
           start_at: string
           success_threshold_percent: number | null
           tags: string[] | null
@@ -187,6 +186,7 @@ export interface Database {
           id?: string
           is_finished?: boolean
           is_public?: boolean
+          participants_count?: number
           start_at?: string
           success_threshold_percent?: number | null
           tags?: string[] | null
@@ -202,6 +202,7 @@ export interface Database {
           id?: string
           is_finished?: boolean
           is_public?: boolean
+          participants_count?: number
           start_at?: string
           success_threshold_percent?: number | null
           tags?: string[] | null
