@@ -1,8 +1,11 @@
+"use client"
+
 import Image from "next/image"
 import appleIconPath from "@/../public/company-icons/apple.svg"
 import googleIconPath from "@/../public/company-icons/google.svg"
 import kakaoIconPath from "@/../public/company-icons/kakao.svg"
 import imagePath from "@/../public/login-page.png"
+import handleKakaoLogin from "./auth/kakao/actions"
 import styles from "./page.module.css"
 
 export default function Login() {
@@ -21,19 +24,33 @@ export default function Login() {
           </p>
           <ul className={styles.loginButtonsContainer}>
             <li>
-              <button className={styles.googleLoginButton} type="button">
+              <button
+                // 구글 소셜 로그인 구현 후 사용
+                // onClick={handleGoogleLogin}
+                className={styles.googleLoginButton}
+                type="button"
+              >
                 <Image src={googleIconPath.src} width={24} height={24} alt="" />
                 구글로 시작하기
               </button>
             </li>
             <li>
-              <button className={styles.kakaoLoginButton} type="button">
+              <button
+                onClick={handleKakaoLogin}
+                className={styles.kakaoLoginButton}
+                type="button"
+              >
                 <Image src={kakaoIconPath.src} width={26} height={24} alt="" />
                 카카오로 시작하기
               </button>
             </li>
             <li>
-              <button className={styles.appleLoginButton} type="button">
+              <button
+                // 애플 소셜 로그인 구현 후 사용
+                // onClick={handleAppleLogin}
+                className={styles.appleLoginButton}
+                type="button"
+              >
                 <Image src={appleIconPath.src} width={21} height={26} alt="" />
                 Apple로 시작하기
               </button>
