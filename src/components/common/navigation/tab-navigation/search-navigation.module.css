@@ -18,6 +18,7 @@
   margin-bottom: 6px;
 
   > input {
+    width: 100%;
     background-color: transparent;
     border: none;
   }
@@ -26,5 +27,12 @@
     height: 24px;
     border: 0;
     padding: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .wrapper {
+    height: 40px;
+    justify-content: space-between;
   }
 }
