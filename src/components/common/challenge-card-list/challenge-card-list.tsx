@@ -11,11 +11,13 @@ import styles from "./challenge-card-list.module.css"
 interface ChallengeCardListProps {
   title?: string
   challenges: Challenge[]
+  renderCard?: (challenge: Challenge, index: number) => React.ReactNode
 }
 
 export default function ChallengeCardList({
   title,
   challenges,
+  renderCard,
 }: ChallengeCardListProps) {
   const displayChallenges = challenges.slice(0, 20)
 
@@ -34,11 +36,15 @@ export default function ChallengeCardList({
         >
           {displayChallenges.map((challenge, index) => (
             <SwiperSlide key={challenge.id} className={styles.slide}>
-              <ChallengeCard
-                challenge={challenge}
-                participantCount={123 + index * 10}
-                daysLeft={7}
-              />
+              {renderCard ? (
+                renderCard(challenge, index)
+              ) : (
+                <ChallengeCard
+                  challenge={challenge}
+                  participantCount={123 + index * 10}
+                  daysLeft={7}
+                />
+              )}
             </SwiperSlide>
           ))}
         </Swiper>
