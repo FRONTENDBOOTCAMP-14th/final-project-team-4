@@ -1,10 +1,12 @@
+"use client"
+
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { categories } from "../navigation-config"
 import styles from "./category-navigation.module.css"
 
 export default function CategoryNav() {
   const pathname = usePathname()
-  const categories = ["건강 / 운동", "학습", "습관", "취미"]
 
   const isActive = (href: string, label: string) => {
     if (pathname === "/challenges/category" && label === "건강 / 운동") {
@@ -14,7 +16,7 @@ export default function CategoryNav() {
   }
 
   return (
-    <ul className={styles.categoryNav}>
+    <ul className={styles.wrapper}>
       {categories.map((c) => {
         const href = `/challenges/category/${encodeURIComponent(c)}`
         return (
