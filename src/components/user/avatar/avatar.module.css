@@ -7,13 +7,16 @@
 
 .avatar {
   position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
   border-radius: 50%;
+  overflow: hidden;
   aspect-ratio: 1 / 1;
+  border: 1px solid #f6c944;
 
   .avatarImage {
-    border-radius: 50%;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-color);
+    object-fit: cover;
+    background-color: #fafafa;
   }
 }
 
