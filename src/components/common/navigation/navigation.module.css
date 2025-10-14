@@ -1,4 +1,5 @@
 .container {
+  flex-grow: 1;
   > span {
     position: absolute;
     width: 1px;
@@ -13,6 +14,10 @@
   gap: 26px;
   height: 100%;
 
+  > li > a {
+    color: var(--text-color-main);
+  }
+
   > li:last-child {
     margin-top: auto;
   }
@@ -21,7 +26,6 @@
     display: inline-flex;
     gap: 14px;
     font-size: 18px;
-    color: var(--text-color-main);
     text-decoration: none;
 
     &.active {
