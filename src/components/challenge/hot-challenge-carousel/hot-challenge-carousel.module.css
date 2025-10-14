@@ -1,0 +1,513 @@
+.section {
+  inline-size: 100%;
+  padding-block: 2rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--text-color-main);
+  margin-block-end: 2rem;
+  padding-inline: 1rem;
+}
+
+.swiperContainer {
+  inline-size: 100%;
+  padding-inline: 1rem;
+}
+
+.gridLayout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1.25rem;
+  block-size: 100%;
+  min-block-size: 32rem;
+}
+
+.mainCard {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.mainCard article > div {
+  padding-block: 2rem !important;
+  padding-inline: 2rem !important;
+  gap: 1rem !important;
+}
+
+.mainCard article h3 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem) !important;
+  line-height: 1.3 !important;
+}
+
+.mainCard article > div > div:first-of-type {
+  gap: 0.625rem !important;
+  margin-block-end: 0.625rem !important;
+}
+
+.mainCard article > div > div:first-of-type span {
+  font-size: 1.125rem !important;
+}
+
+.mainCard article > div > div:nth-of-type(2) {
+  gap: 0.75rem !important;
+  margin-block-end: 0.75rem !important;
+}
+
+.mainCard article > div > div:nth-of-type(2) span {
+  padding-block: 0.625rem !important;
+  padding-inline: 1.25rem !important;
+  font-size: 1.125rem !important;
+  border-width: 2px !important;
+}
+
+.mainCard article button {
+  padding-block: 1.25rem !important;
+  padding-inline: 1.25rem !important;
+  font-size: 1.25rem !important;
+}
+
+.subCardsContainer {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.subCard {
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 10rem;
+}
+
+.swiper {
+  inline-size: 100%;
+  block-size: auto;
+  padding-block-end: 1.5rem;
+}
+
+.slide {
+  block-size: auto;
+  inline-size: 100%;
+}
+
+.swiper :global(.swiper-button-next),
+.swiper :global(.swiper-button-prev) {
+  background-color: #ffffff;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: 50%;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+.swiper :global(.swiper-button-next)::after,
+.swiper :global(.swiper-button-prev)::after {
+  content: "" !important;
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  inline-size: 0 !important;
+  block-size: 0 !important;
+}
+
+.swiper :global(.swiper-button-next)::before,
+.swiper :global(.swiper-button-prev)::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  border: solid #000000;
+  border-width: 0 0.1875rem 0.1875rem 0;
+  padding-block: 0.125rem;
+  padding-inline: 0.125rem;
+}
+
+.swiper :global(.swiper-button-next)::before {
+  transform: translate(-60%, -50%) rotate(-45deg);
+}
+
+.swiper :global(.swiper-button-prev)::before {
+  transform: translate(-40%, -50%) rotate(135deg);
+}
+
+.swiper :global(.swiper-button-next):hover,
+.swiper :global(.swiper-button-prev):hover {
+  box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.swiper :global(.swiper-button-disabled) {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (min-width: 1201px) {
+  .gridLayout {
+    gap: 1.5rem;
+    min-block-size: 34rem;
+  }
+
+  .subCardsContainer {
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .subCard {
+    min-block-size: 11rem;
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 581px) {
+  .swiperContainer {
+    padding-inline: 0.75rem;
+  }
+
+  .sectionTitle {
+    padding-inline: 0.75rem;
+    margin-block-end: 1.5rem;
+  }
+
+  .section {
+    padding-block: 1.5rem;
+  }
+
+  .gridLayout {
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1rem;
+    min-block-size: 28rem;
+  }
+
+  .subCardsContainer {
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .subCard {
+    min-block-size: 9rem;
+  }
+
+  .subCard:nth-child(n + 3) {
+    display: none;
+  }
+
+  .mainCard article > div {
+    padding-block: 1.75rem !important;
+    padding-inline: 1.75rem !important;
+    gap: 0.875rem !important;
+  }
+
+  .mainCard article h3 {
+    font-size: clamp(1.5rem, 2.5vw, 1.875rem) !important;
+  }
+
+  .mainCard article > div > div:first-of-type span {
+    font-size: 1rem !important;
+  }
+
+  .mainCard article > div > div:nth-of-type(2) {
+    gap: 0.625rem !important;
+    margin-block-end: 0.625rem !important;
+  }
+
+  .mainCard article > div > div:nth-of-type(2) span {
+    padding-block: 0.5625rem !important;
+    padding-inline: 1.125rem !important;
+    font-size: 1rem !important;
+  }
+
+  .mainCard article button {
+    padding-block: 1.125rem !important;
+    padding-inline: 1.125rem !important;
+    font-size: 1.125rem !important;
+  }
+}
+
+@media (max-width: 580px) and (min-width: 451px) {
+  .swiperContainer {
+    padding-inline: 0.5rem;
+  }
+
+  .sectionTitle {
+    padding-inline: 0.5rem;
+    margin-block-end: 1rem;
+  }
+
+  .section {
+    padding-block: 1rem;
+  }
+
+  .gridLayout {
+    grid-template-columns: 1fr;
+    min-block-size: 28rem;
+  }
+
+  .subCardsContainer {
+    display: none;
+  }
+
+  .mainCard article > div {
+    padding-block: 1.5rem !important;
+    padding-inline: 1.5rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .mainCard article h3 {
+    font-size: 1.375rem !important;
+  }
+
+  .mainCard article > div > div:first-of-type span {
+    font-size: 0.9375rem !important;
+  }
+
+  .mainCard article > div > div:nth-of-type(2) {
+    gap: 0.5625rem !important;
+    margin-block-end: 0.5625rem !important;
+  }
+
+  .mainCard article > div > div:nth-of-type(2) span {
+    padding-block: 0.5rem !important;
+    padding-inline: 1rem !important;
+    font-size: 0.9375rem !important;
+  }
+
+  .mainCard article button {
+    padding-block: 1rem !important;
+    padding-inline: 1rem !important;
+    font-size: 1.0625rem !important;
+  }
+
+  .swiper :global(.swiper-button-next),
+  .swiper :global(.swiper-button-prev) {
+    inline-size: 2rem;
+    block-size: 2rem;
+  }
+
+  .swiper :global(.swiper-button-next)::before,
+  .swiper :global(.swiper-button-prev)::before {
+    inline-size: 0.4375rem;
+    block-size: 0.4375rem;
+    border-width: 0 2px 2px 0;
+    padding-block: 1.5px;
+    padding-inline: 1.5px;
+  }
+}
+
+@media (max-width: 450px) and (min-width: 401px) {
+  .swiperContainer {
+    padding-inline: 0.44rem;
+  }
+
+  .sectionTitle {
+    padding-inline: 0.44rem;
+    margin-block-end: 0.875rem;
+    font-size: clamp(1.3rem, 4vw, 1.6rem);
+  }
+
+  .section {
+    padding-block: 0.875rem;
+  }
+
+  .gridLayout {
+    grid-template-columns: 1fr;
+    min-block-size: 26rem;
+  }
+
+  .subCardsContainer {
+    display: none;
+  }
+
+  .mainCard article > div {
+    padding-block: 1.375rem !important;
+    padding-inline: 1.375rem !important;
+    gap: 0.6875rem !important;
+  }
+
+  .mainCard article h3 {
+    font-size: 1.25rem !important;
+  }
+
+  .mainCard article > div > div:first-of-type span {
+    font-size: 0.875rem !important;
+  }
+
+  .mainCard article > div > div:nth-of-type(2) span {
+    padding-block: 0.4375rem !important;
+    padding-inline: 0.875rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  .mainCard article button {
+    padding-block: 0.875rem !important;
+    padding-inline: 0.875rem !important;
+    font-size: 1rem !important;
+  }
+
+  .swiper {
+    padding-block-end: 0.875rem;
+  }
+
+  .swiper :global(.swiper-button-next),
+  .swiper :global(.swiper-button-prev) {
+    inline-size: 1.875rem;
+    block-size: 1.875rem;
+  }
+
+  .swiper :global(.swiper-button-next)::before,
+  .swiper :global(.swiper-button-prev)::before {
+    inline-size: 0.4rem;
+    block-size: 0.4rem;
+    border-width: 0 1.8px 1.8px 0;
+    padding-block: 1.2px;
+    padding-inline: 1.2px;
+  }
+}
+
+@media (max-width: 400px) and (min-width: 381px) {
+  .swiperContainer {
+    padding-inline: 0.4rem;
+  }
+
+  .sectionTitle {
+    padding-inline: 0.4rem;
+    margin-block-end: 0.75rem;
+    font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+  }
+
+  .section {
+    padding-block: 0.75rem;
+  }
+
+  .gridLayout {
+    grid-template-columns: 1fr;
+    min-block-size: 24rem;
+  }
+
+  .subCardsContainer {
+    display: none;
+  }
+
+  .mainCard article > div {
+    padding-block: 1.25rem !important;
+    padding-inline: 1.25rem !important;
+    gap: 0.625rem !important;
+  }
+
+  .mainCard article h3 {
+    font-size: 1.125rem !important;
+  }
+
+  .mainCard article > div > div:first-of-type span {
+    font-size: 0.8125rem !important;
+  }
+
+  .mainCard article > div > div:nth-of-type(2) span {
+    padding-block: 0.375rem !important;
+    padding-inline: 0.75rem !important;
+    font-size: 0.8125rem !important;
+  }
+
+  .mainCard article button {
+    padding-block: 0.75rem !important;
+    padding-inline: 0.75rem !important;
+    font-size: 0.9375rem !important;
+  }
+
+  .swiper {
+    padding-block-end: 0.75rem;
+  }
+
+  .swiper :global(.swiper-button-next),
+  .swiper :global(.swiper-button-prev) {
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+  }
+
+  .swiper :global(.swiper-button-next)::before,
+  .swiper :global(.swiper-button-prev)::before {
+    inline-size: 0.375rem;
+    block-size: 0.375rem;
+    border-width: 0 1.5px 1.5px 0;
+    padding-block: 1px;
+    padding-inline: 1px;
+  }
+}
+
+@media (max-width: 380px) {
+  .swiperContainer {
+    padding-inline: 0.35rem;
+  }
+
+  .sectionTitle {
+    padding-inline: 0.35rem;
+    margin-block-end: 0.625rem;
+    font-size: clamp(1.1rem, 5vw, 1.4rem);
+  }
+
+  .section {
+    padding-block: 0.625rem;
+  }
+
+  .gridLayout {
+    grid-template-columns: 1fr;
+    min-block-size: 22rem;
+  }
+
+  .subCardsContainer {
+    display: none;
+  }
+
+  .mainCard article > div {
+    padding-block: 1.125rem !important;
+    padding-inline: 1.125rem !important;
+    gap: 0.5625rem !important;
+  }
+
+  .mainCard article h3 {
+    font-size: 1rem !important;
+  }
+
+  .mainCard article > div > div:first-of-type span {
+    font-size: 0.75rem !important;
+  }
+
+  .mainCard article > div > div:nth-of-type(2) span {
+    padding-block: 0.3125rem !important;
+    padding-inline: 0.6875rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  .mainCard article button {
+    padding-block: 0.6875rem !important;
+    padding-inline: 0.6875rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  .swiper {
+    padding-block-end: 0.625rem;
+  }
+
+  .swiper :global(.swiper-button-next),
+  .swiper :global(.swiper-button-prev) {
+    inline-size: 1.625rem;
+    block-size: 1.625rem;
+  }
+
+  .swiper :global(.swiper-button-next)::before,
+  .swiper :global(.swiper-button-prev)::before {
+    inline-size: 0.35rem;
+    block-size: 0.35rem;
+    border-width: 0 1.3px 1.3px 0;
+    padding-block: 0.8px;
+    padding-inline: 0.8px;
+  }
+}
