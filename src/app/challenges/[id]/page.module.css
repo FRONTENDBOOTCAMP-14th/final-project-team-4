@@ -1,25 +1,34 @@
 .main {
   inline-size: 100%;
   min-inline-size: 360px;
-  min-block-size: 500px;
-  aspect-ratio: 1 / 1.3;
-  position: relative;
+  color: var(--text-color-main);
+  translate: 0 140px;
+  isolation: isolate;
 
-  figure {
+  .thumbnailWrapper {
     inline-size: 100%;
     min-block-size: 550px;
+  }
+
+  .thumbnail {
+    aspect-ratio: 1 / 1.3;
     display: block;
     position: relative;
     z-index: 0;
     translate: 0 -1px;
 
-    > div {
+    > .thumbnailGradient {
       position: absolute;
       inset: 40% 0 0 0;
       background: linear-gradient(
         var(--thumbnail-gradient-0) 10%,
         var(--surface-bg-main) 90%
       );
+    }
+
+    img {
+      object-fit: cover;
+      object-position: right top;
     }
   }
 }
@@ -29,23 +38,26 @@
   padding-inline: 20px;
   font-size: 0.875rem;
 
-  h1 {
-    padding-block: 16px 26px;
+  .pageTitle {
+    padding-block-start: 16px;
     color: var(--text-color-main);
     font-size: 1.625rem;
   }
 
   section {
     border-bottom: 1px solid var(--divider);
-    padding-block-end: 40px;
+    padding-block: 40px;
+    color: var(--text-color-sub);
 
     h2 {
+      padding-inline: 0;
       font-size: 1rem;
+      color: var(--text-color-main);
     }
   }
 
-  .description {
-    p {
+  .descriptionSection {
+    .description {
       font-size: 0.875rem;
       margin-block: 20px 16px;
     }
@@ -56,9 +68,7 @@
     }
   }
 
-  .infoWrapper {
-    padding-top: 40px;
-
+  .infoSection {
     .info {
       margin-top: 16px;
       display: flex;
@@ -72,10 +82,21 @@
       justify-content: flex-start;
       gap: 10px;
 
-      figure {
-        min-block-size: 0;
+      a {
+        display: block;
         inline-size: 50px;
         block-size: 50px;
+      }
+
+      figure {
+        min-block-size: 0;
+        inline-size: 100%;
+        height: auto;
+      }
+
+      .userName {
+        color: var(--text-color-main);
+        font-weight: 700;
       }
     }
 
@@ -85,13 +106,158 @@
       justify-content: space-between;
       gap: 20px;
 
+      button:nth-of-type(1) {
+        inline-size: 100%;
+      }
+
       button {
         inline-size: calc(50% - 10px);
         padding: 15px;
       }
+    }
+  }
+}
 
-      button:nth-of-type(1) {
-        inline-size: 100%;
+@media (min-width: 581px) {
+  .contentWrapper {
+    translate: 0 -20vh;
+    padding-inline: 48px;
+
+    .pageTitle {
+      font-size: 2.125rem;
+    }
+
+    section {
+      h2 {
+        font-size: 18px;
+      }
+    }
+
+    .descriptionSection {
+      .description {
+        margin-block: 16px 16px;
+      }
+    }
+
+    .infoSection {
+      .info {
+        gap: 30px;
+      }
+
+      .buttonWrapper {
+        gap: 15px;
+
+        button {
+          inline-size: calc(30% - 10px);
+        }
+
+        button:nth-of-type(1) {
+          inline-size: calc(40% - 10px);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .main {
+    display: flex;
+    justify-content: flex-start;
+
+    .thumbnailWrapper {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      max-inline-size: min(40vw, 400px);
+
+      img {
+        min-block-size: calc(100dvh - 136px);
+      }
+    }
+
+    .thumbnail {
+      > .thumbnailGradient {
+        display: none;
+      }
+    }
+  }
+  .contentWrapper {
+    flex-grow: 1;
+    overflow-y: scroll;
+    translate: 0;
+    padding: 80px 20px 0 20px;
+
+    .pageTitle {
+      font-size: 2.125rem;
+    }
+
+    section {
+      h2 {
+        font-size: 18px;
+      }
+    }
+
+    .descriptionSection {
+      .description {
+        margin-block: 16px 16px;
+      }
+    }
+
+    .infoSection {
+      .info {
+        gap: 30px;
+      }
+
+      .userAvatar {
+        .userName {
+          font-size: 1rem;
+          font-weight: 700;
+        }
+      }
+
+      .buttonWrapper {
+        max-inline-size: 484px;
+        gap: 15px;
+
+        button {
+          inline-size: calc(30% - 10px);
+        }
+
+        button:nth-of-type(1) {
+          inline-size: calc(40% - 10px);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1201px) {
+  .main {
+    translate: 200px 0;
+    .thumbnailWrapper {
+      max-inline-size: min(40vw, 500px);
+
+      img {
+        min-block-size: calc(100dvh);
+      }
+    }
+  }
+  .contentWrapper {
+    max-inline-size: 1000px;
+
+    .pageTitle {
+      font-size: 2.5rem;
+    }
+
+    section {
+      h2 {
+        font-size: 1.375rem;
+      }
+    }
+
+    .infoSection {
+      .buttonWrapper {
+        max-inline-size: 584px;
       }
     }
   }
