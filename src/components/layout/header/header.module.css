@@ -1,5 +1,6 @@
 .pc {
   position: fixed;
+  z-index: 9999;
   display: flex;
   flex-flow: column wrap;
   gap: 54px;
