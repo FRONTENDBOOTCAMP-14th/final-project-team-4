@@ -1,0 +1,173 @@
+.loginPageContainer {
+  block-size: 100vh;
+  overflow: hidden;
+}
+
+.loginSection {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface-bg-sub);
+  text-align: center;
+  color: var(--text-color-main);
+  padding-block-start: 20px;
+  padding-block-end: 43px;
+}
+
+.loginPageContents {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.subTexts {
+  display: flex;
+  flex-flow: column nowrap;
+
+  font-size: 14px;
+
+  .brandSubText {
+    color: var(--brand-main);
+  }
+
+  .subText {
+    padding-block: 13px;
+    font-weight: 700;
+  }
+}
+
+.divider {
+  inline-size: 114px;
+  border-block-end: 1px solid var(--divider);
+}
+
+.loginTitle {
+  font-size: 28px;
+  font-weight: 800;
+  padding-block-start: 34px;
+  padding-block-end: 15px;
+  padding-inline: 21px;
+}
+
+.loginInfoText {
+  font-size: 12px;
+  color: var(--text-color-sub2);
+}
+
+.loginButtonsContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+  padding-block-start: 32px;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    inline-size: 279px;
+    block-size: 54px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-default-main);
+    padding-block-start: 15px;
+    padding-block-end: 15px;
+  }
+
+  .googleLoginButton {
+    background-color: var(--white);
+    border: 1px solid var(--divider);
+    padding-block-start: 14px;
+    padding-block-end: 16px;
+  }
+
+  .kakaoLoginButton {
+    background-color: #ffe400;
+  }
+
+  .appleLoginButton {
+    background-color: var(--black);
+    color: var(--white);
+    padding-block-start: 14px;
+    padding-block-end: 17px;
+  }
+}
+
+.loginPageImage {
+  display: none;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+@media (min-width: 581px) and (max-width: 1200px) {
+  .loginSection {
+    gap: 36px;
+    padding-block-start: 48px;
+    padding-block-end: 54px;
+  }
+
+  .loginTitle {
+    font-size: 28px;
+    font-weight: 800;
+    padding-block-end: 15px;
+  }
+
+  .loginButtonsContainer {
+    padding-block-start: 29px;
+    gap: 10px;
+
+    button {
+      inline-size: 217px;
+      gap: 12px;
+    }
+  }
+
+  .loginPageImage {
+    display: block;
+    inline-size: 222px;
+    block-size: 385px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .loginPageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 80px;
+  }
+
+  .loginSection {
+    inline-size: 828px;
+    padding: 20px 20px 20px 34px;
+    border-radius: 20px;
+    gap: 34px;
+  }
+
+  .loginTitle {
+    padding-block-start: 70px;
+    padding-block-end: 10px;
+    font-size: 32px;
+  }
+
+  .loginButtonsContainer {
+    padding-block-start: 35px;
+    gap: 10px;
+
+    button {
+      inline-size: 326px;
+      gap: 16px;
+      font-size: 22px;
+    }
+  }
+
+  .loginPageImage {
+    display: block;
+    inline-size: 413px;
+    block-size: 632px;
+  }
+}

@@ -1,6 +1,6 @@
 "use client"
 
-import { handleSignOut } from "@/app/login/auth/actions"
+import { handleSignOut } from "@/app/auth/login/actions"
 import Button from "@/components/common/button/button"
 
 export default function SignOutButton() {
