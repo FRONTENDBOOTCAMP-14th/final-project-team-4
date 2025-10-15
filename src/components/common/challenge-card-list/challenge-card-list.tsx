@@ -11,18 +11,20 @@ import styles from "./challenge-card-list.module.css"
 interface ChallengeCardListProps {
   title?: string
   challenges: Challenge[]
+  className?: string
   renderCard?: (challenge: Challenge, index: number) => React.ReactNode
 }
 
 export default function ChallengeCardList({
   title,
   challenges,
+  className,
   renderCard,
 }: ChallengeCardListProps) {
   const displayChallenges = challenges.slice(0, 20)
 
   return (
-    <section className={styles.section}>
+    <section className={`styles.section ${className}`}>
       {title && <h2 className={styles.sectionTitle}>{title}</h2>}
 
       <div className={styles.swiperContainer}>

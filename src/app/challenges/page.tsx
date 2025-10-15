@@ -1,7 +1,3 @@
 export default function Challenges() {
-  return (
-    <main>
-    </main>
-  )
+  return <main></main>
 }
-
