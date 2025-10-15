@@ -1,3 +1,15 @@
 .footer {
-}
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 136px;
+  padding: 40px;
+  border-top: 1px solid var(--divider);
+  text-align: center;
+  background-color: var(--surface-bg-main);
 
+  > p {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
