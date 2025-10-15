@@ -4,7 +4,6 @@ import ChallengeCardList from "@/components/common/challenge-card-list/challenge
 import AvatarLink from "@/components/user/avatar-link/avatar-link"
 import type { Database } from "@/utils/supabase/database.types"
 import { createClient } from "@/utils/supabase/server"
-import testImg from "./assets/test.avif"
 import styles from "./page.module.css"
 
 export type Challenge = Database["public"]["Tables"]["challenges"]["Row"]
@@ -54,24 +53,26 @@ export default async function ChallengeDetailPage({
   }
 
   return (
-    <main className={styles.main}>
-      <figure>
-        <Image src={testImg} alt="가나다라" fill priority />
-        <div />
-      </figure>
+    <div className={styles.main}>
+      <div className={styles.thumbnailWrapper}>
+        <figure className={styles.thumbnail}>
+          <Image src={challenge.thumbnail} alt="" fill priority />
+          <div className={styles.thumbnailGradient} />
+        </figure>
+      </div>
       <div className={styles.contentWrapper}>
         <div>{challenge.category}</div>
-        <h1>{challenge.title}</h1>
-        <section className={styles.description}>
+        <h1 className={styles.pageTitle}>{challenge.title}</h1>
+        <section className={styles.descriptionSection}>
           <h2>소개글</h2>
-          <p>{challenge.description}</p>
+          <p className={styles.description}>{challenge.description}</p>
           <div className={styles.tagWrapper}>
             {challenge.tags.map((tag, index) => (
               <span key={index}>#{tag}</span>
             ))}
           </div>
         </section>
-        <section className={styles.infoWrapper}>
+        <section className={styles.infoSection}>
           <h2>챌린지 정보</h2>
           <div className={styles.info}>
             <span>{`${getDateDiff(challenge.start_at, challenge.end_at)}일 챌린지`}</span>
@@ -80,7 +81,7 @@ export default async function ChallengeDetailPage({
           </div>
           <div className={styles.userAvatar}>
             <AvatarLink imageUrl={users.profile_image} />
-            <span>{users.username}</span>
+            <span className={styles.userName}>{users.username}</span>
           </div>
           <div className={styles.buttonWrapper}>
             <Button className="primary">참여하기</Button>
@@ -93,6 +94,6 @@ export default async function ChallengeDetailPage({
           challenges={[challenge]}
         />
       </div>
-    </main>
+    </div>
   )
 }
