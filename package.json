@@ -15,9 +15,11 @@
   "dependencies": {
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.75.0",
+    "autoprefixer": "^10.4.21",
     "clsx": "^2.1.1",
     "lucide-react": "^0.544.0",
     "next": "15.5.4",
+    "postcss-import": "^16.1.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "swiper": "^12.0.2",
@@ -39,6 +41,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.4.0",
     "prettier": "^3.4.2",
+    "supabase": "^2.51.0",
     "typescript": "^5"
   }
 }

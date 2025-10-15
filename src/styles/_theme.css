@@ -14,7 +14,7 @@
 
     --thumbnail-gradient-0: light-dark(
       rgba(250 250 250 / 0%),
-      rgba(23 23 23 / 0%)
+      rgba(17 17 17 / 0%)
     );
 
     --divider: light-dark(#d3d3d3, #666666);
