@@ -1,0 +1,186 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 30rem;
+  padding-block: 3rem;
+  padding-inline: 2rem;
+  background: var(--surface-bg-sub);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-inline-size: 40rem;
+}
+
+.title {
+  margin-block-end: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color-main);
+  line-height: 1.5;
+}
+
+.description {
+  margin-block-end: 2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-color-sub);
+  line-height: 1.6;
+}
+
+.createButton {
+  inline-size: 100%;
+  max-inline-size: 12.5rem;
+  padding-block: 0.875rem;
+  padding-inline: 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-default-main);
+  background-color: var(--brand-main);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(246, 201, 68, 0.3);
+}
+
+.createButton:hover {
+  background-color: var(--main-highLight);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(246, 201, 68, 0.4);
+}
+
+.createButton:active {
+  transform: translateY(0);
+}
+
+/* 태블릿 뷰: 581px - 1200px */
+@media (max-width: 1200px) and (min-width: 581px) {
+  .container {
+    min-block-size: 25rem;
+    padding-block: 2.5rem;
+    padding-inline: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.375rem;
+    margin-block-end: 0.875rem;
+  }
+
+  .description {
+    font-size: 0.9375rem;
+    margin-block-end: 1.75rem;
+  }
+
+  .createButton {
+    max-inline-size: 11rem;
+    padding-block: 0.8125rem;
+    font-size: 0.9375rem;
+  }
+}
+
+/* 모바일 뷰: 451px - 580px */
+@media (max-width: 580px) and (min-width: 451px) {
+  .container {
+    min-block-size: 20rem;
+    padding-block: 2rem;
+    padding-inline: 1rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    margin-block-end: 0.75rem;
+  }
+
+  .description {
+    font-size: 0.875rem;
+    margin-block-end: 1.5rem;
+  }
+
+  .createButton {
+    max-inline-size: 10rem;
+    padding-block: 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* 소형 모바일 뷰 1: 401px - 450px */
+@media (max-width: 450px) and (min-width: 401px) {
+  .container {
+    min-block-size: 18rem;
+    padding-block: 1.75rem;
+    padding-inline: 0.875rem;
+  }
+
+  .title {
+    font-size: 1.125rem;
+    margin-block-end: 0.625rem;
+  }
+
+  .description {
+    font-size: 0.8125rem;
+    margin-block-end: 1.25rem;
+  }
+
+  .createButton {
+    max-inline-size: 9rem;
+    padding-block: 0.6875rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* 소형 모바일 뷰 2: 381px - 400px */
+@media (max-width: 400px) and (min-width: 381px) {
+  .container {
+    min-block-size: 16rem;
+    padding-block: 1.5rem;
+    padding-inline: 0.75rem;
+  }
+
+  .title {
+    font-size: 1rem;
+    margin-block-end: 0.5rem;
+  }
+
+  .description {
+    font-size: 0.75rem;
+    margin-block-end: 1rem;
+  }
+
+  .createButton {
+    max-inline-size: 8rem;
+    padding-block: 0.625rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* 초소형 모바일 뷰: 380px 이하 */
+@media (max-width: 380px) {
+  .container {
+    min-block-size: 15rem;
+    padding-block: 1.25rem;
+    padding-inline: 0.625rem;
+  }
+
+  .title {
+    font-size: 0.9375rem;
+    margin-block-end: 0.4375rem;
+  }
+
+  .description {
+    font-size: 0.6875rem;
+    margin-block-end: 0.875rem;
+  }
+
+  .createButton {
+    max-inline-size: 7.5rem;
+    padding-block: 0.5625rem;
+    font-size: 0.6875rem;
+  }
+}
+
