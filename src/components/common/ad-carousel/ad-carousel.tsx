@@ -52,6 +52,7 @@ export default function AdCarousel({
 }: AdCarouselProps) {
   return (
     <section className={styles.adCarouselSection}>
+      <h2 className="sr-only">프로모션 배너</h2>
       <div className={styles.swiperContainer}>
         <div className={styles.controlsContainer}>
           <div className={styles.customPagination} />
