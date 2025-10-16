@@ -84,9 +84,15 @@ export default async function ChallengeDetailPage({
             <span className={styles.userName}>{users.username}</span>
           </div>
           <div className={styles.buttonWrapper}>
-            <Button className="primary">참여하기</Button>
-            <Button className="like">찜하기</Button>
-            <Button className="share">공유하기</Button>
+            <Button className="primary" type="button">
+              참여하기
+            </Button>
+            <Button className="like" type="button">
+              찜하기
+            </Button>
+            <Button className="share" type="button">
+              공유하기
+            </Button>
           </div>
         </section>
         <ChallengeCardList
