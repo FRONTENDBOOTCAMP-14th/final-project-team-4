@@ -1,7 +1,3 @@
 export default function ChallengeCreate() {
-  return (
-    <main>
-    </main>
-  )
+  return <main />
 }
-
