@@ -9,7 +9,7 @@ import type { Challenge } from "@/types"
 import styles from "./hot-challenge-carousel.module.css"
 
 interface HotChallengeCarouselProps {
-  title?: string
+  title: string
   challenges: Challenge[]
 }
 
@@ -27,7 +27,7 @@ export default function HotChallengeCarousel({
 
   return (
     <section className={styles.section}>
-      {title && <h2 className={styles.sectionTitle}>{title}</h2>}
+      <h2 className={styles.sectionTitle}>{title}</h2>
 
       <div className={styles.swiperContainer}>
         <Swiper

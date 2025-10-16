@@ -51,7 +51,7 @@ export default function AdCarousel({
   slides = DEFAULT_SLIDES,
 }: AdCarouselProps) {
   return (
-    <section className={styles.adCarouselSection}>
+    <section className={styles.adCarouselSection} aria-label="프로모션 배너">
       <div className={styles.swiperContainer}>
         <div className={styles.controlsContainer}>
           <div className={styles.customPagination} />
