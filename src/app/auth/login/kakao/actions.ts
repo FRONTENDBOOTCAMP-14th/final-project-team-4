@@ -3,7 +3,7 @@ import browserClient from "@/utils/supabase/client"
 export default async function handleKakaoLogin() {
   const supabase = browserClient()
 
-  const { data, error } = await supabase.auth.signInWithOAuth({
+  const { error } = await supabase.auth.signInWithOAuth({
     provider: "kakao",
     options: {
       // 콜백 루트(OAuth 인증 후 돌아오는 주소)
@@ -17,6 +17,4 @@ export default async function handleKakaoLogin() {
   if (error) {
     console.error("카카오 로그인 에러", error.message)
   }
-
-  return data
 }
