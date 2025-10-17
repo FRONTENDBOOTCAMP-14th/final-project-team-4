@@ -17,9 +17,18 @@ export default async function unlinkKakaoAuth(userAuthData: UserAuthData) {
       }).toString(),
     })
 
-    if (!response.ok) throw new Error("카카오 연결 해제 오류")
+    if (!response.ok) {
+      let message = ""
+      try {
+        const data = await response.json()
+        message = data.error_description
+      } catch {
+        throw new Error(`카카오 연결 해제 오류: ${message}`)
+      }
+    }
+    return true
   } catch (error) {
-    console.error("카카오 연결 해제 오류:", error)
+    console.error(`카카오 연결 해제 오류: ${error}`)
     throw error
   }
 }
