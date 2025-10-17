@@ -9,18 +9,20 @@ import styles from "./page.module.css"
 export type Challenge = Database["public"]["Tables"]["challenges"]["Row"]
 export type User = Database["public"]["Tables"]["users"]["Row"]
 
-export default async function ChallengeDetailPage({
-  params,
-}: {
-  params: { id: string }
-}) {
+interface Props {
+  params: Promise<{ id: string }>
+}
+
+export default async function ChallengeDetailPage({ params }: Props) {
+  const { id } = await params
+
   const supabase = await createClient()
 
   // 챌린지 데이터 호출
   const { data: challenge, error: challengeError } = await supabase
     .from("challenges")
     .select("*")
-    .eq("id", params.id)
+    .eq("id", id)
     .single<Challenge>()
 
   if (challengeError || !challenge) {
