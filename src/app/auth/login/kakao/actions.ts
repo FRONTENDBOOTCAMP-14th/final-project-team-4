@@ -7,7 +7,7 @@ export default async function handleKakaoLogin() {
     provider: "kakao",
     options: {
       // 콜백 루트(OAuth 인증 후 돌아오는 주소)
-      redirectTo: `http://localhost:3000/auth/callback`,
+      redirectTo: `http://localhost:3000/auth/callback/kakao`,
       queryParams: {
         scope: "profile_nickname profile_image",
       },

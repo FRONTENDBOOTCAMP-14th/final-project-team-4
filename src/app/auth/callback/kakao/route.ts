@@ -13,8 +13,25 @@ export async function GET(request: Request) {
 
   if (code) {
     const supabase = await createClient()
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) {
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+
+    if (!error && data.user) {
+      const userData = data.user
+
+      const { error: userDataInsertError } = await supabase
+        .from("users")
+        .insert({
+          id: userData.id,
+          username: userData.user_metadata.full_name,
+          profile_image: userData.user_metadata.avatar_url ?? null,
+        })
+        .select()
+        .single()
+
+      if (userDataInsertError) {
+        console.error("Users 테이블 INSERT 오류: ", userDataInsertError)
+      }
+
       const forwardedHost = request.headers.get("x-forwarded-host") // original origin before load balancer
       const isLocalEnv = process.env.NODE_ENV === "development"
       if (isLocalEnv) {
