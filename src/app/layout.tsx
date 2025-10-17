@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import "@/styles/main.css"
+import UserProvider from "./user-providers"
 
 export const metadata: Metadata = {
   title: "Minimo",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <UserProvider>{children}</UserProvider>
+      </body>
     </html>
   )
 }
