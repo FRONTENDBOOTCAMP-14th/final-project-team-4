@@ -5,7 +5,7 @@ import Button from "@/components/common/button/button"
 
 export default function DeleteAccountButton() {
   return (
-    <Button onClick={handleDeleteAccount} className="report">
+    <Button onClick={handleDeleteAccount} className="report" type="button">
       회원 탈퇴
     </Button>
   )
