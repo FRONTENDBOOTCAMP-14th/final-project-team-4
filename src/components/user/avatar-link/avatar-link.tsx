@@ -9,7 +9,11 @@ interface AvatarLinkProps {
 export default function AvatarLink({ imageUrl }: AvatarLinkProps) {
   return (
     <Link href="/" className={styles.link}>
-      <Avatar imageUrl={imageUrl} responsive="linkSizes" />
+      <Avatar
+        imageUrl={imageUrl}
+        responsive="linkSizes"
+        altText="회원정보 보기"
+      />
     </Link>
   )
 }

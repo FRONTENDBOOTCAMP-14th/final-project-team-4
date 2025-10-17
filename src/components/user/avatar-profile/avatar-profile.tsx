@@ -9,7 +9,7 @@ interface AvatarProfileProps {
 export default function AvatarProfile({ imageUrl }: AvatarProfileProps) {
   return (
     <div className={styles.avatarImageContainer}>
-      <Avatar imageUrl={imageUrl} responsive="profileSizes" />
+      <Avatar imageUrl={imageUrl} responsive="profileSizes" altText="" />
       <button
         className={styles.editButton}
         type="button"
