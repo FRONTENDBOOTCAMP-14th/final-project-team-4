@@ -1,0 +1,36 @@
+.startAt,
+.endAt {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 12px;
+
+  > input {
+    background-color: var(--surface-bg-sub);
+    padding: 18px 34px;
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+
+    &:focus-within {
+      border: 1px solid var(--brand-main);
+      transition: border 0.2s ease-in-out;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .startAt,
+  .endAt {
+    > input {
+      padding: 12px 24px;
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .startAt,
+  .endAt {
+    > input {
+      padding: 4px 10px;
+    }
+  }
+}
