@@ -23,6 +23,7 @@ export default function ChoiceInput({
           <input
             type={type}
             id={option}
+            className="sr-only"
             name={id}
             defaultChecked={index === 0}
             value={option}
