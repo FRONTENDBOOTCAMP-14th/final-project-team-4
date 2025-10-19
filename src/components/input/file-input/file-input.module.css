@@ -1,0 +1,42 @@
+.thumbnail {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  inline-size: 500px;
+  block-size: 100vh;
+  overflow: none;
+  background-color: var(--surface-bg-sub);
+  border-inline-end: 1px solid var(--divider);
+
+  > label {
+    inline-size: 140px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    text-align: center;
+    background: var(--brand-main);
+    cursor: pointer;
+  }
+  > input {
+    display: contents;
+  }
+}
+
+@media (max-width: 1200px) {
+  .thumbnail {
+    inline-size: 400px;
+    block-size: 600px;
+    border-inline-end: none;
+    border-block-end: none;
+  }
+}
+
+@media (max-width: 580px) {
+  .thumbnail {
+    inline-size: 250px;
+    block-size: 350px;
+    border-inline-end: none;
+    border-block-end: none;
+  }
+}
