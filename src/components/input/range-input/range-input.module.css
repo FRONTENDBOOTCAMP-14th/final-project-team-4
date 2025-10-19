@@ -1,0 +1,44 @@
+.successPercent {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 20px;
+
+  > label {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.controls {
+  > input,
+  > datalist {
+    inline-size: 400px;
+  }
+
+  > input {
+    accent-color: var(--brand-main);
+  }
+  > datalist {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    writing-mode: vertical-lr;
+  }
+
+  option {
+    writing-mode: horizontal-tb;
+  }
+}
+
+@media (max-width: 580px) {
+  .successPercent > label {
+    font-size: 1.25rem;
+  }
+
+  .controls {
+    > input,
+    > datalist {
+      inline-size: 250px;
+    }
+  }
+}
