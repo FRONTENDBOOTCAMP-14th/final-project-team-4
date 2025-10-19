@@ -1,0 +1,88 @@
+.form {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.imageArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+.scrollArea {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  gap: 40px;
+  padding: 90px 48px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) 2fr;
+  gap: 24px;
+
+  button[type="submit"] {
+    order: 1;
+  }
+}
+
+.dates {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 20px;
+
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+}
+
+.toggle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dates,
+.toggle {
+  > span {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 1200px) {
+  .form {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .imageArea {
+    border: none;
+    margin-block-start: 40px;
+  }
+
+  .scrollArea {
+    overflow-y: visible;
+    padding: 48px 36px;
+  }
+
+  .buttons,
+  .dates > div {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 580px) {
+  .dates,
+  .toggle {
+    > span {
+      font-size: 1.25rem;
+    }
+  }
+}
