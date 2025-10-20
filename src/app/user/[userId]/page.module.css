@@ -1,0 +1,49 @@
+.myPage {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin: 0 auto;
+  min-width: 300px;
+  max-width: 580px;
+  /* background-color: var(--myPage-info-bg); */
+  background-color: var(--surface-bg-main);
+
+  section {
+    width: 100%;
+    padding: 38px 20px 38px 20px;
+    border-block-end: 1px solid var(--divider);
+  }
+
+  h3 {
+    font-size: 16px;
+    padding-block-end: 34px;
+    margin-right: auto;
+  }
+
+  .button {
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 581px) {
+  .myPage {
+    font-size: 16px;
+
+    h3 {
+      font-size: 22px;
+    }
+  }
+}
+
+@media (min-width: 1201px) {
+  .myPage {
+    max-width: 760px;
+
+    section:nth-child(2) {
+      padding: 20px;
+      border: none;
+    }
+  }
+}
