@@ -1,0 +1,57 @@
+.userStaticsSection {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+
+  .staticsList {
+    display: flex;
+    flex-flow: row nowrap;
+    text-align: center;
+
+    .staticsListItem {
+      display: flex;
+      flex-flow: column nowrap;
+      flex-direction: column-reverse;
+      width: 33.33%;
+      word-break: keep-all;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    span {
+      font-size: 30px;
+    }
+  }
+
+  .badgeList {
+    h4 {
+      padding: 36px 0 24px 0;
+    }
+
+    .viewMoreButton {
+      width: 140px;
+      margin: 0 auto;
+      font-size: 14px;
+    }
+  }
+}
+
+@media (min-width: 581px) {
+  .userStaticsSection {
+    .staticsList {
+      .staticsListItem {
+        font-size: 18px;
+      }
+
+      span {
+        font-size: 40px;
+      }
+    }
+
+    .badgeList {
+      h4 {
+        font-size: 18px;
+      }
+    }
+  }
+}

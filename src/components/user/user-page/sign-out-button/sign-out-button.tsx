@@ -13,7 +13,7 @@ export default function SignOutButton() {
   }
 
   return (
-    <Button onClick={signOutActions} className="report" type="button">
+    <Button onClick={signOutActions} className="imageUpload" type="button">
       로그아웃
     </Button>
   )

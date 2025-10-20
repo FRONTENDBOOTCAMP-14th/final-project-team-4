@@ -1,10 +1,9 @@
+import type { CategoryType } from "@/types"
 import styles from "./category-tag.module.css"
 
 interface CategoryTagProps {
   category: CategoryType
 }
-
-type CategoryType = "건강 / 운동" | "학습" | "습관" | "취미"
 
 export default function CategoryTag({ category }: CategoryTagProps) {
   const categoryClassMap: Record<CategoryType, string> = {
