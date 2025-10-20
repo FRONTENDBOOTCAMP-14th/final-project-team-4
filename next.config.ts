@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "k.kakaocdn.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "k.kakaocdn.net",
+        pathname: "/**",
       },
     ],
   },
