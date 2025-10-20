@@ -2,7 +2,8 @@
   position: fixed;
   z-index: 9999;
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
+  overflow-y: auto;
   gap: 54px;
   height: 100vh;
   padding: 96px 52px 34px 48px;
