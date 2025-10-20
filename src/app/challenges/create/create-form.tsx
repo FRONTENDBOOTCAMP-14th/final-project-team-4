@@ -11,7 +11,7 @@ import {
   TextInput,
 } from "@/components/input"
 import styles from "./create-form.module.css"
-import { handleSubmit } from "./hadleSubmit"
+import { handleSubmit } from "./handleSubmit"
 
 export default function CreateForm() {
   return (
