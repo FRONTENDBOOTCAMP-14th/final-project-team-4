@@ -1,7 +1,7 @@
 import styles from "./category-tag.module.css"
 
 interface CategoryTagProps {
-  category: CategoryType
+  category: CategoryType | string
 }
 
 type CategoryType = "건강 / 운동" | "학습" | "습관" | "취미"
