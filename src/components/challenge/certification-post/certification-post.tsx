@@ -28,26 +28,30 @@ export default function CertificationPost({ recordId, userId }: Props) {
 
   return (
     <div className={styles.container} aria-busy={isLoading}>
-      <div className={styles.header}>
+      <div className={styles.userWrapper}>
         <Avatar
-          imageUrl={data.user?.avatar_url ?? ""}
+          imageUrl={data.user?.avatar_url ?? "/fallback/fallback-user.png"}
           altText={data.user?.nickname ?? "user avatar"}
           responsive="profileSizes"
+          className={styles.userAvatar}
         />
-        <div className={styles.meta}>
-          <strong>{data.user?.nickname ?? "익명"}</strong>
-          <span>{dayLabel}</span>
+        <div>
+          <strong className={styles.userName}>
+            {data.user?.nickname ?? "익명"}
+          </strong>
+          <span className={styles.date}>{dayLabel}일차</span>
           <span>n시간 전</span>
         </div>
       </div>
 
-      <figure className={styles.figure}>
+      <figure className={styles.iamgeWrapper}>
         <Image
-          src={data.image_url}
+          src={data.image_url ?? "/fallback/fallback-image.png"}
           alt=""
           width={720}
           height={480}
           className={styles.image}
+          aria-hidden
         />
         <figcaption className={styles.caption}>{data.content}</figcaption>
       </figure>
