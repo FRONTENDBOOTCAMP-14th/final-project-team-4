@@ -1,6 +1,5 @@
 import { createBrowserClient } from "@supabase/ssr"
 
-// Client components에서 Supabase 접근
 export default function browserClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
