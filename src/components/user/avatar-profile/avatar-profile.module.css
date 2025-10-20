@@ -16,7 +16,7 @@
   padding: 0;
   border-radius: 50%;
   border: 1px solid var(--text-default-sub2);
-  background-color: var(--text-default-sub4);
+  background-color: var(--surface-bg-main);
 
   .editIcon {
     display: flex;

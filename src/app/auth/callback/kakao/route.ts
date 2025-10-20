@@ -18,18 +18,26 @@ export async function GET(request: Request) {
     if (!error && data.user) {
       const userData = data.user
 
-      const { error: userDataInsertError } = await supabase
+      const { data: existingUser } = await supabase
         .from("users")
-        .insert({
-          id: userData.id,
-          username: userData.user_metadata.full_name,
-          profile_image: userData.user_metadata.avatar_url ?? null,
-        })
-        .select()
+        .select("id")
+        .eq("id", userData.id)
         .single()
 
-      if (userDataInsertError) {
-        console.error("Users 테이블 INSERT 오류: ", userDataInsertError)
+      if (!existingUser) {
+        const { error: userDataInsertError } = await supabase
+          .from("users")
+          .insert({
+            id: userData.id,
+            username: userData.user_metadata.full_name,
+            profile_image: userData.user_metadata.avatar_url ?? null,
+          })
+          .select()
+          .single()
+
+        if (userDataInsertError) {
+          console.error("Users 테이블 INSERT 오류: ", userDataInsertError)
+        }
       }
 
       const forwardedHost = request.headers.get("x-forwarded-host") // original origin before load balancer

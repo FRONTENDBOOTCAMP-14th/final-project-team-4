@@ -1,0 +1,25 @@
+.tagContainer {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+  cursor: default;
+  padding-block-end: 38px;
+}
+
+.tagWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 581px) {
+  .tagContainer {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .tagContainer {
+    gap: 24px;
+  }
+}

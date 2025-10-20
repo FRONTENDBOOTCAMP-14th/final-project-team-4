@@ -1,0 +1,68 @@
+.title,
+.description {
+  > label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color-sub);
+  }
+
+  > span {
+    float: inline-end;
+    margin-block-start: 8px;
+    color: var(--divider);
+  }
+
+  > input,
+  > textarea {
+    margin-block-start: 20px;
+    color: var(--text-color-sub1);
+    border: none;
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 1px 0 0 var(--brand-main);
+      transition: box-shadow 0.2s ease-in-out;
+    }
+  }
+
+  .highlight {
+    color: light-dark(var(--text-default-main), var(--brand-main));
+  }
+}
+
+.title > input {
+  background: transparent;
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--divider);
+}
+
+.description > textarea {
+  resize: none;
+  overflow: hidden;
+  field-sizing: content;
+  padding: 20px;
+  background-color: var(--surface-bg-sub);
+}
+
+@media (max-width: 580px) {
+  .title,
+  .description {
+    > label {
+      font-size: 1.25rem;
+    }
+
+    > input,
+    > textarea {
+      margin-block-start: 10px;
+    }
+  }
+
+  .title > input {
+    font-size: 1rem;
+  }
+
+  .description > textarea {
+    font-size: 0.875rem;
+    padding: 10px;
+  }
+}

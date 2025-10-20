@@ -1,0 +1,30 @@
+.userAccountSection {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    text-align: center;
+    word-break: keep-all;
+    color: #5f5f5f;
+    font-size: 12px;
+    padding-block-end: 28px;
+  }
+
+  .accountManageButtons {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    gap: 14px;
+    max-width: 350px;
+  }
+}
+
+@media (min-width: 581px) {
+  .userAccountSection {
+    p {
+      font-size: 14px;
+    }
+  }
+}
