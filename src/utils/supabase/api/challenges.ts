@@ -3,8 +3,10 @@ import requiredUser from "./required-user"
 import type { ChallengeInsert } from ".."
 
 export const createChallenge = async (payload: ChallengeInsert) => {
+  const supabase = browserClient()
   const user = await requiredUser()
-  const { error, data: createdChallenge } = await browserClient
+
+  const { error, data: createdChallenge } = await supabase
     .from("challenges")
     .insert([{ ...payload, created_by_id: user.id }])
     .select("*")
