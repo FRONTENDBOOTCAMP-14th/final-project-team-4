@@ -25,7 +25,7 @@ const textInput = [
   },
 
   {
-    id: "tag",
+    id: "tags",
     label: "해시 태그",
     placeholder: "# 해시태그 (최대 10개 입력 가능)",
     maxLength: 10,
