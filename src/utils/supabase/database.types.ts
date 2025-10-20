@@ -163,6 +163,7 @@ export interface Database {
       }
       challenges: {
         Row: {
+          owner: any
           category: string
           created_by_id: string | null
           description: string
