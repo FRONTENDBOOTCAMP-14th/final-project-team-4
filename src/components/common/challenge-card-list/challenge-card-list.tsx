@@ -24,7 +24,7 @@ export default function ChallengeCardList({
   const displayChallenges = challenges.slice(0, 20)
 
   return (
-    <section className={`styles.section ${className}`}>
+    <section className={`${styles.section} ${className || ""}`}>
       {title && <h2 className={styles.sectionTitle}>{title}</h2>}
 
       <div className={styles.swiperContainer}>

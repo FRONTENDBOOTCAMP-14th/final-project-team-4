@@ -1,6 +1,6 @@
 .section {
   inline-size: 100%;
-  padding-block: 2rem;
+  padding-block: 1rem;
 }
 
 .sectionTitle {
@@ -117,12 +117,12 @@
   }
 
   .sectionTitle {
-    margin-block-end: 1.5rem;
-    padding-inline: 0.75rem;
+    margin-block-end: 2rem;
+    padding-inline: 1.5rem;
   }
 
   .swiperContainer {
-    padding-inline: 0.75rem;
+    padding-inline: 1.5rem;
   }
 
   .swiper :global(.swiper-button-next),
@@ -148,16 +148,16 @@
   }
 
   .section {
-    padding-block: 1rem;
+    padding-block: 1.5rem;
   }
 
   .sectionTitle {
-    margin-block-end: 1rem;
-    padding-inline: 0.5rem;
+    margin-block-end: 2rem;
+    padding-inline: 1.25rem;
   }
 
   .swiperContainer {
-    padding-inline: 0.5rem;
+    padding-inline: 1.25rem;
   }
 
   .swiper :global(.swiper-button-next),
@@ -183,17 +183,17 @@
   }
 
   .section {
-    padding-block: 0.875rem;
+    padding-block: 1.25rem;
   }
 
   .sectionTitle {
-    margin-block-end: 0.875rem;
-    padding-inline: 0.44rem;
+    margin-block-end: 1.5rem;
+    padding-inline: 1rem;
     font-size: clamp(1.3rem, 4vw, 1.6rem);
   }
 
   .swiperContainer {
-    padding-inline: 0.44rem;
+    padding-inline: 1rem;
   }
 
   .swiper {
@@ -215,6 +215,21 @@
   }
 }
 
+/* PC 뷰: 캐러셀 우측 여백 추가 */
+@media (min-width: 1201px) {
+  .swiperContainer {
+    padding-inline-end: 3rem;
+  }
+
+  .swiper :global(.swiper-button-next) {
+    right: 0.5rem;
+  }
+
+  .swiper :global(.swiper-button-prev) {
+    left: 0.5rem;
+  }
+}
+
 /* 소형 모바일 뷰 2: 381px - 400px */
 @media (max-width: 400px) and (min-width: 381px) {
   .slide {
@@ -223,17 +238,17 @@
   }
 
   .section {
-    padding-block: 0.75rem;
+    padding-block: 1rem;
   }
 
   .sectionTitle {
-    margin-block-end: 0.75rem;
-    padding-inline: 0.4rem;
+    margin-block-end: 1.25rem;
+    padding-inline: 0.875rem;
     font-size: clamp(1.2rem, 4.5vw, 1.5rem);
   }
 
   .swiperContainer {
-    padding-inline: 0.4rem;
+    padding-inline: 0.875rem;
   }
 
   .swiper {
@@ -263,17 +278,17 @@
   }
 
   .section {
-    padding-block: 0.625rem;
+    padding-block: 0.875rem;
   }
 
   .sectionTitle {
-    margin-block-end: 0.625rem;
-    padding-inline: 0.35rem;
+    margin-block-end: 1rem;
+    padding-inline: 0.75rem;
     font-size: clamp(1.1rem, 5vw, 1.4rem);
   }
 
   .swiperContainer {
-    padding-inline: 0.35rem;
+    padding-inline: 0.75rem;
   }
 
   .swiper {

@@ -1,0 +1,41 @@
+.filterButton {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: 1px solid var(--divider);
+  background: var(--surface-bg-main);
+  color: var(--text-color-main);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition-property: background, border, color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  white-space: nowrap;
+}
+
+.filterButton:hover {
+  border-color: var(--brand-main);
+}
+
+.filterButton.selected {
+  background: var(--brand-main);
+  border-color: var(--brand-main);
+  color: var(--text-default-main);
+  font-weight: 600;
+}
+
+.filterButton.selected:hover {
+  background: var(--main-highLight);
+  border-color: var(--main-highLight);
+}
+
+.allButton {
+  font-weight: 600;
+}
+
+.allButton.selected {
+  background: var(--brand-main);
+  border-color: var(--brand-main);
+  color: var(--text-default-main);
+}
+
