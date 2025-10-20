@@ -1,3 +1,5 @@
+"use client"
+
 import Navigation from "@/components/common/navigation/navigation"
 import TabletNavigation from "@/components/common/navigation/tablet-navigation/tablet-navigation"
 import styles from "./header.module.css"
