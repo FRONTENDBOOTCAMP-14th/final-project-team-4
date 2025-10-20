@@ -75,7 +75,13 @@ export default async function ChallengeDetailPage({
     <div className={styles.main}>
       <div className={styles.thumbnailWrapper}>
         <figure className={styles.thumbnail}>
-          <Image src={challenge.thumbnail} alt="" fill priority />
+          <Image
+            src={challenge.thumbnail}
+            alt={challenge.title}
+            fill
+            priority
+            aria-hidden
+          />
           <div className={styles.thumbnailGradient} />
         </figure>
       </div>
