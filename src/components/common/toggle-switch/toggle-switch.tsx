@@ -14,7 +14,7 @@ export default function ToggleSwitch({
   name,
   onLabel = "ON",
   offLabel = "OFF",
-  defaultChecked = false,
+  defaultChecked = true,
   onChange,
 }: BaseToggleProps) {
   const [isChecked, setIsChecked] = useState(defaultChecked)
