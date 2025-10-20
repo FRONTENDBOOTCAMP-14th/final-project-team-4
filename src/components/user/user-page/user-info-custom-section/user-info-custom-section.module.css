@@ -1,0 +1,42 @@
+.userInfoCustomSection {
+  .toggleContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 26px;
+  }
+
+  .toggle {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    block-size: 60px;
+    background-color: var(--surface-bg-sub);
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+    padding: 0 20px;
+
+    span {
+      font-weight: 700;
+    }
+  }
+}
+
+@media (min-width: 581px) and (max-width: 1200px) {
+  .toggle {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .userInfoCustomSection {
+    .toggleContainer {
+      flex-direction: row;
+    }
+
+    .toggle {
+      font-size: 18px;
+      width: 50%;
+    }
+  }
+}

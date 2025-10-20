@@ -1,0 +1,68 @@
+.userChallengesSection {
+  .tabs {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  .tab {
+    position: relative;
+    padding: 0;
+    line-height: 18px;
+    border: none;
+    word-break: keep-all;
+    width: 33.33%;
+    font-size: 14px;
+
+    &.isSelected {
+      color: var(--color_blue);
+      font-weight: 600;
+    }
+  }
+
+  .tab:hover {
+    font-weight: 600;
+  }
+
+  .tabContent {
+    display: none;
+    border-block-end: none;
+    padding: 26px 16px;
+
+    &.isSelected {
+      display: block;
+    }
+  }
+
+  .viewMoreButton {
+    width: 140px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 581px) {
+  .userChallengesSection {
+    .tab {
+      font-size: 18px;
+
+      &.isSelected {
+        color: var(--color_blue);
+        font-weight: 600;
+      }
+    }
+
+    .tabContent {
+      .challengeList {
+        display: flex;
+        flex-flow: row wrap;
+      }
+    }
+  }
+}
+
+@media (min-width: 1201px) {
+  .userChallengesSection {
+    .tabContent {
+      padding: 26px 0 38px 0;
+    }
+  }
+}
