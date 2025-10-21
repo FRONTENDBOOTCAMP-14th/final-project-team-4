@@ -1,19 +1,19 @@
 "use client"
 
-import { useEffect } from "react"
 import type { ReactNode } from "react"
+import type { User } from "@/types"
 import useUserStore from "store/userStore"
 
 interface UserProviderProps {
   children: ReactNode
+  initialUser: User | null
 }
 
-export default function UserProvider({ children }: UserProviderProps) {
-  const fetchLoggedInUser = useUserStore((state) => state.fetchLoggedInUser)
-
-  useEffect(() => {
-    fetchLoggedInUser().catch(console.error)
-  }, [fetchLoggedInUser])
+export default function UserProvider({
+  initialUser,
+  children,
+}: UserProviderProps) {
+  useUserStore.setState({ loggedInUser: initialUser })
 
   return children
 }

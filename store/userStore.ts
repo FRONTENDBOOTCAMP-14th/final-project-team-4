@@ -3,7 +3,7 @@ import type { User } from "@/types"
 import browserClient from "@/utils/supabase/client"
 
 interface UserStore {
-  loggedInUser: User | null
+  loggedInUser: User | null | undefined
   isLoading: boolean
   fetchLoggedInUser: () => Promise<void>
   storeLogout: () => void
@@ -11,11 +11,9 @@ interface UserStore {
 
 const useUserStore = create<UserStore>((set) => ({
   loggedInUser: undefined,
-  isLoading: false,
+  isLoading: true,
 
   fetchLoggedInUser: async () => {
-    set({ isLoading: true })
-
     try {
       const supabase = browserClient()
 
