@@ -19,7 +19,6 @@ export default async function ChallengeDetailPage({
   const { id } = await params
   const supabase = await createClient()
 
-  // 챌린지 데이터 호출
   const { data: challenge, error: challengeError } = await supabase
     .from("challenges")
     .select(`*`)
@@ -34,7 +33,6 @@ export default async function ChallengeDetailPage({
     data: { user },
   } = await supabase.auth.getUser()
 
-  // 유저 데이터 호출
   const { data: users, error: userError } = await supabase
     .from("users")
     .select("*")
@@ -59,8 +57,10 @@ export default async function ChallengeDetailPage({
     return <p>인증 게시글 데이터를 불러올 수 없습니다 😢</p>
   }
 
-  // 챌린지 진행 기간 계산
-  const getDateDiff = (startDate, endDate) => {
+  const getDateDiff = (
+    startDate: string | number,
+    endDate: string | number
+  ) => {
     const date1 = new Date(startDate)
     const date2 = new Date(endDate)
 
@@ -123,7 +123,12 @@ export default async function ChallengeDetailPage({
             </Button>
           </div>
         </section>
-        <CertificationPost recordId={recordData.id} userId={user?.id ?? null} />
+        {user ? (
+          <CertificationPost
+            recordId={recordData.id}
+            userId={user?.id ?? null}
+          />
+        ) : null}
         <ChallengeCardList
           title={`${challenge.category}의 다른 챌린지`}
           challenges={[challenge]}
