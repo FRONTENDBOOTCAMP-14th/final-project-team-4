@@ -11,17 +11,18 @@ import {
   TextInput,
 } from "@/components/input"
 import styles from "./create-form.module.css"
+import { handleSubmit } from "./handleSubmit"
 
 export default function CreateForm() {
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.imageArea}>
         <FileInput id="thumbnail" />
       </div>
       <div className={styles.scrollArea}>
         <TextInput id="title" />
         <ChoiceInput id="category" />
-        <TagInput id="tag" />
+        <TagInput id="tags" />
         <TextInput id="description" as="textarea" required={false} />
         <ChoiceInput id="uploading_type" />
         <DateInputs />
@@ -49,12 +50,7 @@ function ToggleInput() {
   return (
     <div className={styles.toggle}>
       <span>챌린지 공개 여부</span>
-      <ToggleSwitch
-        name="is_private"
-        onLabel="공개"
-        offLabel="비공개"
-        defaultChecked={true}
-      />
+      <ToggleSwitch name="is_public" onLabel="공개" offLabel="비공개" />
     </div>
   )
 }

@@ -34,6 +34,7 @@ export default function ToggleSwitch({
         checked={isChecked}
         onChange={handleToggle}
         aria-checked={isChecked}
+        value={String(isChecked)}
       />
     </label>
   )
