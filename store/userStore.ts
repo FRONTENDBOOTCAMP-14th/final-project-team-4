@@ -7,6 +7,7 @@ interface UserStore {
   isLoading: boolean
   fetchLoggedInUser: () => Promise<void>
   storeLogout: () => void
+  updateProfileImage: (imageUrl: string) => void
 }
 
 const useUserStore = create<UserStore>((set) => ({
@@ -43,6 +44,14 @@ const useUserStore = create<UserStore>((set) => ({
 
   storeLogout: () => {
     set({ loggedInUser: null })
+  },
+
+  updateProfileImage: (imageUrl: string) => {
+    set((state) => ({
+      loggedInUser: state.loggedInUser
+        ? { ...state.loggedInUser, profile_image: imageUrl || null }
+        : null,
+    }))
   },
 }))
 
