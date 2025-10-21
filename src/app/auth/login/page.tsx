@@ -5,10 +5,13 @@ import appleIconPath from "@/../public/company-icons/apple.svg"
 import googleIconPath from "@/../public/company-icons/google.svg"
 import kakaoIconPath from "@/../public/company-icons/kakao.svg"
 import imagePath from "@/../public/login-page.png"
+import { useAuth } from "@/contexts/AuthContext"
 import handleKakaoLogin from "./kakao/actions"
 import styles from "./page.module.css"
 
 export default function Login() {
+  const { signInWithNaver, loading } = useAuth()
+
   return (
     <main className={styles.loginPageContainer}>
       <section className={styles.loginSection}>
@@ -47,12 +50,13 @@ export default function Login() {
             <li>
               <button
                 // 애플 소셜 로그인 구현 후 사용
-                // onClick={handleAppleLogin}
-                className={styles.appleLoginButton}
+                onClick={signInWithNaver}
+                disabled={loading}
+                className={styles.naverLoginButton}
                 type="button"
               >
                 <Image src={appleIconPath.src} width={21} height={26} alt="" />
-                Apple로 시작하기
+                네이버로 시작하기
               </button>
             </li>
           </ul>
