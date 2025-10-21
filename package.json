@@ -24,6 +24,7 @@
     "react-dom": "19.1.0",
     "swiper": "^12.0.2",
     "swr": "^2.3.6",
+    "uuid": "^13.0.0",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
