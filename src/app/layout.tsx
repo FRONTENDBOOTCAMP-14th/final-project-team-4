@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import "@/styles/main.css"
+import { createClient } from "@/utils/supabase/server"
 import UserProvider from "./user-providers"
 
 export const metadata: Metadata = {
@@ -8,15 +9,32 @@ export const metadata: Metadata = {
   manifest: "./manifest.ts",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const supabase = await createClient()
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  let userData = null
+
+  if (user) {
+    const { data } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", user.id)
+      .single()
+    userData = data
+  }
+
   return (
     <html lang="en">
       <body>
-        <UserProvider>{children}</UserProvider>
+        <UserProvider initialUser={userData}>{children}</UserProvider>
       </body>
     </html>
   )
