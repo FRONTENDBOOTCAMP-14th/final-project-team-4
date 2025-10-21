@@ -7,6 +7,7 @@ import type { User } from "@/types/user"
 import {
   updateProfileImage,
   uploadProfilePublicUrl,
+  removeProfileStorage,
 } from "@/utils/supabase/api/profiles"
 import useUserStore from "store/userStore"
 import Avatar from "../avatar/avatar"
@@ -16,23 +17,24 @@ interface AvatarProfileProps {
   userData: User
 }
 
-let safeImageUrl: string = ""
-
-function changeImageProtocols(imageUrl: string): void {
-  if (imageUrl.startsWith("http:")) {
-    safeImageUrl = imageUrl.replace(/^http:/, "https:")
-  } else {
-    safeImageUrl = imageUrl
-  }
-}
+const userFallbackImage = "/fallback/fallback-user.png"
 
 export default function AvatarProfile({ userData }: AvatarProfileProps) {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const updateProfileImageInStore = useUserStore(
     (state) => state.updateProfileImage
   )
+  const imageUrl = useUserStore((state) => state.loggedInUser?.profile_image)
 
-  changeImageProtocols(userData.profile_image)
+  let safeImageUrl: string
+
+  if (!imageUrl) {
+    safeImageUrl = userFallbackImage
+  } else if (imageUrl.startsWith("http:")) {
+    safeImageUrl = imageUrl.replace(/^http:/, "https:")
+  } else {
+    safeImageUrl = imageUrl
+  }
 
   const handleUploadAvatar = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -41,6 +43,10 @@ export default function AvatarProfile({ userData }: AvatarProfileProps) {
 
     const file = e.target.files?.[0]
     if (!file) return
+
+    if (userData.profile_image) {
+      await removeProfileStorage(userData)
+    }
 
     try {
       setIsSubmitting(true)

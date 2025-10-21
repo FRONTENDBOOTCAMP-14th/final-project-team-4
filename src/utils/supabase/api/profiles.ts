@@ -18,7 +18,7 @@ export const updateProfileImage = async (
   const { publicUrl } = data
 
   if (updateProfileImageError) {
-    const errorMessage = `프로필 이미지 업로드 실패 :${updateProfileImage}`
+    const errorMessage = `프로필 이미지 업로드 실패: ${updateProfileImageError.message}`
     throw new Error(errorMessage)
   }
 
@@ -39,6 +39,42 @@ export const uploadProfilePublicUrl = async (
 
   if (uploadProfilePublicUrlError) {
     const errorMessage = `프로필 이미지 URL 저장 실패 :${uploadProfilePublicUrlError.message}`
+    throw new Error(errorMessage)
+  }
+}
+
+// Profiles 스토리지의 기존 프로필 사진 삭제
+export const removeProfileStorage = async (userData: User): Promise<void> => {
+  const supabase = browserClient()
+  const oldProfileImage = userData.profile_image
+
+  console.log("oldProfileImage", oldProfileImage)
+
+  if (oldProfileImage) {
+    const oldFileName = oldProfileImage.split("/").pop()
+    if (oldFileName) {
+      const oldFilePath = `${userData.id}/${oldFileName}`
+      const { error: removeProfileStorageError } = await supabase.storage
+        .from("profiles")
+        .remove([oldFilePath])
+      if (removeProfileStorageError) {
+        const errorMessage = `스토리지 프로필 이미지 삭제 오류: ${removeProfileStorageError.message}`
+        throw new Error(errorMessage)
+      }
+    }
+  }
+}
+
+// Users 테이블의 profile_image URL 삭제
+export const removeProfileImageUrl = async (userData: User): Promise<void> => {
+  const supabase = browserClient()
+  const { error: removeProfileImageUrlError } = await supabase
+    .from("users")
+    .update({ profile_image: null })
+    .eq("id", userData.id)
+
+  if (removeProfileImageUrlError) {
+    const errorMessage = `스토리지에서 이미지 삭제 오류: ${removeProfileImageUrlError.message}`
     throw new Error(errorMessage)
   }
 }
