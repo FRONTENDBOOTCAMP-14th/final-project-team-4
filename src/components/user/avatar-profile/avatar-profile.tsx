@@ -10,13 +10,17 @@ export default function AvatarProfile({ imageUrl }: AvatarProfileProps) {
   return (
     <div className={styles.avatarImageContainer}>
       <Avatar imageUrl={imageUrl} responsive="profileSizes" altText="" />
-      <button
-        className={styles.editButton}
-        type="button"
-        aria-label="프로필 사진 업데이트"
-      >
-        <LucidePen className={styles.editIcon} />
-      </button>
+      <label htmlFor="profilePicture" aria-label="프로필 사진 업데이트">
+        <span className={styles.updateButton} tabIndex={0}>
+          <LucidePen className={styles.editIcon} aria-hidden="true" />
+        </span>
+      </label>
+      <input
+        type="file"
+        id="profilePicture"
+        className={styles.input}
+        accept="image/png, image/jpeg, image/jpg"
+      />
     </div>
   )
 }

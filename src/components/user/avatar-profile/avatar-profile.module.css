@@ -3,7 +3,11 @@
   display: inline-block;
 }
 
-.editButton {
+.input {
+  display: none;
+}
+
+.updateButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,6 +21,7 @@
   border-radius: 50%;
   border: 1px solid var(--text-default-sub2);
   background-color: var(--surface-bg-main);
+  cursor: pointer;
 
   .editIcon {
     display: flex;
@@ -26,7 +31,7 @@
 }
 
 @media (min-width: 581px) {
-  .editButton {
+  .updateButton {
     inline-size: 30px;
     block-size: 30px;
   }
