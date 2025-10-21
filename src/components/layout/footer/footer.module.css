@@ -1,6 +1,4 @@
 .footer {
-  position: relative;
-  bottom: 0;
   z-index: 9990;
   width: 100%;
   padding: 40px;
@@ -16,6 +14,7 @@
 
 @media (max-width: 580px) {
   .footer {
+    position: relative;
     bottom: 60px;
     padding: 18px;
     translate: 0 0;
