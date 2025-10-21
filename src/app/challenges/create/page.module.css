@@ -1,3 +1,23 @@
-.main {
+.pageWrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  padding-inline-start: 201px;
+  background-color: var(--surface-bg-main);
+  overflow-y: hidden;
 }
 
+@media (max-width: 1200px) {
+  .pageWrapper {
+    padding-inline-start: 0;
+    padding-block-start: 172px;
+    overflow: scroll;
+  }
+}
+
+@media (max-width: 580px) {
+  .pageWrapper {
+    padding-block: 150px 60px;
+  }
+}
