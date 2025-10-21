@@ -1,6 +1,6 @@
 .adCarouselSection {
   inline-size: 100%;
-  padding-block: 2rem;
+  padding-block: 1rem;
 }
 
 .swiperContainer {
@@ -262,10 +262,11 @@
 @media (max-width: 1200px) and (min-width: 581px) {
   .adCarouselSection {
     padding-block: 1.5rem;
+    margin-block-start: 2rem;
   }
 
   .swiperContainer {
-    padding-inline: 0.75rem;
+    padding-inline: 1.5rem;
   }
 
   .slideContent {
@@ -314,11 +315,16 @@
 
 @media (max-width: 580px) and (min-width: 451px) {
   .adCarouselSection {
-    padding-block: 1rem;
+    padding-block: 1.5rem;
+    margin-block-start: 2rem;
   }
 
   .swiperContainer {
-    padding-inline: 0.5rem;
+    padding-inline: 0;
+  }
+
+  .swiper {
+    border-radius: 0;
   }
 
   .slideContent {
@@ -387,11 +393,16 @@
 
 @media (max-width: 450px) and (min-width: 401px) {
   .adCarouselSection {
-    padding-block: 0.875rem;
+    padding-block: 1.25rem;
+    margin-block-start: 2rem;
   }
 
   .swiperContainer {
-    padding-inline: 0.44rem;
+    padding-inline: 0;
+  }
+
+  .swiper {
+    border-radius: 0;
   }
 
   .slideContent {
@@ -462,11 +473,16 @@
 
 @media (max-width: 400px) and (min-width: 381px) {
   .adCarouselSection {
-    padding-block: 0.75rem;
+    padding-block: 1rem;
+    margin-block-start: 2rem;
   }
 
   .swiperContainer {
-    padding-inline: 0.4rem;
+    padding-inline: 0;
+  }
+
+  .swiper {
+    border-radius: 0;
   }
 
   .slideContent {
@@ -537,11 +553,16 @@
 
 @media (max-width: 380px) {
   .adCarouselSection {
-    padding-block: 0.625rem;
+    padding-block: 0.875rem;
+    margin-block-start: 2rem;
   }
 
   .swiperContainer {
-    padding-inline: 0.35rem;
+    padding-inline: 0;
+  }
+
+  .swiper {
+    border-radius: 0;
   }
 
   .slideContent {

@@ -66,7 +66,7 @@ export default function TagInput({ id }: { id: InputId }) {
           disabled={tags.length >= maxLength}
         />
       </div>
-      <input type="hidden" name={id} value={tags.join(",")} />
+      <input type="hidden" name={id} value={tags} />
     </div>
   )
 }

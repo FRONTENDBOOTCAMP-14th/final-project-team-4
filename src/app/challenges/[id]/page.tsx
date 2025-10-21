@@ -1,5 +1,7 @@
 import Image from "next/image"
+import CertificationPost from "@/components/challenge/certification-post/certification-post"
 import Button from "@/components/common/button/button"
+import CategoryTag from "@/components/common/category-tag/category-tag"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import AvatarLink from "@/components/user/avatar-link/avatar-link"
 import type { Database } from "@/utils/supabase/database.types"
@@ -12,23 +14,25 @@ export type User = Database["public"]["Tables"]["users"]["Row"]
 export default async function ChallengeDetailPage({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
   const supabase = await createClient()
 
-  // 챌린지 데이터 호출
   const { data: challenge, error: challengeError } = await supabase
     .from("challenges")
-    .select("*")
-    .eq("id", params.id)
+    .select(`*`)
+    .eq("id", id)
     .single<Challenge>()
 
   if (challengeError || !challenge) {
-    console.error("챌린지 정보를 불러오지 못했습니다:", challengeError)
-    return <p>챌린지 데이터를 불러올 수 없습니다 😢</p>
+    return <p>챌린지 정보를 불러오지 못했습니다 😢</p>
   }
 
-  // 유저 데이터 호출
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
   const { data: users, error: userError } = await supabase
     .from("users")
     .select("*")
@@ -40,8 +44,23 @@ export default async function ChallengeDetailPage({
     return <p>유저 데이터를 불러올 수 없습니다 😢</p>
   }
 
-  // 챌린지 진행 기간 계산
-  const getDateDiff = (startDate, endDate) => {
+  const { data: recordData, error: recordError } = await supabase
+    .from("challenge_records")
+    .select("id, user_id, image_urls, content")
+    .eq("challenge_id", id)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (recordError) {
+    console.error("인증 게시글 데이터를 불러오지 못했습니다:", recordError)
+    return <p>인증 게시글 데이터를 불러올 수 없습니다 😢</p>
+  }
+
+  const getDateDiff = (
+    startDate: string | number,
+    endDate: string | number
+  ) => {
     const date1 = new Date(startDate)
     const date2 = new Date(endDate)
 
@@ -56,12 +75,18 @@ export default async function ChallengeDetailPage({
     <div className={styles.main}>
       <div className={styles.thumbnailWrapper}>
         <figure className={styles.thumbnail}>
-          <Image src={challenge.thumbnail} alt="" fill priority />
+          <Image
+            src={challenge.thumbnail}
+            alt={challenge.title}
+            fill
+            priority
+            aria-hidden
+          />
           <div className={styles.thumbnailGradient} />
         </figure>
       </div>
       <div className={styles.contentWrapper}>
-        <div>{challenge.category}</div>
+        <CategoryTag category={challenge.category} />
         <h1 className={styles.pageTitle}>{challenge.title}</h1>
         <section className={styles.descriptionSection}>
           <h2>소개글</h2>
@@ -80,7 +105,10 @@ export default async function ChallengeDetailPage({
             <span>{`성공 기준: ${challenge.success_threshold_percent}%`}</span>
           </div>
           <div className={styles.userAvatar}>
-            <AvatarLink imageUrl={users.profile_image} />
+            <AvatarLink
+              imageUrl={users.profile_image}
+              userName={users.username}
+            />
             <span className={styles.userName}>{users.username}</span>
           </div>
           <div className={styles.buttonWrapper}>
@@ -95,6 +123,12 @@ export default async function ChallengeDetailPage({
             </Button>
           </div>
         </section>
+        {user ? (
+          <CertificationPost
+            recordId={recordData.id}
+            userId={user?.id ?? null}
+          />
+        ) : null}
         <ChallengeCardList
           title={`${challenge.category}의 다른 챌린지`}
           challenges={[challenge]}

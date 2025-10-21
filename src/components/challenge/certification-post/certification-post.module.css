@@ -1,0 +1,71 @@
+.container {
+  padding: 20px 10px;
+  border: 1px solid var(--divider);
+  border-radius: 20px;
+  max-inline-size: 360px;
+  background: var(--surface-bg-main);
+  font-size: 0.875rem;
+  color: var(--text-color-sub);
+
+  .userWrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .userAvatar {
+    max-inline-size: 42px;
+    max-block-size: 42px;
+  }
+
+  .userName {
+    display: block;
+    font-size: 1rem;
+  }
+
+  .date {
+    padding-inline-end: 6px;
+  }
+
+  .iamgeWrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 2.3 / 1;
+
+    img {
+      object-fit: contain;
+      object-position: top left;
+    }
+  }
+
+  .buttonWrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 30px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-weight: 700;
+
+    button {
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .like {
+      color: var(--brand-main);
+    }
+    .reportButton {
+      color: var(--report);
+    }
+  }
+}
+
+@media (min-width: 1201px) {
+  .container {
+    .userName {
+      font-size: 1.125rem;
+    }
+  }
+}

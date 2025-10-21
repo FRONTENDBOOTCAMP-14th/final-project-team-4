@@ -31,7 +31,7 @@ export const navItems: NavItemType[] = [
   },
   { href: "/wishlist", label: "찜 목록", icon: <Heart /> },
   { href: "/challenges/create", label: "생성하기", icon: <Plus /> },
-  { href: "/login", label: "로그인", icon: <UserRound /> },
+  { href: "/auth/login", label: "로그인", icon: <UserRound /> },
 ]
 
 export const categories = ["건강 / 운동", "학습", "습관", "취미"]

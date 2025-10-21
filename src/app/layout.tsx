@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import "@/styles/main.css"
+import Footer from "@/components/layout/footer/footer"
+import Header from "@/components/layout/header/header"
 import { createClient } from "@/utils/supabase/server"
 import UserProvider from "./user-providers"
 
@@ -32,9 +34,13 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html lang="ko-KR">
       <body>
-        <UserProvider initialUser={userData}>{children}</UserProvider>
+        <UserProvider initialUser={userData}>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </UserProvider>
       </body>
     </html>
   )
