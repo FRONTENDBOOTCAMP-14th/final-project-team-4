@@ -5,6 +5,7 @@ interface AvatarProps {
   imageUrl: string
   responsive: ResponsiveSizeType
   altText: string
+  className?: string
 }
 
 type ResponsiveSizeType = "linkSizes" | "profileSizes"
@@ -15,9 +16,14 @@ const responsiveSizes: Record<ResponsiveSizeType, string> = {
   profileSizes: "(max-width: 360px) 124px, (max-width: 1024px) 140px",
 }
 
-export default function Avatar({ imageUrl, responsive, altText }: AvatarProps) {
+export default function Avatar({
+  imageUrl,
+  responsive,
+  altText,
+  className,
+}: AvatarProps) {
   return (
-    <figure className={`${styles.avatar} ${styles[responsive]}`}>
+    <figure className={`${styles.avatar} ${styles[responsive]} ${className}`}>
       <Image
         src={imageUrl}
         className={styles.avatarImage}

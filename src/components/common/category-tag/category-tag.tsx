@@ -2,7 +2,7 @@ import type { CategoryType } from "@/types"
 import styles from "./category-tag.module.css"
 
 interface CategoryTagProps {
-  category: CategoryType
+  category: CategoryType | string
 }
 
 export default function CategoryTag({ category }: CategoryTagProps) {
