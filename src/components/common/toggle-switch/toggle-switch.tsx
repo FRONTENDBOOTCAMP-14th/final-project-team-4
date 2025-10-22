@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "./toggle-switch.module.css"
 
 interface ToggleSwitchProps {
