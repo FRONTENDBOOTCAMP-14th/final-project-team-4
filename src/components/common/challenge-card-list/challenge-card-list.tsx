@@ -2,7 +2,7 @@
 
 import { Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import "swiper/css"
 import "swiper/css/navigation"
 import ChallengeCard from "../challenge-card/challenge-card"

@@ -1,13 +1,13 @@
 import HotChallengeCarousel from "@/components/challenge/hot-challenge-carousel/hot-challenge-carousel"
 import AdCarousel from "@/components/common/ad-carousel/ad-carousel"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import styles from "./page.module.css"
 
 // 더미 데이터
 const DUMMY_CHALLENGES: Challenge[] = Array.from({ length: 20 }, (_, i) => ({
   id: `challenge-${i + 1}`,
-  category: ["건강", "자기계발", "취미", "공부"][i % 4],
+  category: ["건강 / 운동", "학습", "습관", "취미"][i % 4],
   title: [
     "12시간 이상 자고 싶은 부엉이를 모이세요",
     "일주일 물만 먹기 챌린지 다 2L 마시기",
@@ -19,14 +19,14 @@ const DUMMY_CHALLENGES: Challenge[] = Array.from({ length: 20 }, (_, i) => ({
   description: `챌린지 ${i + 1} 설명입니다. 함께 목표를 달성해봐요!`,
   is_public: true,
   is_finished: false,
-  tags: [
-    ["1일 1회 인증", "건강"],
-    ["매일 인증", "꾸준함"],
-  ][i % 2],
+  tags: ["1일 1회 인증", "건강"],
   created_by_id: `user-${i + 1}`,
+  start_at: new Date().toISOString(),
   end_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
   success_threshold_percent: 80,
   uploading_type: ["사진", "글쓰기", "출석체크"][i % 3],
+  participants_count: 0,
+  owner: null,
 }))
 
 export default function Home() {

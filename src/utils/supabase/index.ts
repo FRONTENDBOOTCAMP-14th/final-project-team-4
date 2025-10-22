@@ -12,3 +12,4 @@ export default supabase
 
 export type Challenge = Tables<"challenges">
 export type ChallengeInsert = TablesInsert<"challenges">
+export type User = Tables<"users">

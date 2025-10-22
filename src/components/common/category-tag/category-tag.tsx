@@ -1,12 +1,11 @@
-import type { CategoryType } from "@/types"
 import styles from "./category-tag.module.css"
 
 interface CategoryTagProps {
-  category: CategoryType | string
+  category: string
 }
 
 export default function CategoryTag({ category }: CategoryTagProps) {
-  const categoryClassMap: Record<CategoryType, string> = {
+  const categoryClassMap: Record<string, string> = {
     "건강 / 운동": styles.healthCategory,
     학습: styles.studyCategory,
     습관: styles.habitCategory,

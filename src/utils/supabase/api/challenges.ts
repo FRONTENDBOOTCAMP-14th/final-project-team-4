@@ -13,7 +13,7 @@ export const createChallenge = async (payload: ChallengeInsert) => {
     .single()
 
   if (error) {
-    console.log("supabase insert error:", error)
+    console.error("supabase insert error:", error)
     throw new Error("챌린지 생성 실패")
   }
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import clsx from "clsx"
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import useInputConfig from "../useInputConfig"
 import styles from "./tag-input.module.css"
 import type { InputId } from "../const"

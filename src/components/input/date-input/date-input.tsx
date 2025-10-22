@@ -1,4 +1,4 @@
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import useInputConfig from "../useInputConfig"
 import styles from "./date-input.module.css"
 import type { InputId } from "../const"
