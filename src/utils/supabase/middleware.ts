@@ -5,7 +5,7 @@ export async function updateSession(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-  const supabaseResponse = NextResponse.next({
+  let supabaseResponse = NextResponse.next({
     request,
   })
 
@@ -15,13 +15,17 @@ export async function updateSession(request: NextRequest) {
         return request.cookies.getAll()
       },
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options = {} }) => {
-          // 배포 환경(프로덕션)에서 SameSite=None, Secure=true 설정
-          const isProduction = process.env.NODE_ENV === "production"
+        cookiesToSet.forEach(({ name, value }) =>
+          request.cookies.set(name, value)
+        )
+        supabaseResponse = NextResponse.next({
+          request,
+        })
+        cookiesToSet.forEach(({ name, value, options }) => {
           const enhancedOptions = {
             ...options,
             sameSite: "none" as const,
-            secure: isProduction, // 프로덕션 환경에서만 Secure=true 설정
+            secure: true,
           }
           supabaseResponse.cookies.set(name, value, enhancedOptions)
         })
