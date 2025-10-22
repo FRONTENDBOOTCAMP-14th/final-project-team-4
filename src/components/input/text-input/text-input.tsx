@@ -1,34 +1,39 @@
-"use client"
-
-import { useState } from "react"
+import type { Challenge } from "@/types"
 import useInputConfig from "../useInputConfig"
 import styles from "./text-input.module.css"
 import type { InputId } from "../const"
 
-export interface TextInputProps {
+interface TextInputProps {
   id: InputId
   as?: "input" | "textarea"
-  required?: boolean
+  value?: Challenge["title"]
+  onChange?: (value: Challenge["title"]) => void
+  error?: string
 }
 
 export default function TextInput({
   id,
   as = "input",
-  required = true,
+  value = "",
+  onChange,
+  error,
 }: TextInputProps) {
   const { label, placeholder, maxLength } = useInputConfig(id)
-  const [value, setValue] = useState("")
-  const isActive = value.length > 0 && value.length < maxLength
+  const isActive = !!value && value.length < maxLength
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    onChange?.(e.target.value)
+  }
 
   const props = {
     id,
     name: id,
     placeholder,
     maxLength,
-    required,
     value,
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setValue(e.target.value),
+    onChange: handleChange,
   }
 
   return (
@@ -39,9 +44,12 @@ export default function TextInput({
       ) : (
         <input type="text" {...props} />
       )}
-      <span className={isActive ? styles.highlight : ""}>
-        {value.length}/{maxLength}
-      </span>
+      {maxLength && (
+        <span className={isActive ? styles.highlight : ""}>
+          {value.length}/{maxLength}
+        </span>
+      )}
+      {error && <p className={styles.error}>{error}</p>}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-.tag {
+.tags {
   > label {
     font-size: 1.5rem;
     font-weight: bold;
@@ -59,7 +59,7 @@
 }
 
 @media (max-width: 1200px) {
-  .tag {
+  .tags {
     > label {
       font-size: 1.25rem;
     }
