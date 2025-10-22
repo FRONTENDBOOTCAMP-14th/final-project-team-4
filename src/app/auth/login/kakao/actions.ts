@@ -3,12 +3,16 @@ import browserClient from "@/utils/supabase/client"
 export default async function handleKakaoLogin() {
   const supabase = browserClient()
 
+  const redirectUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://final-project-team-4-ruby.vercel.app/auth/callback/kakao"
+      : "http://localhost:3000/auth/callback/kakao"
+
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "kakao",
     options: {
       // 콜백 루트(OAuth 인증 후 돌아오는 주소)
-      // redirectTo: `http://localhost:3000/auth/callback/kakao`,
-      redirectTo: `http://final-project-team-4-ruby.vercel.app/auth/callback/kakao`,
+      redirectTo: redirectUrl,
       queryParams: {
         scope: "profile_nickname profile_image",
       },
