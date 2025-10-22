@@ -12,7 +12,6 @@ export async function updateSession(request: NextRequest) {
   const supabase = createServerClient(url, anonKey, {
     cookies: {
       getAll() {
-        console.log("쿠키 목록:", request.cookies.getAll())
         return request.cookies.getAll()
       },
       setAll(cookiesToSet) {
