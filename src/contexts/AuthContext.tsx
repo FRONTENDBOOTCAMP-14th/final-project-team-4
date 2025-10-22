@@ -4,16 +4,28 @@ import type { ReactNode } from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import supabase from "@/utils/supabase"
-import type { User } from "@supabase/supabase-js"
+import type { User, Session } from "@supabase/supabase-js"
 
-interface AuthContextType {
+export interface AuthContextType {
   user: User | null
   loading: boolean
-  signUp: (email: string, password: string) => Promise<void>
-  signIn: (email: string, password: string) => Promise<void>
-  signOut: () => Promise<void>
-  signInWithNaver: () => void
   isAuthenticated: boolean
+  signUp: (
+    email: string,
+    password: string
+  ) => Promise<{
+    user: User | null
+    session: Session | null
+  }>
+  signIn: (
+    email: string,
+    password: string
+  ) => Promise<{
+    user: User | null
+    session: Session | null
+  }>
+  signOut: () => Promise<void>
+  signInWithNaver: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
