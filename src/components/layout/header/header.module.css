@@ -1,0 +1,33 @@
+.pc {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow-y: auto;
+  gap: 54px;
+  height: 100vh;
+  padding: 96px 52px 34px 48px;
+  background: var(--surface-bg-main);
+  border-right: 1px solid var(--divider);
+}
+
+.tablet {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .tablet {
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 22px;
+    width: 100%;
+    padding: 24px 48px 18px 48px;
+    background-color: var(--surface-bg-main);
+    border-bottom: 1px solid var(--divider);
+  }
+  .pc {
+    display: none;
+  }
+}

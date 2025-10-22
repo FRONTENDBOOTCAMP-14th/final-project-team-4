@@ -214,3 +214,14 @@ $RECYCLE.BIN/
 
 # TypeScript
 tsconfig.tsbuildinfo
+
+.cursorrules
+
+# Supabase
+.branches
+.temp
+
+# dotenvx
+.env.keys
+.env.local
+.env.*.local

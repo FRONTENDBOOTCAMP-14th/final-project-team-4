@@ -1,0 +1,83 @@
+.tags {
+  > label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color-sub);
+  }
+
+  .count {
+    margin-inline-start: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--divider);
+  }
+
+  .highlight {
+    color: light-dark(var(--text-default-main), var(--brand-main));
+  }
+}
+
+.tagWrapper {
+  margin-block-start: 20px;
+
+  .tagButtons > button,
+  > input {
+    padding: 10px 14px;
+    color: light-dark(var(--text-default-sub2), var(--brand-main));
+  }
+
+  .tagButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    background-color: var(--surface-bg-main);
+
+    > button {
+      font-size: 0.875rem;
+      border: 1px solid var(--brand-main);
+      border-radius: 100px;
+
+      &:hover {
+        background-color: var(--brand-main);
+        color: var(--text-default-main);
+        transition: background-color 0.2s linear;
+      }
+    }
+  }
+
+  > input {
+    background-color: transparent;
+    border: none;
+    border-block-end: 1px solid var(--divider);
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 1px 0 0 var(--brand-main);
+      transition: box-shadow 0.2s ease-in-out;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .tags {
+    > label {
+      font-size: 1.25rem;
+    }
+  }
+  .tagWrapper {
+    > button,
+    > input {
+      padding: 8px 10px;
+    }
+
+    .tagButtons {
+      gap: 10px;
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .tagButtons > button {
+    font-size: 0.875rem;
+  }
+}

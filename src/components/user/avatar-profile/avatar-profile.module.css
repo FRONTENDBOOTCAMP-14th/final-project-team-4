@@ -1,0 +1,43 @@
+.avatarImageContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.input {
+  display: none;
+}
+
+.updateButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 80%;
+  right: 5%;
+  inline-size: 27px;
+  block-size: 27px;
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--text-default-sub2);
+  background-color: var(--surface-bg-main);
+  cursor: pointer;
+
+  .editIcon {
+    display: flex;
+    inline-size: 15px;
+    block-size: 15px;
+  }
+}
+
+@media (min-width: 581px) {
+  .updateButton {
+    inline-size: 30px;
+    block-size: 30px;
+  }
+
+  .editIcon {
+    inline-size: 17px;
+    block-size: 17px;
+  }
+}

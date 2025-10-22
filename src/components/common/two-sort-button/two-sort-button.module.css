@@ -1,0 +1,49 @@
+.twoSortButtonContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sortButton {
+  display: inline-flex;
+  align-items: center;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  border: none;
+  background: transparent;
+  color: var(--text-color-sub2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border-radius: 0.25rem;
+}
+
+.sortButton:hover {
+  color: var(--text-color-main);
+  background: var(--surface-bg-sub);
+}
+
+.sortButton.active {
+  color: var(--text-color-main);
+  font-weight: 700;
+}
+
+@media (max-width: 580px) {
+  .sortButton {
+    padding-block: 0.375rem;
+    padding-inline: 0.75rem;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .sortButton {
+    padding-block: 0.25rem;
+    padding-inline: 0.625rem;
+    font-size: 0.75rem;
+  }
+}
+

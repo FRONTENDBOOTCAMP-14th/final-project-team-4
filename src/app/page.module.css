@@ -1,0 +1,50 @@
+.pageWrapper {
+  display: flex;
+  min-block-size: 100vh;
+  overflow-x: hidden;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-block: 2rem;
+  padding-inline: 2rem;
+  max-inline-size: calc(100vw - 260px);
+  margin-inline: auto;
+  inline-size: 100%;
+  margin-inline-start: 260px;
+  box-sizing: border-box;
+}
+
+/* PC 뷰: 헤더가 좌측 고정 */
+@media (min-width: 1201px) {
+  .main {
+    margin-inline-start: 220px;
+    max-inline-size: calc(100vw - 220px);
+  }
+}
+
+/* 태블릿 뷰: 헤더가 상단 고정 */
+@media (max-width: 1200px) {
+  .pageWrapper {
+    flex-direction: column;
+  }
+
+  .main {
+    margin-inline-start: 0;
+    max-inline-size: 100vw;
+    padding-block-start: 140px;
+    padding-inline: 1.5rem;
+  }
+}
+
+/* 모바일 뷰: 헤더 상단, 네비바 하단 */
+@media (max-width: 580px) {
+  .main {
+    padding-block: 1rem;
+    padding-block-start: 120px;
+    padding-block-end: 80px;
+    padding-inline: 0;
+  }
+}

@@ -1,0 +1,26 @@
+.category {
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text-default-main);
+}
+
+.studyCategory {
+  background-color: var(--brand-sub1);
+}
+.habitCategory {
+  background-color: var(--brand-sub2);
+}
+.hobbyCategory {
+  background-color: var(--brand-sub3);
+}
+.healthCategory {
+  background-color: var(--brand-sub5);
+}
+
+@media (min-width: 581px) {
+  .category {
+    padding: 6px 12px;
+  }
+}

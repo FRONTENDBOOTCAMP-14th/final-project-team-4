@@ -1,0 +1,79 @@
+.challengeCard {
+  background-color: var(--surface-bg-sub);
+  border-radius: 18px;
+  padding: 16px;
+  width: 242px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  padding-block-end: 8px;
+}
+
+.categoryHashtags {
+  padding: 10px 0;
+  font-size: 12px;
+
+  span {
+    margin-right: 6px;
+  }
+}
+
+.userData {
+  font-size: 12px;
+  display: flex;
+  flex-flow: column nowrap;
+
+  .userDataTop {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding-block: 10px;
+    align-items: center;
+
+    .todaysCheck {
+      border-radius: 20px;
+      background-color: var(--shadow-color);
+      padding: 4px 12px;
+    }
+  }
+
+  .progress {
+    padding-block-end: 10px;
+
+    .progressBar {
+      width: 100%;
+      height: 10px;
+      border: 1px solid var(--brand-main);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .progressBar::-webkit-progress-bar {
+      background-color: var(--surface-bg-sub);
+    }
+
+    .progressBar::-webkit-progress-value {
+      background-color: var(--brand-main);
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 6px;
+}
+
+@media (min-width: 581px) and (max-width: 1200px) {
+  .challengeCard {
+    width: 242px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .challengeCard {
+    width: 228px;
+  }
+}

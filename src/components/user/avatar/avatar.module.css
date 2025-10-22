@@ -1,0 +1,45 @@
+.avatar {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  border: 1px solid #f6c944;
+
+  .avatarImage {
+    object-fit: cover;
+    background-color: #fafafa;
+  }
+}
+
+.linkSizes {
+  inline-size: 37px;
+  block-size: 37px;
+}
+
+@media (min-width: 581px) and (max-width: 1200px) {
+  .linkSizes {
+    inline-size: 31px;
+    block-size: 31px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .linkSizes {
+    inline-size: 70px;
+    block-size: 70px;
+  }
+}
+
+.profileSizes {
+  inline-size: 124px;
+  block-size: 124px;
+}
+
+@media (min-width: 581px) {
+  .profileSizes {
+    inline-size: 140px;
+    block-size: 140px;
+  }
+}

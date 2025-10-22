@@ -1,0 +1,36 @@
+.container {
+  flex-grow: 1;
+  > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 26px;
+  height: 100%;
+
+  > li > a {
+    color: var(--text-color-main);
+  }
+
+  > li:last-child {
+    margin-top: auto;
+  }
+
+  a {
+    display: inline-flex;
+    gap: 14px;
+    font-size: 18px;
+    text-decoration: none;
+
+    &.active {
+      color: light-dark(var(--text-color-main), var(--brand-main));
+      font-weight: 700;
+    }
+  }
+}

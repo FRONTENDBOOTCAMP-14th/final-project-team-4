@@ -1,0 +1,27 @@
+.footer {
+  z-index: 9990;
+  width: 100%;
+  padding: 40px;
+  border-top: 1px solid var(--divider);
+  text-align: center;
+  background-color: var(--surface-bg-main);
+
+  > p {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 580px) {
+  .footer {
+    position: relative;
+    bottom: 60px;
+    padding: 18px;
+    translate: 0 0;
+
+    > p {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
