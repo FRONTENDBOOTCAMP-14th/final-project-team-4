@@ -1,5 +1,4 @@
-const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID
-
+const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID
 const NAVER_REDIRECT_URI = process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI
 
 interface NaverTokenResponse {
@@ -41,12 +40,10 @@ export const getNaverTokenServerSide = async (
   code: string,
   state: string
 ): Promise<NaverTokenResponse> => {
-  const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET
-
-  const params = new URLSearchParams({
+  const body = new URLSearchParams({
     grant_type: "authorization_code",
-    client_id: NAVER_CLIENT_ID,
-    client_secret: NAVER_CLIENT_SECRET,
+    client_id: process.env.NAVER_CLIENT_ID,
+    client_secret: process.env.NAVER_CLIENT_SECRET,
     code,
     state,
   })
@@ -54,14 +51,24 @@ export const getNaverTokenServerSide = async (
   const response = await fetch("https://nid.naver.com/oauth2.0/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: params,
+    body,
   })
 
-  if (!response.ok) {
-    throw new Error("네이버에서 엑세스 토큰을 얻는데 실패했습니다.")
+  const text = await response.text()
+  let json: any
+  try {
+    json = JSON.parse(text)
+  } catch {
+    throw new Error(`네이버 토큰 응답 파싱 실패: ${text}`)
   }
 
-  return response.json()
+  if (!response.ok || json.error) {
+    throw new Error(
+      `네이버 토큰 교환 실패: ${json.error ?? "unknown"} - ${json.error_description ?? ""}`
+    )
+  }
+
+  return json
 }
 
 export const getNaverUserInfoServerSide = async (
@@ -69,11 +76,16 @@ export const getNaverUserInfoServerSide = async (
 ): Promise<NaverUserResponse> => {
   const response = await fetch("https://openapi.naver.com/v1/nid/me", {
     headers: { Authorization: `Bearer ${accessToken}` },
+    cache: "no-store",
   })
 
-  if (!response.ok) {
-    throw new Error("사용자 정보 가져오기에 실패했습니다.")
+  const json = await response.json()
+
+  if (!response.ok || json.resultcode !== "00") {
+    throw new Error(
+      `사용자 정보 가져오기에 실패했습니다. (HTTP ${response.status}) ${json.message ?? ""}`
+    )
   }
 
-  return response.json()
+  return json
 }
