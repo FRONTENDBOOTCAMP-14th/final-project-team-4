@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import type { User } from "@/types"
+import type { User } from "@/utils/supabase"
 import browserClient from "@/utils/supabase/client"
 
 interface UserStore {

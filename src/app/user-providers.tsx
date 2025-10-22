@@ -1,7 +1,7 @@
 "use client"
 
 import type { ReactNode } from "react"
-import type { User } from "@/types"
+import type { User } from "@/utils/supabase"
 import useUserStore from "store/userStore"
 
 interface UserProviderProps {

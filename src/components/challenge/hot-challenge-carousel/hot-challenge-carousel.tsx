@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/navigation"
 import ChallengeCard from "@/components/common/challenge-card/challenge-card"
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import styles from "./hot-challenge-carousel.module.css"
 
 interface HotChallengeCarouselProps {

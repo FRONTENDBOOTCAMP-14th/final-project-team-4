@@ -1,5 +1,5 @@
 import Image from "next/image"
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import styles from "./challenge-card.module.css"
 
 interface ChallengeCardProps {

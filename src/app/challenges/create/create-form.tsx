@@ -12,7 +12,7 @@ import {
   TagInput,
   TextInput,
 } from "@/components/input"
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import { createChallenge } from "@/utils/supabase/api/challenges"
 import { uploadFile } from "@/utils/supabase/api/storage"
 import styles from "./create-form.module.css"
