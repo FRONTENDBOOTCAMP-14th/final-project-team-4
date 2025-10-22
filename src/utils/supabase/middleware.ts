@@ -15,9 +15,16 @@ export async function updateSession(request: NextRequest) {
         return request.cookies.getAll()
       },
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) =>
-          supabaseResponse.cookies.set(name, value, options)
-        )
+        cookiesToSet.forEach(({ name, value, options = {} }) => {
+          // 배포 환경(프로덕션)에서 SameSite=None, Secure=true 설정
+          const isProduction = process.env.NODE_ENV === "production"
+          const enhancedOptions = {
+            ...options,
+            sameSite: "none" as const,
+            secure: isProduction, // 프로덕션 환경에서만 Secure=true 설정
+          }
+          supabaseResponse.cookies.set(name, value, enhancedOptions)
+        })
       },
     },
   })
