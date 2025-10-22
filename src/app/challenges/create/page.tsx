@@ -1,33 +1,30 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import Link from "next/link"
 import browserClient from "@/utils/supabase/client"
+import useUserStore from "store/userStore"
 import CreateForm from "./create-form"
 import styles from "./page.module.css"
 
 export default function ChallengeCreatePage() {
-  const [user, setUser] = useState<unknown>(null)
-  const [loading, setLoading] = useState(true)
+  const { loggedInUser, isLoading, fetchLoggedInUser } = useUserStore()
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const client = browserClient()
-        const { data } = await client.auth.getUser()
-        setUser(data.user)
-      } catch (err) {
-        console.error(err)
-      } finally {
-        setLoading(false)
-      }
-    }
-    void fetchUser()
-  }, [])
+    const client = browserClient()
 
-  if (loading) return <div>로딩중...</div>
+    const { data: listener } = client.auth.onAuthStateChange(() => {
+      void fetchLoggedInUser()
+    })
 
-  if (!user)
+    void fetchLoggedInUser()
+
+    return () => listener.subscription.unsubscribe()
+  }, [fetchLoggedInUser])
+
+  if (isLoading) return <div>로딩중...</div>
+
+  if (!loggedInUser)
     return (
       <div className={styles.pageWrapper}>
         <h1>로그인이 필요합니다.</h1>
