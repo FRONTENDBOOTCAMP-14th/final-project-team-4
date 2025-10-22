@@ -6,15 +6,14 @@
       "dependencies": {
         "@supabase/ssr": "^0.7.0",
         "@supabase/supabase-js": "^2.75.0",
-
         "autoprefixer": "^10.4.21",
-
         "clsx": "^2.1.1",
         "lucide-react": "^0.544.0",
         "next": "15.5.4",
         "postcss-import": "^16.1.1",
         "react": "19.1.0",
         "react-dom": "19.1.0",
+        "react-hook-form": "^7.65.0",
         "swiper": "^12.0.2",
         "swr": "^2.3.6",
         "zustand": "^5.0.8",
@@ -1190,6 +1189,13 @@
       "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==",
     ],
 
+    "baseline-browser-mapping": [
+      "baseline-browser-mapping@2.8.16",
+      "",
+      { "bin": { "baseline-browser-mapping": "dist/cli.js" } },
+      "sha512-OMu3BGQ4E7P1ErFsIPpbJh0qvDudM/UuJeHgkAvfWe+0HFJCXh+t/l8L6fVLR55RI/UbKrVLnAXZSVwd9ysWYw==",
+    ],
+
     "bin-links": [
       "bin-links@5.0.0",
       "",
@@ -1203,13 +1209,6 @@
         },
       },
       "sha512-sdleLVfCjBtgO5cNjA2HVRvWBJAHs4zwenaCPMNJAJU0yNxpzj80IpjOIimkpkr+mhlA+how5poQtt53PygbHA==",
-    ],
-
-    "baseline-browser-mapping": [
-      "baseline-browser-mapping@2.8.16",
-      "",
-      { "bin": { "baseline-browser-mapping": "dist/cli.js" } },
-      "sha512-OMu3BGQ4E7P1ErFsIPpbJh0qvDudM/UuJeHgkAvfWe+0HFJCXh+t/l8L6fVLR55RI/UbKrVLnAXZSVwd9ysWYw==",
     ],
 
     "brace-expansion": [
@@ -2844,12 +2843,6 @@
       "sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==",
     ],
 
-    "npm-normalize-package-bin": [
-      "npm-normalize-package-bin@4.0.0",
-      "",
-      {},
-      "sha512-TZKxPvItzai9kN9H/TkmCtx/ZN/hvr3vUycjlfmH0ootY9yFBzNOpiXAdIn1Iteqsvk4lQn6B5PTrt+n6h8k/w==",
-    ],
     "node-releases": [
       "node-releases@2.0.23",
       "",
@@ -2862,6 +2855,13 @@
       "",
       {},
       "sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==",
+    ],
+
+    "npm-normalize-package-bin": [
+      "npm-normalize-package-bin@4.0.0",
+      "",
+      {},
+      "sha512-TZKxPvItzai9kN9H/TkmCtx/ZN/hvr3vUycjlfmH0ootY9yFBzNOpiXAdIn1Iteqsvk4lQn6B5PTrt+n6h8k/w==",
     ],
 
     "object-assign": [
@@ -3161,6 +3161,13 @@
       "sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==",
     ],
 
+    "react-hook-form": [
+      "react-hook-form@7.65.0",
+      "",
+      { "peerDependencies": { "react": "^16.8.0 || ^17 || ^18 || ^19" } },
+      "sha512-xtOzDz063WcXvGWaHgLNrNzlsdFgtUWcb32E6WFaGTd7kPZG3EeDusjdZfUsPwKCKVXy1ZlntifaHZ4l8pAsmw==",
+    ],
+
     "react-is": [
       "react-is@16.13.1",
       "",
@@ -3168,17 +3175,18 @@
       "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==",
     ],
 
-    "read-cmd-shim": [
-      "read-cmd-shim@5.0.0",
-      "",
-      {},
-      "sha512-SEbJV7tohp3DAAILbEMPXavBjAnMN0tVnh4+9G8ihV4Pq3HYF9h8QNez9zkJ1ILkv9G2BjdzwctznGZXgu/HGw==",
-    ],
     "read-cache": [
       "read-cache@1.0.0",
       "",
       { "dependencies": { "pify": "^2.3.0" } },
       "sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==",
+    ],
+
+    "read-cmd-shim": [
+      "read-cmd-shim@5.0.0",
+      "",
+      {},
+      "sha512-SEbJV7tohp3DAAILbEMPXavBjAnMN0tVnh4+9G8ihV4Pq3HYF9h8QNez9zkJ1ILkv9G2BjdzwctznGZXgu/HGw==",
     ],
 
     "reflect.getprototypeof": [
