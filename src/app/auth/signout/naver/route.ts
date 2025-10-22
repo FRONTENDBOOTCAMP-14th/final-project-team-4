@@ -1,22 +1,31 @@
-// app/api/auth/signout/route.ts
-import { createServerClient } from "@supabase/ssr"
+import { createServerClient, type CookieOptions } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
-import type { Database } from "@/types/supabase"
+import type { Database } from "@/utils/supabase/database.types"
 import type { NextRequest } from "next/server"
 
 export async function POST(request: NextRequest) {
   try {
-    const bag = await cookies()
+    const jar = cookies()
+
     const supabase = createServerClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       {
         cookies: {
-          get: (n: string) => bag.get(n)?.value,
-          set: (n: string, v: string, o: any) =>
-            bag.set({ name: n, value: v, ...o }),
-          remove: (n: string, o: any) => bag.set({ name: n, value: "", ...o }),
+          async get(name: string) {
+            return (await jar).get(name)?.value ?? null
+          },
+          async set(name: string, value: string, options: CookieOptions) {
+            try {
+              ;(await jar).set({ name, value, ...options })
+            } catch {}
+          },
+          async remove(name: string, options: CookieOptions) {
+            try {
+              ;(await jar).set({ name, value: "", ...options })
+            } catch {}
+          },
         },
       }
     )
@@ -29,5 +38,4 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// 브라우저 직접 접근도 허용
 export const GET = POST
