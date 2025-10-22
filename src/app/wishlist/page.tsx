@@ -5,7 +5,7 @@ import ChallengeCard from "@/components/common/challenge-card/challenge-card"
 import FilterButton from "@/components/common/filter-button/filter-button"
 import TwoSortButton from "@/components/common/two-sort-button/two-sort-button"
 import type { TwoSortType } from "@/components/common/two-sort-button/two-sort-button"
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import styles from "./page.module.css"
 
 const DUMMY_CHALLENGES: Challenge[] = Array.from({ length: 100 }, (_, i) => ({
@@ -25,16 +25,14 @@ const DUMMY_CHALLENGES: Challenge[] = Array.from({ length: 100 }, (_, i) => ({
   description: `챌린지 ${i + 1} 설명입니다. 함께 목표를 달성해봐요!`,
   is_public: true,
   is_finished: false,
-  tags: [
-    ["1일 1회 인증", "건강"],
-    ["매일 인증", "꾸준함"],
-    ["운동", "건강"],
-    ["생활습관", "건강"],
-  ][i % 4],
+  tags: ["1일 1회 인증", "건강"],
   created_by_id: `user-${i + 1}`,
+  start_at: new Date().toISOString(),
   end_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
   success_threshold_percent: 80,
   uploading_type: ["사진", "글쓰기", "출석체크"][i % 3],
+  participants_count: 0,
+  owner: null,
 }))
 
 const ITEMS_PER_PAGE = 12

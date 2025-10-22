@@ -1,5 +1,5 @@
 import ChallengeCard from "@/components/common/challenge-card/challenge-card"
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import styles from "./ranked-challenge-card.module.css"
 
 interface RankedChallengeCardProps {

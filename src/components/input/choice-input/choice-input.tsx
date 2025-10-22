@@ -4,30 +4,35 @@ import type { InputId } from "../const"
 
 export interface ChoiceInputProps {
   id: InputId
-  type?: "checkbox" | "radio"
+  value?: string
+  onChange?: (value: string) => void
   required?: boolean
 }
 
 export default function ChoiceInput({
   id,
-  type = "radio",
+  value,
+  onChange,
   required = true,
 }: ChoiceInputProps) {
   const { label, className, options } = useInputConfig(id)
 
+  const selectedValue = value ?? options[0]
+
   return (
     <fieldset className={styles[className]}>
       <legend>{label}</legend>
-      {options.map((option: string, index: number) => (
+      {options.map((option: string) => (
         <div key={option} className={styles.wrapper}>
           <input
-            type={type}
+            type="radio"
             id={option}
-            className="sr-only"
             name={id}
-            defaultChecked={index === 0}
             value={option}
+            checked={selectedValue === option}
+            onChange={() => onChange?.(option)}
             required={required}
+            className="sr-only"
           />
           <label htmlFor={option}>{option}</label>
         </div>

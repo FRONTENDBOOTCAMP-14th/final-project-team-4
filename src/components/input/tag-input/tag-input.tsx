@@ -2,37 +2,47 @@
 
 import { useState } from "react"
 import clsx from "clsx"
+import type { Challenge } from "@/utils/supabase"
 import useInputConfig from "../useInputConfig"
 import styles from "./tag-input.module.css"
 import type { InputId } from "../const"
 
-export default function TagInput({ id }: { id: InputId }) {
+export interface TagInputProps {
+  id: InputId
+  value: Challenge["tags"]
+  onChange: (tags: Challenge["tags"]) => void
+  error?: string
+}
+
+export default function TagInput({
+  id,
+  value = [],
+  onChange,
+  error,
+}: TagInputProps) {
   const { label, maxLength, placeholder } = useInputConfig(id)
-  const [tags, setTags] = useState<string[]>([])
-  const [value, setValue] = useState("")
+  const [inputValue, setInputValue] = useState("")
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.nativeEvent.isComposing) return
-    if (value.length <= 0) return
-
-    const trimTag = value.trim()
-
-    if (e.key === "Enter" || (e.key === " " && trimTag)) {
-      e.preventDefault()
-      if (tags.length >= maxLength) return
-
-      const newTag = trimTag.startsWith("#") ? trimTag : `#${trimTag}`
-
-      if (!trimTag.includes("##") && !tags.includes(newTag)) {
-        setTags((tags) => [...tags, newTag])
-      }
-
-      setValue("")
+  const handleAddTag = (tag: string) => {
+    if (value.length >= maxLength) return
+    const newTag = tag.startsWith("#") ? tag : `#${tag}`
+    if (!tag.includes("##") && !value.includes(newTag)) {
+      onChange([...value, newTag])
     }
   }
 
-  const handleOnClick = (tag: string) => {
-    setTags((tags) => tags.filter((t) => t !== tag))
+  const handleRemoveTag = (tag: string) => {
+    onChange(value.filter((t) => t !== tag))
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return
+    const trimTag = inputValue.trim()
+    if (e.key === "Enter" || (e.key === " " && trimTag)) {
+      e.preventDefault()
+      handleAddTag(trimTag)
+      setInputValue("")
+    }
   }
 
   return (
@@ -42,31 +52,37 @@ export default function TagInput({ id }: { id: InputId }) {
         <span
           className={clsx(
             styles.count,
-            tags.length > 0 ? styles.highlight : ""
+            value.length > 0 ? styles.highlight : ""
           )}
         >
-          ({tags.length} / {maxLength})
+          ({value.length} / {maxLength})
         </span>
       </label>
+
       <div className={styles.tagWrapper}>
         <div className={styles.tagButtons}>
-          {tags.map((tag) => (
-            <button type="button" key={tag} onClick={() => handleOnClick(tag)}>
+          {value.map((tag) => (
+            <button
+              type="button"
+              key={tag}
+              onClick={() => handleRemoveTag(tag)}
+            >
               {tag}
             </button>
           ))}
         </div>
         <input
-          type="text"
           id={id}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          disabled={tags.length >= maxLength}
+          disabled={value.length >= maxLength}
         />
       </div>
-      <input type="hidden" name={id} value={tags} />
+
+      {error && <p className={styles.error}>{error}</p>}
     </div>
   )
 }

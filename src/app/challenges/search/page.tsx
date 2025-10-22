@@ -7,7 +7,7 @@ import NoSearchResult from "@/components/challenge/no-search-result/no-search-re
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import SortButton from "@/components/common/sort-button/sort-button"
 import type { SortType } from "@/components/common/sort-button/sort-button"
-import type { Challenge } from "@/types"
+import type { Challenge } from "@/utils/supabase"
 import styles from "./page.module.css"
 
 const DUMMY_CHALLENGES: Challenge[] = [
@@ -22,9 +22,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["매일 인증", "꾸준함"],
     created_by_id: "user-1",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 80,
     uploading_type: "사진",
+    participants_count: 0,
+    owner: null,
   },
   {
     id: "hamster-2",
@@ -36,9 +39,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["1일 1회 인증", "건강"],
     created_by_id: "user-2",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 70,
     uploading_type: "출석체크",
+    participants_count: 0,
+    owner: null,
   },
   {
     id: "hamster-3",
@@ -50,9 +56,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["매일 인증", "꾸준함"],
     created_by_id: "user-3",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 75,
     uploading_type: "글쓰기",
+    participants_count: 0,
+    owner: null,
   },
   // 운동 관련 챌린지들
   {
@@ -65,9 +74,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["1일 1회 인증", "건강"],
     created_by_id: "user-4",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 85,
     uploading_type: "사진",
+    participants_count: 0,
+    owner: null,
   },
   {
     id: "exercise-2",
@@ -79,9 +91,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["매일 인증", "건강"],
     created_by_id: "user-5",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 80,
     uploading_type: "사진",
+    participants_count: 0,
+    owner: null,
   },
   {
     id: "exercise-3",
@@ -93,9 +108,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["1일 1회 인증", "건강"],
     created_by_id: "user-6",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 90,
     uploading_type: "출석체크",
+    participants_count: 0,
+    owner: null,
   },
   {
     id: "exercise-4",
@@ -107,9 +125,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["매일 인증", "건강"],
     created_by_id: "user-7",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 80,
     uploading_type: "글쓰기",
+    participants_count: 0,
+    owner: null,
   },
   // 학습 관련 챌린지들
   {
@@ -122,9 +143,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["매일 인증", "꾸준함"],
     created_by_id: "user-8",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 85,
     uploading_type: "사진",
+    participants_count: 0,
+    owner: null,
   },
   {
     id: "study-2",
@@ -136,9 +160,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["1일 1회 인증", "건강"],
     created_by_id: "user-9",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 75,
     uploading_type: "글쓰기",
+    participants_count: 0,
+    owner: null,
   },
   {
     id: "study-3",
@@ -150,9 +177,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["매일 인증", "꾸준함"],
     created_by_id: "user-10",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 80,
     uploading_type: "출석체크",
+    participants_count: 0,
+    owner: null,
   },
   // 습관 관련 챌린지들
   {
@@ -165,9 +195,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["1일 1회 인증", "건강"],
     created_by_id: "user-11",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 90,
     uploading_type: "사진",
+    participants_count: 0,
+    owner: null,
   },
   {
     id: "habit-2",
@@ -179,9 +212,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["매일 인증", "건강"],
     created_by_id: "user-12",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 85,
     uploading_type: "출석체크",
+    participants_count: 0,
+    owner: null,
   },
   {
     id: "habit-3",
@@ -193,9 +229,12 @@ const DUMMY_CHALLENGES: Challenge[] = [
     is_finished: false,
     tags: ["1일 1회 인증", "건강"],
     created_by_id: "user-13",
+    start_at: new Date().toISOString(),
     end_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     success_threshold_percent: 80,
     uploading_type: "글쓰기",
+    participants_count: 0,
+    owner: null,
   },
 ]
 
