@@ -12,6 +12,7 @@
 
   .userInfoBg {
     content: none;
+    width: 100%;
   }
 
   .userProfileImage {
@@ -47,8 +48,30 @@
     }
   }
 
+  .nicknameArea,
+  .bioArea {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+  }
+
+  .formErrorMessage {
+    color: var(--brand-sub3);
+    font-size: 12px;
+    font-weight: 500;
+    align-self: self-end;
+  }
+
   .button {
     width: 140px;
+    margin: 0 auto;
+  }
+
+  .editButtonsWrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 294px;
+    gap: 14px;
     margin: 0 auto;
   }
 }

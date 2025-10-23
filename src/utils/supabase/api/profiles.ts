@@ -1,5 +1,7 @@
-import type { User } from "@/types/user"
+import type { Database } from "@/utils/supabase/database.types"
 import browserClient from "../client"
+
+export type User = Database["public"]["Tables"]["users"]["Row"]
 
 // Profiles 스토리지에 이미지 저장
 export const updateProfileImage = async (
@@ -75,6 +77,25 @@ export const removeProfileImageUrl = async (userData: User): Promise<void> => {
 
   if (removeProfileImageUrlError) {
     const errorMessage = `스토리지에서 이미지 삭제 오류: ${removeProfileImageUrlError.message}`
+    throw new Error(errorMessage)
+  }
+}
+
+// Users 테이블의 username, bio 업데이트
+export const updateUserInfo = async (
+  userData: User,
+  newNickname: User["username"],
+  newBio?: User["bio"]
+): Promise<void> => {
+  const supabase = browserClient()
+
+  const { error: updateUserProfileError } = await supabase
+    .from("users")
+    .update({ username: newNickname, bio: newBio })
+    .eq("id", userData.id)
+
+  if (updateUserProfileError) {
+    const errorMessage = `프로필 정보 저장 실패 :${updateUserProfileError.message}`
     throw new Error(errorMessage)
   }
 }
