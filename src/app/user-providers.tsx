@@ -1,6 +1,6 @@
 "use client"
 
-import type { ReactNode } from "react"
+import { useEffect, type ReactNode } from "react"
 import type { User } from "@/utils/supabase"
 import useUserStore from "store/userStore"
 
@@ -13,7 +13,9 @@ export default function UserProvider({
   initialUser,
   children,
 }: UserProviderProps) {
-  useUserStore.setState({ loggedInUser: initialUser })
+  useEffect(() => {
+    useUserStore.setState({ loggedInUser: initialUser })
+  }, [initialUser])
 
   return children
 }
