@@ -13,7 +13,6 @@ const initialProfile = {
 
 export default function UserInfoSection() {
   const [isEditing, setIsEditing] = useState(false)
-  // const [isEditing, setIsEditing] = useState(true)
 
   return (
     <section className={styles.userInfoSection}>
