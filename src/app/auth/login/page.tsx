@@ -1,11 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import appleIconPath from "@/../public/company-icons/apple.svg"
 import googleIconPath from "@/../public/company-icons/google.svg"
 import kakaoIconPath from "@/../public/company-icons/kakao.svg"
 import imagePath from "@/../public/login-page.png"
 import { useAuth } from "@/contexts/AuthContext"
+import handleGoogleLogin from "./google/action"
 import handleKakaoLogin from "./kakao/actions"
 import styles from "./page.module.css"
 
@@ -28,8 +28,7 @@ export default function Login() {
           <ul className={styles.loginButtonsContainer}>
             <li>
               <button
-                // 구글 소셜 로그인 구현 후 사용
-                // onClick={handleGoogleLogin}
+                onClick={handleGoogleLogin}
                 className={styles.googleLoginButton}
                 type="button"
               >
@@ -49,7 +48,6 @@ export default function Login() {
             </li>
             <li>
               <button
-                // 애플 소셜 로그인 구현 후 사용
                 onClick={signInWithNaver}
                 disabled={loading}
                 className={styles.naverLoginButton}
