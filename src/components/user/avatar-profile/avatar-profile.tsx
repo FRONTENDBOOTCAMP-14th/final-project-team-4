@@ -3,15 +3,17 @@
 import { useState } from "react"
 import { LucidePen } from "lucide-react"
 import { v4 as uuidv4 } from "uuid"
-import type { User } from "@/types/user"
 import {
   updateProfileImage,
   uploadProfilePublicUrl,
   removeProfileStorage,
 } from "@/utils/supabase/api/profiles"
+import type { Database } from "@/utils/supabase/database.types"
 import useUserStore from "store/userStore"
 import Avatar from "../avatar/avatar"
 import styles from "./avatar-profile.module.css"
+
+export type User = Database["public"]["Tables"]["users"]["Row"]
 
 interface AvatarProfileProps {
   userData: User
@@ -21,9 +23,7 @@ const userFallbackImage = "/fallback/fallback-user.png"
 
 export default function AvatarProfile({ userData }: AvatarProfileProps) {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-  const updateProfileImageInStore = useUserStore(
-    (state) => state.updateProfileImage
-  )
+  const updateUserInStore = useUserStore((state) => state.updateUserInStore)
   const imageUrl = useUserStore((state) => state.loggedInUser?.profile_image)
 
   let safeImageUrl: string
@@ -58,7 +58,7 @@ export default function AvatarProfile({ userData }: AvatarProfileProps) {
 
       await uploadProfilePublicUrl(userData, publicUrl)
 
-      updateProfileImageInStore(publicUrl)
+      updateUserInStore({ profile_image: publicUrl })
     } catch (error) {
       console.error("프로필 사진 수정 실패: ", error)
     } finally {
