@@ -99,3 +99,21 @@ export const updateUserInfo = async (
     throw new Error(errorMessage)
   }
 }
+
+// Users 테이블의 is_public 업데이트
+export const updateUserPublicStatus = async (
+  userData: User,
+  isPublic: boolean
+): Promise<void> => {
+  const supabase = browserClient()
+
+  const { error: updateUserPublicStatusError } = await supabase
+    .from("users")
+    .update({ is_public: isPublic })
+    .eq("id", userData.id)
+
+  if (updateUserPublicStatusError) {
+    const errorMessage = `계정 공개 상태 DB 업데이트 실패 :${updateUserPublicStatusError.message}`
+    throw new Error(errorMessage)
+  }
+}

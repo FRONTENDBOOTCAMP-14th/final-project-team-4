@@ -33,12 +33,6 @@ export default function UserInfoSection() {
     reset,
   } = useForm<ProfileFormValues>({ defaultValues: loggedInUser })
 
-  if (loggedInUser === undefined) {
-    return <p>로딩 중</p>
-  } else if (loggedInUser === null) {
-    return <p>로그인 하세요</p>
-  }
-
   const handleRemoveAvatar = async (
     e: React.MouseEvent<HTMLElement, MouseEvent>
   ): Promise<void> => {
