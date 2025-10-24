@@ -5,17 +5,18 @@ import useRecordCardStore from "store/useRecordCardStore"
 
 interface DbUser {
   id: string
-  nickname: string | null
-  avatar_url: string | null
+  username: string | null
+  profile_image: string | null
 }
 
 interface RecordCardData {
   id: string
   content: string | null
   image_url: string | null
+  image_urls: string[] | null
   created_at: string
   user: DbUser | null
-  participant: { challenge_id: string; streak_days: number | null } | null
+  participant: { challenge_id: string; completed_days: number | null } | null
   likesCount: number
   commentsCount: number
   isLikedByMe: boolean
@@ -31,7 +32,9 @@ export function useRecordCard(recordId: string, userId?: string | null) {
 
     const { data: record, error: recErr } = await supabase
       .from("challenge_records")
-      .select("id, content, image_urls, created_at, user_id, challenge_id")
+      .select(
+        "id, content, image_urls, created_at, user_id, challenge_id, like_count, comment_count"
+      )
       .eq("id", recordId)
       .maybeSingle()
     if (recErr) throw recErr
@@ -39,26 +42,16 @@ export function useRecordCard(recordId: string, userId?: string | null) {
 
     const { data: user } = await supabase
       .from("users")
-      .select("id, nickname, avatar_url")
+      .select("id, username, profile_image")
       .eq("id", record.user_id)
       .maybeSingle()
 
     const { data: participant } = await supabase
       .from("challenge_participants")
-      .select("challenge_id, streak_days")
+      .select("challenge_id, completed_days")
       .eq("challenge_id", record.challenge_id)
       .eq("user_id", record.user_id)
       .maybeSingle()
-
-    const { count: likesCount = 0 } = await supabase
-      .from("record_likes")
-      .select("*", { head: true, count: "exact" })
-      .eq("record_id", recordId)
-
-    const { count: commentsCount = 0 } = await supabase
-      .from("record_comments")
-      .select("*", { head: true, count: "exact" })
-      .eq("record_id", recordId)
 
     let isLikedByMe = false
     let isReportedByMe = false
@@ -73,8 +66,7 @@ export function useRecordCard(recordId: string, userId?: string | null) {
         supabase
           .from("reports")
           .select("id")
-          .eq("target_type", "record")
-          .eq("target_id", recordId)
+          .eq("record_id", recordId)
           .eq("reporter_id", userId)
           .maybeSingle(),
       ])
@@ -82,20 +74,25 @@ export function useRecordCard(recordId: string, userId?: string | null) {
       isReportedByMe = !!reported
     }
 
+    const imgs = (record.image_urls as unknown as string[] | null) ?? null
+    const firstImage = Array.isArray(imgs) && imgs.length > 0 ? imgs[0] : null
+
     const shaped: RecordCardData = {
       id: record.id,
       content: record.content ?? null,
-      image_url: record.image_urls ?? null,
+      image_url: firstImage,
+      image_urls: imgs,
       created_at: record.created_at,
       user: user ?? null,
       participant: participant
         ? {
             challenge_id: participant.challenge_id,
-            streak_days: participant.streak_days,
+            completed_days: participant.completed_days,
           }
         : null,
-      likesCount,
-      commentsCount,
+      likesCount: typeof record.like_count === "number" ? record.like_count : 0,
+      commentsCount:
+        typeof record.comment_count === "number" ? record.comment_count : 0,
       isLikedByMe,
       isReportedByMe,
     }
