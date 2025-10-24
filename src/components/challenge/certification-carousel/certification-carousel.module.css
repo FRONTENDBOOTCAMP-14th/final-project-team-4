@@ -1,0 +1,52 @@
+.section {
+  margin-block: 24px;
+}
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-block-end: 12px;
+}
+
+.cardWrap {
+  width: 100%;
+}
+
+.navigationWrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-block-end: 8px;
+
+  .navigationButton {
+    inline-size: 36px;
+    block-size: 36px;
+    border-radius: 50px;
+    border: 1px solid var(--border, #ddd);
+    background: #fff;
+    cursor: pointer;
+  }
+}
+
+.swiper {
+  width: 100%;
+  overflow: visible;
+}
+
+.swiper {
+  overflow: visible;
+}
+.slide {
+  width: 100%;
+  height: auto;
+  padding-block: 4px;
+  min-height: 120px;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+.cardCell {
+  min-height: 120px;
+}
