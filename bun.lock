@@ -16,6 +16,7 @@
         "react-hook-form": "^7.65.0",
         "swiper": "^12.0.2",
         "swr": "^2.3.6",
+        "uuid": "^13.0.0",
         "zustand": "^5.0.8",
       },
       "devDependencies": {
@@ -3882,6 +3883,13 @@
         },
       },
       "sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==",
+    ],
+
+    "uuid": [
+      "uuid@13.0.0",
+      "",
+      { "bin": { "uuid": "dist-node/bin/uuid" } },
+      "sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==",
     ],
 
     "web-streams-polyfill": [

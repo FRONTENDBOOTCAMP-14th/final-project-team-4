@@ -21,9 +21,8 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
       {
-        protocol: "http",
-        hostname: "k.kakaocdn.net",
-        pathname: "/**",
+        protocol: "https",
+        hostname: "fdzlnftvhekjhabnugrl.supabase.co",
       },
     ],
   },
