@@ -3,6 +3,7 @@
   border: 1px solid var(--divider);
   border-radius: 20px;
   max-inline-size: 360px;
+  min-inline-size: 320px;
   background: var(--surface-bg-main);
   font-size: 0.875rem;
   color: var(--text-color-sub);
@@ -27,7 +28,7 @@
     padding-inline-end: 6px;
   }
 
-  .iamgeWrapper {
+  .imageWrapper {
     border-radius: 10px;
     overflow: hidden;
     aspect-ratio: 2.3 / 1;
