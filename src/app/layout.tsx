@@ -9,7 +9,6 @@ import UserProvider from "./user-providers"
 export const metadata: Metadata = {
   title: "Minimo",
   description: "Minimo, create small challenges",
-  manifest: "/manifest.ts",
 }
 
 export default async function RootLayout({
