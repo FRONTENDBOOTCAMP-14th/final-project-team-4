@@ -29,13 +29,16 @@
   }
 
   .imageWrapper {
+    position: relative;
+    aspect-ratio: 2.3 / 1;
     border-radius: 10px;
     overflow: hidden;
-    aspect-ratio: 2.3 / 1;
 
-    img {
-      object-fit: contain;
-      object-position: top left;
+    .image {
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      translate: 0 -25%;
     }
   }
 
