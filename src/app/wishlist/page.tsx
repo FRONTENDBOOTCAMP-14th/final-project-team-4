@@ -5,50 +5,30 @@ import ChallengeCard from "@/components/common/challenge-card/challenge-card"
 import FilterButton from "@/components/common/filter-button/filter-button"
 import TwoSortButton from "@/components/common/two-sort-button/two-sort-button"
 import type { TwoSortType } from "@/components/common/two-sort-button/two-sort-button"
-import type { Challenge } from "@/utils/supabase"
+import { useAuth } from "@/contexts/AuthContext"
+import { useWishlist } from "@/utils/hooks/useWishlist"
 import styles from "./page.module.css"
 
-const DUMMY_CHALLENGES: Challenge[] = Array.from({ length: 100 }, (_, i) => ({
-  id: `challenge-${i + 1}`,
-  category: ["건강 / 운동", "학습", "습관", "취미"][i % 4],
-  title: [
-    "일주일 물만 먹기 챌린지 다 2L 마시기",
-    "귀여운 햄스터 사진 찍고 공유하는 챌린지",
-    "양치를 꾸준히 해요",
-    "1일 10식 모임",
-    "매일 아침 스트레칭 30분",
-    "저녁 10시 이전 취침하기",
-    "하루 만보 걷기 챌린지",
-    "요가 30일 챌린지",
-  ][i % 8],
-  thumbnail: ["/test.png", "/images/banner-img1.png"][i % 2],
-  description: `챌린지 ${i + 1} 설명입니다. 함께 목표를 달성해봐요!`,
-  is_public: true,
-  is_finished: false,
-  tags: ["1일 1회 인증", "건강"],
-  created_by_id: `user-${i + 1}`,
-  start_at: new Date().toISOString(),
-  end_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-  success_threshold_percent: 80,
-  uploading_type: ["사진", "글쓰기", "출석체크"][i % 3],
-  participants_count: 0,
-  owner: null,
-}))
-
-const ITEMS_PER_PAGE = 12
-
 export default function Wishlist() {
+  const { user, loading: authLoading } = useAuth()
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedAuthTypes, setSelectedAuthTypes] = useState<string[]>([])
   const [sortType, setSortType] = useState<TwoSortType>("latest")
-  const [displayedChallenges, setDisplayedChallenges] = useState<Challenge[]>(
-    []
-  )
-  const [page, setPage] = useState(1)
-  const [hasMore, setHasMore] = useState(true)
-  const [isLoading, setIsLoading] = useState(false)
 
   const observerTarget = useRef<HTMLDivElement>(null)
+
+  const {
+    challenges: displayedChallenges,
+    isLoading,
+    error,
+    hasMore,
+    loadMore,
+  } = useWishlist({
+    categories: selectedCategories,
+    authTypes: selectedAuthTypes,
+    sortType,
+    limit: 12,
+  })
 
   const categories = ["전체", "건강 / 운동", "학습", "습관", "취미"]
   const authTypes = ["전체", "사진 인증", "글쓰기 인증", "출석 체크 인증"]
@@ -78,8 +58,6 @@ export default function Wishlist() {
         return allIndividualSelected ? [...withoutAll, "전체"] : withoutAll
       })
     }
-    setPage(1)
-    setDisplayedChallenges([])
   }
 
   function handleAuthTypeToggle(authType: string) {
@@ -111,82 +89,16 @@ export default function Wishlist() {
         return allIndividualSelected ? [...withoutAll, "전체"] : withoutAll
       })
     }
-    setPage(1)
-    setDisplayedChallenges([])
   }
 
   function handleSortChange(newSort: TwoSortType) {
     setSortType(newSort)
-    setPage(1)
-    setDisplayedChallenges([])
   }
 
   const loadMoreChallenges = useCallback(() => {
     if (isLoading || !hasMore) return
-
-    setIsLoading(true)
-
-    setTimeout(() => {
-      let filteredChallenges = [...DUMMY_CHALLENGES]
-
-      if (
-        selectedCategories.length > 0 &&
-        !selectedCategories.includes("전체")
-      ) {
-        filteredChallenges = filteredChallenges.filter((challenge) =>
-          selectedCategories.includes(challenge.category)
-        )
-      }
-
-      if (selectedAuthTypes.length > 0 && !selectedAuthTypes.includes("전체")) {
-        filteredChallenges = filteredChallenges.filter((challenge) => {
-          const uploadingTypeMap: Record<string, string> = {
-            "사진 인증": "사진",
-            "글쓰기 인증": "글쓰기",
-            "출석 체크 인증": "출석체크",
-          }
-          return selectedAuthTypes.some(
-            (filter) => uploadingTypeMap[filter] === challenge.uploading_type
-          )
-        })
-      }
-
-      if (sortType === "oldest") {
-        filteredChallenges = [...filteredChallenges].reverse()
-      }
-
-      const startIndex = (page - 1) * ITEMS_PER_PAGE
-      const endIndex = startIndex + ITEMS_PER_PAGE
-      const newChallenges = filteredChallenges.slice(startIndex, endIndex)
-
-      if (newChallenges.length === 0 || endIndex >= filteredChallenges.length) {
-        setHasMore(false)
-      }
-
-      setDisplayedChallenges((prev) => [...prev, ...newChallenges])
-      setPage((prev) => prev + 1)
-      setIsLoading(false)
-    }, 500)
-  }, [
-    page,
-    selectedCategories,
-    selectedAuthTypes,
-    sortType,
-    isLoading,
-    hasMore,
-  ])
-
-  useEffect(() => {
-    setDisplayedChallenges([])
-    setPage(1)
-    setHasMore(true)
-  }, [selectedCategories, selectedAuthTypes, sortType])
-
-  useEffect(() => {
-    if (displayedChallenges.length === 0) {
-      loadMoreChallenges()
-    }
-  }, [displayedChallenges.length, loadMoreChallenges])
+    void loadMore()
+  }, [isLoading, hasMore, loadMore])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -209,6 +121,52 @@ export default function Wishlist() {
       }
     }
   }, [hasMore, isLoading, loadMoreChallenges])
+
+  // 인증 상태 로딩 중일 때 처리
+  if (authLoading) {
+    return (
+      <div className={styles.pageWrapper}>
+        <main className={styles.main}>
+          <div className={styles.loadingIndicator}>
+            <div className={styles.spinner} />
+            로딩 중...
+          </div>
+        </main>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <div className={styles.pageWrapper}>
+        <main className={styles.main}>
+          <div className={styles.emptyState}>
+            <div className={styles.emptyContent}>
+              <h3 className={styles.emptyTitle}>로그인이 필요합니다</h3>
+              <p className={styles.emptyDescription}>
+                찜한 챌린지를 보려면 로그인해주세요.
+              </p>
+            </div>
+          </div>
+        </main>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className={styles.pageWrapper}>
+        <main className={styles.main}>
+          <div className={styles.emptyState}>
+            <div className={styles.emptyContent}>
+              <h3 className={styles.emptyTitle}>오류가 발생했습니다</h3>
+              <p className={styles.emptyDescription}>{error}</p>
+            </div>
+          </div>
+        </main>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.pageWrapper}>
@@ -250,16 +208,25 @@ export default function Wishlist() {
 
         {displayedChallenges.length > 0 ? (
           <section className={styles.challengeGrid}>
-            {displayedChallenges.map((challenge, index) => (
-              <ChallengeCard
-                key={`${challenge.id}-${index}`}
-                challenge={challenge}
-                participantCount={123 + index * 5}
-                daysLeft={7}
-              />
-            ))}
+            {displayedChallenges.map((challenge, index) => {
+              // 남은 일수 계산
+              const now = new Date()
+              const endDate = new Date(challenge.end_at)
+              const daysLeft = Math.ceil(
+                (endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
+              )
+
+              return (
+                <ChallengeCard
+                  key={`${challenge.id}-${index}`}
+                  challenge={challenge}
+                  participantCount={challenge.participants_count}
+                  daysLeft={Math.max(0, daysLeft)}
+                />
+              )
+            })}
           </section>
-        ) : (
+        ) : !isLoading ? (
           <div className={styles.emptyState}>
             <div className={styles.emptyContent}>
               <h3 className={styles.emptyTitle}>
@@ -270,7 +237,7 @@ export default function Wishlist() {
               </p>
             </div>
           </div>
-        )}
+        ) : null}
 
         {isLoading && (
           <div className={styles.loadingIndicator}>

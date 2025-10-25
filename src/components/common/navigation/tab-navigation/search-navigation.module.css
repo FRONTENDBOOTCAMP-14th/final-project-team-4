@@ -21,13 +21,43 @@
     width: 100%;
     background-color: transparent;
     border: none;
+    outline: none;
+    
+    &:focus {
+      outline: none;
+    }
   }
+  
   > button {
     width: 24px;
     height: 24px;
     border: 0;
     padding: 0;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: color 0.2s ease;
+
+    &:hover:not(:disabled) {
+      color: var(--primary);
+    }
+
+    &:disabled {
+      color: var(--text-disabled);
+      cursor: not-allowed;
+    }
   }
+}
+
+.errorInput {
+  border-color: var(--error) !important;
+}
+
+.errorMessage {
+  color: var(--error);
+  font-size: 0.875rem;
+  margin-top: 4px;
+  margin-left: 12px;
 }
 
 @media (max-width: 1200px) {

@@ -30,6 +30,21 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "fdzlnftvhekjhabnugrl.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "ssl.pstatic.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "phinf.pstatic.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "pstatic.net",
+        pathname: "/**",
+      },
     ],
   },
 }
