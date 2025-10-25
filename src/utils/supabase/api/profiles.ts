@@ -50,8 +50,6 @@ export const removeProfileStorage = async (userData: User): Promise<void> => {
   const supabase = browserClient()
   const oldProfileImage = userData.profile_image
 
-  console.log("oldProfileImage", oldProfileImage)
-
   if (oldProfileImage) {
     const oldFileName = oldProfileImage.split("/").pop()
     if (oldFileName) {
