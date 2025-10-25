@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ToggleSwitch from "@/components/common/toggle-switch/toggle-switch"
 import { updateUserPublicStatus } from "@/utils/supabase/api/profiles"
 import useUserStore from "store/userStore"
@@ -11,6 +11,7 @@ export default function UserInfoCustomSection() {
   const updateUserInStore = useUserStore((state) => state.updateUserInStore)
 
   const [isPublic, setIsPublic] = useState(loggedInUser.is_public)
+  const [isLightTheme, setIsLightTheme] = useState(true)
 
   const handleUserPublicStatus = async (checked: boolean) => {
     try {
@@ -20,6 +21,26 @@ export default function UserInfoCustomSection() {
     } catch (error) {
       console.error("계정 공개 상태 변경 실패: ", error)
     }
+  }
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme")
+
+    if (savedTheme === "light" || savedTheme === "dark") {
+      setIsLightTheme(savedTheme === "light")
+    } else {
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches
+      setIsLightTheme(!prefersDark)
+    }
+  }, [])
+
+  const handleThemeChange = (checked: boolean) => {
+    const theme = checked ? "light" : "dark"
+    setIsLightTheme(checked)
+    document.documentElement.style.colorScheme = theme
+    localStorage.setItem("theme", theme)
   }
 
   return (
@@ -39,9 +60,11 @@ export default function UserInfoCustomSection() {
         <div className={styles.toggle}>
           <span>테마 설정</span>
           <ToggleSwitch
-            name="private"
+            name="theme"
             onLabel="라이트 모드"
             offLabel="다크 모드"
+            checked={isLightTheme}
+            onChange={handleThemeChange}
           />
         </div>
       </div>

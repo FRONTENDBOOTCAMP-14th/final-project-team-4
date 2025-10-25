@@ -35,7 +35,22 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="ko-KR">
+    <html lang="ko-KR" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              const saved = localStorage.getItem('theme');
+              if (saved) {
+                document.documentElement.style.colorScheme = saved;
+              } else {
+                const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+              }
+            `,
+          }}
+        />
+      </head>
       <body>
         <AuthProvider>
           <UserProvider initialUser={userData}>
