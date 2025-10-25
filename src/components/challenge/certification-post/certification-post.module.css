@@ -42,6 +42,10 @@
     }
   }
 
+  .caption {
+    padding-block-start: 16px;
+  }
+
   .buttonWrapper {
     display: flex;
     flex-flow: row nowrap;
