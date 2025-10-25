@@ -83,6 +83,15 @@
   inline-size: 100%;
 }
 
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  color: var(--text-color-sub);
+  font-size: 1rem;
+}
+
 /* PC 뷰: 헤더가 좌측 고정 */
 @media (min-width: 1201px) {
   .main {

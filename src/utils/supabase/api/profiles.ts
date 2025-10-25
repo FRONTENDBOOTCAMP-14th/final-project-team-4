@@ -50,8 +50,6 @@ export const removeProfileStorage = async (userData: User): Promise<void> => {
   const supabase = browserClient()
   const oldProfileImage = userData.profile_image
 
-  console.log("oldProfileImage", oldProfileImage)
-
   if (oldProfileImage) {
     const oldFileName = oldProfileImage.split("/").pop()
     if (oldFileName) {
@@ -96,6 +94,24 @@ export const updateUserInfo = async (
 
   if (updateUserProfileError) {
     const errorMessage = `프로필 정보 저장 실패 :${updateUserProfileError.message}`
+    throw new Error(errorMessage)
+  }
+}
+
+// Users 테이블의 is_public 업데이트
+export const updateUserPublicStatus = async (
+  userData: User,
+  isPublic: boolean
+): Promise<void> => {
+  const supabase = browserClient()
+
+  const { error: updateUserPublicStatusError } = await supabase
+    .from("users")
+    .update({ is_public: isPublic })
+    .eq("id", userData.id)
+
+  if (updateUserPublicStatusError) {
+    const errorMessage = `계정 공개 상태 DB 업데이트 실패 :${updateUserPublicStatusError.message}`
     throw new Error(errorMessage)
   }
 }
