@@ -1,5 +1,6 @@
 import Image from "next/image"
 import CertificationCarousel from "@/components/challenge/certification-carousel/certification-carousel"
+import RecordCreateForm from "@/components/challenge/record-create-form/record-create-form"
 import Button from "@/components/common/button/button"
 import CategoryTag from "@/components/common/category-tag/category-tag"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
@@ -14,9 +15,9 @@ export type User = Database["public"]["Tables"]["users"]["Row"]
 export default async function ChallengeDetailPage({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
-  const { id } = params
+  const { id } = await params
   const supabase = await createClient()
 
   const { data: challenge, error: challengeError } = await supabase
@@ -78,6 +79,7 @@ export default async function ChallengeDetailPage({
             src={challenge.thumbnail}
             alt={challenge.title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             priority
             aria-hidden
           />
@@ -128,7 +130,7 @@ export default async function ChallengeDetailPage({
           userId={user?.id ?? null}
         />
         {user ? (
-          <div>인증하기</div>
+          <RecordCreateForm challengeId={challenge.id} userId={user.id} />
         ) : (
           <ChallengeCardList
             title={`${challenge.category}의 다른 챌린지`}
