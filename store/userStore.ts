@@ -7,6 +7,7 @@ interface UserStore {
   isLoading: boolean
   fetchLoggedInUser: () => Promise<void>
   storeLogout: () => void
+  updateUserInStore: (updatedData: Partial<User>) => void
 }
 
 const useUserStore = create<UserStore>((set) => ({
@@ -43,6 +44,14 @@ const useUserStore = create<UserStore>((set) => ({
 
   storeLogout: () => {
     set({ loggedInUser: null })
+  },
+
+  updateUserInStore: (updatedData: Partial<User>) => {
+    set((state) => ({
+      loggedInUser: state.loggedInUser
+        ? { ...state.loggedInUser, ...updatedData }
+        : null,
+    }))
   },
 }))
 

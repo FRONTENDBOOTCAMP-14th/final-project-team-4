@@ -1,19 +1,74 @@
 "use client"
 
 import { useState } from "react"
+import { useForm } from "react-hook-form"
 import Button from "@/components/common/button/button"
 import AvatarProfile from "@/components/user/avatar-profile/avatar-profile"
+import {
+  removeProfileImageUrl,
+  removeProfileStorage,
+  updateUserInfo,
+} from "@/utils/supabase/api/profiles"
+import type { Database } from "@/utils/supabase/database.types"
+import useUserStore from "store/userStore"
 import styles from "./user-info-section.module.css"
 
-const initialProfile = {
-  nickname: "홍길동",
-  bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, temporibus alias ullam a dicta molestiae expedita veritatis nostrum earum sapiente praesentium? Fugiat eum commodi pariatur fuga delectus at minus voluptate?",
-  oauthCompany: "카카오",
+export type User = Database["public"]["Tables"]["users"]["Row"]
+
+interface ProfileFormValues {
+  username: string
+  bio?: string
 }
 
 export default function UserInfoSection() {
   const [isEditing, setIsEditing] = useState(false)
-  // const [isEditing, setIsEditing] = useState(true)
+
+  const loggedInUser = useUserStore((state) => state.loggedInUser)
+  const updateUserInStore = useUserStore((state) => state.updateUserInStore)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<ProfileFormValues>({ defaultValues: loggedInUser })
+
+  const handleRemoveAvatar = async (
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ): Promise<void> => {
+    e.preventDefault()
+
+    try {
+      await removeProfileImageUrl(loggedInUser)
+      await removeProfileStorage(loggedInUser)
+      updateUserInStore({ profile_image: null })
+    } catch (error) {
+      console.error("프로필 사진 삭제 실패: ", error)
+    }
+  }
+
+  const onSubmit = async (data: ProfileFormValues) => {
+    await updateUserInfo(loggedInUser, data.username, data.bio)
+    updateUserInStore({ username: data.username, bio: data.bio })
+    reset(data)
+    setIsEditing(false)
+  }
+
+  const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsEditing(true)
+    reset({
+      username: loggedInUser?.username,
+      bio: loggedInUser?.bio,
+    })
+  }
+
+  const handleCancelEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsEditing(false)
+  }
 
   return (
     <section className={styles.userInfoSection}>
@@ -21,60 +76,111 @@ export default function UserInfoSection() {
         <h3>회원정보</h3>
         <div className={styles.userInfoWrapper}>
           <div className={styles.userProfileImage}>
-            <AvatarProfile imageUrl="/public/test.png" />
+            <AvatarProfile userData={loggedInUser} />
             <div className={styles.button}>
-              <Button className="imageUpload" type="button">
+              <Button
+                onClick={handleRemoveAvatar}
+                className="imageUpload"
+                type="button"
+              >
                 이미지 제거
               </Button>
             </div>
           </div>
           <div className={styles.userInfoContents}>
-            <form action="">
+            <form id="profileForm" onSubmit={handleSubmit(onSubmit)}>
               <div className={styles.userInfoDetails}>
                 <div className={styles.userInfoDetail}>
-                  <label htmlFor="nickname">닉네임:</label>
+                  <label htmlFor={isEditing ? "username" : undefined}>
+                    닉네임:
+                  </label>
                   {isEditing ? (
-                    <input
-                      name="nickname"
-                      id="nickname"
-                      defaultValue={initialProfile.nickname}
-                      minLength={1}
-                      maxLength={14}
-                      type="text"
-                      autoFocus
-                      required
-                    />
+                    <div className={styles.nicknameArea}>
+                      <input
+                        name="username"
+                        id="username"
+                        {...register("username", {
+                          required: "닉네임을 입력해주세요.",
+                          minLength: {
+                            value: 1,
+                            message: "1자 이상 입력해주세요.",
+                          },
+                          maxLength: {
+                            value: 6,
+                            message: "최대 6자까지 가능합니다.",
+                          },
+                        })}
+                        type="text"
+                        autoFocus
+                      />
+                      {errors.username && (
+                        <p className={styles.formErrorMessage}>
+                          {errors.username.message}
+                        </p>
+                      )}
+                    </div>
                   ) : (
-                    <span>{initialProfile.nickname}</span>
+                    <span>{loggedInUser.username}</span>
                   )}
                 </div>
                 <div className={styles.userInfoDetail}>
-                  <label htmlFor="bio">소개:</label>
+                  <label htmlFor={isEditing ? "bio" : undefined}>소개:</label>
                   {isEditing ? (
-                    <textarea
-                      name="bio"
-                      id="bio"
-                      defaultValue={initialProfile.bio}
-                      maxLength={400}
-                      rows={3}
-                    />
+                    <div className={styles.bioArea}>
+                      <textarea
+                        name="bio"
+                        id="bio"
+                        {...register("bio", {
+                          maxLength: {
+                            value: 200,
+                            message: "200자 내로 입력해주세요.",
+                          },
+                        })}
+                        rows={3}
+                      />
+                      {errors.bio && (
+                        <p className={styles.formErrorMessage}>
+                          {errors.bio.message}
+                        </p>
+                      )}
+                    </div>
                   ) : (
-                    <span>{initialProfile.bio}</span>
+                    <span>{loggedInUser.bio}</span>
                   )}
                 </div>
                 <div className={styles.userInfoDetail}>
                   <label>계정:</label>
-                  <span>{initialProfile.oauthCompany}</span>
+                  <span>카카오</span>
                 </div>
               </div>
             </form>
           </div>
         </div>
-        <div className={styles.button}>
-          <Button className="primary" type="submit">
-            {isEditing ? "프로필 저장" : "프로필 수정"}
-          </Button>
-        </div>
+        {isEditing ? (
+          <div className={styles.editButtonsWrapper}>
+            <Button
+              onClick={handleCancelEdit}
+              className="imageUpload"
+              type="button"
+            >
+              취소
+            </Button>
+            <Button
+              className="primary"
+              type="submit"
+              form="profileForm"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "저장 중..." : "프로필 저장"}
+            </Button>
+          </div>
+        ) : (
+          <div className={styles.button}>
+            <Button onClick={handleEditClick} className="primary" type="button">
+              프로필 수정
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   )

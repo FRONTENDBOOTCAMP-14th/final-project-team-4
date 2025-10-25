@@ -412,6 +412,24 @@ export interface Database {
         }
         Relationships: []
       }
+      user_credentials: {
+        Row: {
+          user_id: string
+          provider: string
+          encrypted_password: string
+        }
+        Insert: {
+          user_id: string
+          provider: string
+          encrypted_password: string
+        }
+        Update: {
+          user_id?: string
+          provider?: string
+          encrypted_password?: string
+        }
+        Relationships: []
+      }
     }
     Views: Record<never, never>
     Functions: {

@@ -40,6 +40,45 @@
   margin-block-start: 1rem;
 }
 
+.loadingWrapper {
+  inline-size: 100%;
+  margin-block-start: 1rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-color-secondary);
+}
+
+.errorWrapper {
+  inline-size: 100%;
+  margin-block-start: 1rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--error-color);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--text-color-secondary);
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color-main);
+  }
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
 .sectionTitle {
   font-size: 1.5rem;
   font-weight: 700;

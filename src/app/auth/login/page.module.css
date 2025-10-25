@@ -89,8 +89,8 @@
     background-color: #ffe400;
   }
 
-  .appleLoginButton {
-    background-color: var(--black);
+  .naverLoginButton {
+    background-color: #03c75a;
     color: var(--white);
     padding-block-start: 14px;
     padding-block-end: 17px;

@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -19,16 +20,31 @@ function NavItem({
     href === "/" ? currentPath === "/" : currentPath.startsWith(href)
   const isCurrentPage = Component && currentPath.startsWith(href)
   const hideLink = hideIsActive && isCurrentPage
+  const [showDropdown, setShowDropdown] = useState(false)
+
+  const isCategoryNav = href === "/challenges/category"
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (isCategoryNav && Component) {
+      e.preventDefault()
+      setShowDropdown(!showDropdown)
+    }
+  }
 
   return (
     <li>
       {!hideLink && (
-        <Link href={href} className={isActive ? styles.active : ""}>
+        <Link
+          href={href}
+          className={isActive ? styles.active : ""}
+          onClick={handleClick}
+        >
           {icon}
           {label}
         </Link>
       )}
-      {isCurrentPage && Component && <Component />}
+      {isCategoryNav && showDropdown && Component && <Component />}
+      {!isCategoryNav && isCurrentPage && Component && <Component />}
     </li>
   )
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { handleSignOut } from "@/app/auth/login/actions"
+import { handleSignOut } from "@/app/auth/signout/actions"
 import Button from "@/components/common/button/button"
 import useUserStore from "store/userStore"
 

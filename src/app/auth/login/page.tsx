@@ -1,14 +1,17 @@
 "use client"
 
 import Image from "next/image"
-import appleIconPath from "@/../public/company-icons/apple.svg"
 import googleIconPath from "@/../public/company-icons/google.svg"
 import kakaoIconPath from "@/../public/company-icons/kakao.svg"
 import imagePath from "@/../public/login-page.png"
+import { useAuth } from "@/contexts/AuthContext"
+import handleGoogleLogin from "./google/action"
 import handleKakaoLogin from "./kakao/actions"
 import styles from "./page.module.css"
 
 export default function Login() {
+  const { signInWithNaver, loading } = useAuth()
+
   return (
     <main className={styles.loginPageContainer}>
       <section className={styles.loginSection}>
@@ -25,8 +28,7 @@ export default function Login() {
           <ul className={styles.loginButtonsContainer}>
             <li>
               <button
-                // 구글 소셜 로그인 구현 후 사용
-                // onClick={handleGoogleLogin}
+                onClick={handleGoogleLogin}
                 className={styles.googleLoginButton}
                 type="button"
               >
@@ -46,13 +48,21 @@ export default function Login() {
             </li>
             <li>
               <button
-                // 애플 소셜 로그인 구현 후 사용
-                // onClick={handleAppleLogin}
-                className={styles.appleLoginButton}
+                onClick={signInWithNaver}
+                disabled={loading}
+                className={styles.naverLoginButton}
                 type="button"
               >
-                <Image src={appleIconPath.src} width={21} height={26} alt="" />
-                Apple로 시작하기
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="#fff"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={21}
+                  height={26}
+                >
+                  <path d="M16.273 12.845 7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727v12.845z" />
+                </svg>
+                네이버로 시작하기
               </button>
             </li>
           </ul>

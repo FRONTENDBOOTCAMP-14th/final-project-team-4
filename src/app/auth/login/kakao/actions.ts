@@ -5,8 +5,8 @@ export default async function handleKakaoLogin() {
 
   const redirectUrl =
     process.env.NODE_ENV === "production"
-      ? "https://final-project-team-4-ruby.vercel.app/auth/callback/kakao"
-      : "http://localhost:3000/auth/callback/kakao"
+      ? "https://final-project-team-4-ruby.vercel.app/auth/callback"
+      : "http://localhost:3000/auth/callback"
 
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "kakao",
