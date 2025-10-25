@@ -2,6 +2,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import Avatar from "@/components/user/avatar/avatar"
+import { getTimeAgo } from "@/utils/hooks/getTimeAgo"
 import { useRecordActions } from "@/utils/hooks/useRecordActions"
 import { useRecordCard } from "@/utils/hooks/useRecordCard"
 import useRecordCardStore from "store/useRecordCardStore"
@@ -47,7 +48,7 @@ export default function CertificationPost({ recordId, userId }: Props) {
             {data.user?.username ? data.user?.username : "익명"}
           </strong>
           <span className={styles.date}>{date}</span>
-          <span>n시간 전</span>
+          <span>{getTimeAgo(data.created_at)}</span>
         </div>
       </div>
 
