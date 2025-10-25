@@ -33,17 +33,20 @@ export default function CertificationPost({ recordId, userId }: Props) {
       <div className={styles.userWrapper}>
         <Avatar
           imageUrl={
-            data.image_url ? data.image_url : "/fallback/fallback-user.png"
+            data.user?.profile_image
+              ? data.user.profile_image
+              : "/fallback/fallback-user.png"
           }
-          altText={data.user?.username ? data.user?.username : "user avatar"}
+          altText={data.user?.username ?? "user avatar"}
           responsive="profileSizes"
           className={styles.userAvatar}
         />
+
         <div>
           <strong className={styles.userName}>
             {data.user?.username ? data.user?.username : "익명"}
           </strong>
-          <span className={styles.date}>{date}일차</span>
+          <span className={styles.date}>{date}</span>
           <span>n시간 전</span>
         </div>
       </div>
@@ -51,7 +54,8 @@ export default function CertificationPost({ recordId, userId }: Props) {
       <figure className={styles.imageWrapper}>
         <Image
           src={data.image_url ? data.image_url : "/fallback/fallback-image.png"}
-          alt={styles.caption}
+          // alt={data.content}
+          alt="챌린지 인증"
           width={720}
           height={480}
           className={styles.image}
