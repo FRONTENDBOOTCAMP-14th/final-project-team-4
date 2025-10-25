@@ -119,8 +119,10 @@ export default function CategoryContent({
       }
 
       setDisplayedChallenges((prev) => {
-        const existingIds = new Set(prev.map(challenge => challenge.id))
-        const uniqueNewChallenges = newChallenges.filter(challenge => !existingIds.has(challenge.id))
+        const existingIds = new Set(prev.map((challenge) => challenge.id))
+        const uniqueNewChallenges = newChallenges.filter(
+          (challenge) => !existingIds.has(challenge.id)
+        )
         return [...prev, ...uniqueNewChallenges]
       })
       setPage((prev) => prev + 1)

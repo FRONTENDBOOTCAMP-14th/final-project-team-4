@@ -13,12 +13,17 @@ interface ChallengeCardListProps {
   title?: string
   challenges: (Challenge | ChallengeWithOwner)[]
   className?: string
+  renderCard?: (
+    challenge: Challenge | ChallengeWithOwner,
+    index: number
+  ) => React.ReactNode
 }
 
 export default function ChallengeCardList({
   title,
   challenges,
   className,
+  renderCard,
 }: ChallengeCardListProps) {
   const displayChallenges = challenges.slice(0, 20)
 
@@ -37,15 +42,19 @@ export default function ChallengeCardList({
         >
           {displayChallenges.map((challenge, index) => (
             <SwiperSlide key={challenge.id} className={styles.slide}>
-              <ChallengeCard
-                challenge={challenge}
-                participantCount={challenge.participants_count}
-                daysLeft={Math.ceil(
-                  (new Date(challenge.end_at).getTime() -
-                    new Date(challenge.start_at).getTime()) /
-                    (1000 * 60 * 60 * 24)
-                )}
-              />
+              {renderCard ? (
+                renderCard(challenge, index)
+              ) : (
+                <ChallengeCard
+                  challenge={challenge}
+                  participantCount={challenge.participants_count}
+                  daysLeft={Math.ceil(
+                    (new Date(challenge.end_at).getTime() -
+                      new Date(challenge.start_at).getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )}
+                />
+              )}
             </SwiperSlide>
           ))}
         </Swiper>

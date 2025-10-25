@@ -4,7 +4,7 @@ import {
   getHotChallenges,
   getNewChallenges,
   getChallengesByType,
-} from "@/utils/supabase/api/challenges"
+} from "@/utils/supabase/api/challenges-server"
 import styles from "./page.module.css"
 
 export default async function Home() {
