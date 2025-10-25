@@ -16,54 +16,11 @@ interface Props {
 }
 
 export default function CertificationCarousel({ recordIds, userId }: Props) {
-  if (!recordIds?.length) return null
+  // if (!recordIds?.length) return null
 
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>오늘의 인증!</h2>
-
-      <div className={styles.navigationWrapper}>
-        <button
-          className={`swiper-button-prev ${styles.navigationButton}`}
-          aria-label="이전 슬라이드"
-        >
-          <svg
-            width="8"
-            height="14"
-            viewBox="0 0 8 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7 1L1 7L7 13"
-              stroke="#201E1F"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-        <button
-          className={`swiper-button-next ${styles.navigationButton}`}
-          aria-label="다음 슬라이드"
-        >
-          <svg
-            width="8"
-            height="14"
-            viewBox="0 0 8 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M1 13L7 7L1 1"
-              stroke="#201E1F"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
 
       <Swiper
         modules={[Navigation, Pagination]}
@@ -86,6 +43,47 @@ export default function CertificationCarousel({ recordIds, userId }: Props) {
             </div>
           </SwiperSlide>
         ))}
+
+        <button
+          className={`swiper-button-prev ${styles.navigationButton}`}
+          aria-label="이전 슬라이드"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 8 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7 1L1 7L7 13"
+              stroke="#201E1F"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <button
+          className={`swiper-button-next ${styles.navigationButton}`}
+          aria-label="다음 슬라이드"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 8 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 13L7 7L1 1"
+              stroke="#201E1F"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
       </Swiper>
     </section>
   )
