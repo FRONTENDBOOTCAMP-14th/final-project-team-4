@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 import Button from "@/components/common/button/button"
 import ToggleSwitch from "@/components/common/toggle-switch/toggle-switch"
@@ -42,6 +43,7 @@ type FormValues = Pick<
 > & { thumbnail: File | string }
 
 export default function CreateForm() {
+  const router = useRouter()
   const { control, handleSubmit, watch, setValue } = useForm<FormValues>({
     mode: "onChange",
     defaultValues: {
@@ -96,6 +98,7 @@ export default function CreateForm() {
       await createChallenge(payload)
 
       alert("챌린지 생성 완료.")
+      router.push("/")
     } catch (err: unknown) {
       console.error("onSubmit 에러:", err)
       alert(`오류 발생: ${(err as Error).message}`)
