@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import CertificationCarousel from "@/components/challenge/certification-carousel/certification-carousel"
 import RecordCreateForm from "@/components/challenge/record-create-form/record-create-form"
 import Button from "@/components/common/button/button"
@@ -110,9 +111,11 @@ export default async function ChallengeDetailPage({
             <span className={styles.userName}>{users.username}</span>
           </div>
           <div className={styles.buttonWrapper}>
-            <Button className="primary" type="button">
-              참여하기
-            </Button>
+            {user ? (
+              <Link href="#record-create">오늘의 챌린지를 인증해주세요</Link>
+            ) : (
+              <Link href={`/login?redirect=/challenges/${id}`}>참여하기</Link>
+            )}
             <Button className="like" type="button">
               찜하기
             </Button>
@@ -127,7 +130,9 @@ export default async function ChallengeDetailPage({
           userId={user?.id ?? null}
         />
         {user ? (
-          <RecordCreateForm challengeId={challenge.id} userId={user.id} />
+          <div id="record-create">
+            <RecordCreateForm challengeId={challenge.id} userId={user.id} />
+          </div>
         ) : (
           <ChallengeCardList
             title={`${challenge.category}의 다른 챌린지`}
