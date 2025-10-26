@@ -13,7 +13,16 @@ interface Props {
   userId: string
 }
 
-const BUCKET_NAME = "record-images"
+const BUCKET_NAME = "challenge-records"
+
+const ALLOWED_MIME = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/avif",
+])
+
+const MAX_SIZE = 5 * 1024 * 1024
 
 export default function RecordCreateForm({ challengeId, userId }: Props) {
   const router = useRouter()
@@ -37,14 +46,17 @@ export default function RecordCreateForm({ challengeId, userId }: Props) {
   const onPickFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0]
     if (!f) return
-    if (!f.type.startsWith("image/")) {
-      setError("이미지 파일만 업로드할 수 있어요.")
+
+    if (!ALLOWED_MIME.has(f.type)) {
+      setError("허용되지 않은 이미지 형식입니다. (jpeg/png/webp/avif)")
       return
     }
-    if (f.size > 10 * 1024 * 1024) {
-      setError("파일 용량은 10MB 이하만 가능합니다.")
+
+    if (f.size > MAX_SIZE) {
+      setError("파일 용량은 최대 5MB까지만 업로드할 수 있어요.")
       return
     }
+
     setError(null)
     setFile(f)
   }
@@ -61,17 +73,23 @@ export default function RecordCreateForm({ challengeId, userId }: Props) {
     setDone(false)
 
     try {
-      const path = `${userId}/${Date.now()}_${file.name}`
+      const safeName = file.name.replace(/[^\w.\-]/g, "_")
+      const path = `${challengeId}/${userId}/${Date.now()}_${safeName}`
+
       const { error: upErr } = await supabase.storage
         .from(BUCKET_NAME)
-        .upload(path, file, { cacheControl: "3600", upsert: false })
+        .upload(path, file, {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: file.type,
+        })
       if (upErr) throw upErr
 
       const { data: pub } = supabase.storage
         .from(BUCKET_NAME)
         .getPublicUrl(path)
       const publicUrl = pub?.publicUrl
-      if (!publicUrl) throw new Error("공개 URL 생성 실패")
+      if (!publicUrl) throw new Error("공개 URL 생성에 실패했습니다.")
 
       const { error: insErr } = await supabase
         .from("challenge_records")
@@ -95,7 +113,7 @@ export default function RecordCreateForm({ challengeId, userId }: Props) {
   }
 
   return (
-    <section>
+    <section className={styles.section}>
       <h2 className={styles.title}>인증하기</h2>
       <form className={styles.form} onSubmit={onSubmit}>
         <label className={styles.dropzone}>
@@ -119,6 +137,7 @@ export default function RecordCreateForm({ challengeId, userId }: Props) {
             disabled={submitting}
           />
         </label>
+
         <div className={styles.textareaWrap}>
           <textarea
             className={styles.textarea}
