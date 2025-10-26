@@ -1,6 +1,8 @@
 .section {
+  max-inline-size: 600px;
   position: relative;
   z-index: 999;
+  overflow: hidden;
 }
 .title {
   font-size: 1.25rem;

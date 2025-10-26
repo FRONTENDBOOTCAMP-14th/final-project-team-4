@@ -1,3 +1,6 @@
+.section {
+  max-inline-size: 600px;
+}
 .form {
   display: grid;
   gap: 16px;
