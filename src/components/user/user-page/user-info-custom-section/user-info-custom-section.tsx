@@ -1,21 +1,26 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import type { UserPageComponentsProps } from "@/app/user/[userId]/types"
 import ToggleSwitch from "@/components/common/toggle-switch/toggle-switch"
 import { updateUserPublicStatus } from "@/utils/supabase/api/profiles"
 import useUserStore from "store/userStore"
 import styles from "./user-info-custom-section.module.css"
 
-export default function UserInfoCustomSection() {
-  const loggedInUser = useUserStore((state) => state.loggedInUser)
+export default function UserInfoCustomSection({
+  pageUser,
+  isMyPage,
+}: UserPageComponentsProps) {
   const updateUserInStore = useUserStore((state) => state.updateUserInStore)
 
-  const [isPublic, setIsPublic] = useState(loggedInUser.is_public)
+  const [isPublic, setIsPublic] = useState(pageUser.is_public)
   const [isLightTheme, setIsLightTheme] = useState(true)
 
   const handleUserPublicStatus = async (checked: boolean) => {
+    if (!isMyPage) return
+
     try {
-      await updateUserPublicStatus(loggedInUser, checked)
+      await updateUserPublicStatus(pageUser, checked)
       updateUserInStore({ is_public: isPublic })
       setIsPublic(checked)
     } catch (error) {
@@ -37,6 +42,7 @@ export default function UserInfoCustomSection() {
   }, [])
 
   const handleThemeChange = (checked: boolean) => {
+    if (!isMyPage) return
     const theme = checked ? "light" : "dark"
     setIsLightTheme(checked)
     document.documentElement.style.colorScheme = theme

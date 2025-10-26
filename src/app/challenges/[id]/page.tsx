@@ -105,10 +105,7 @@ export default async function ChallengeDetailPage({
             <span>{`성공 기준: ${challenge.success_threshold_percent}%`}</span>
           </div>
           <div className={styles.userAvatar}>
-            <AvatarLink
-              imageUrl={users.profile_image}
-              userName={users.username}
-            />
+            <AvatarLink userData={users} />
             <span className={styles.userName}>{users.username}</span>
           </div>
           <div className={styles.buttonWrapper}>
