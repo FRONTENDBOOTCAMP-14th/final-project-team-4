@@ -16,16 +16,28 @@ const responsiveSizes: Record<ResponsiveSizeType, string> = {
   profileSizes: "(max-width: 360px) 124px, (max-width: 1024px) 140px",
 }
 
+const userFallbackImage = "/fallback/fallback-user.png"
+
 export default function Avatar({
   imageUrl,
   responsive,
   altText,
   className,
 }: AvatarProps) {
+  let safeImageUrl: string
+
+  if (!imageUrl) {
+    safeImageUrl = userFallbackImage
+  } else if (imageUrl.startsWith("http:")) {
+    safeImageUrl = imageUrl.replace(/^http:/, "https:")
+  } else {
+    safeImageUrl = imageUrl
+  }
+
   return (
     <figure className={`${styles.avatar} ${styles[responsive]} ${className}`}>
       <Image
-        src={imageUrl}
+        src={safeImageUrl}
         className={styles.avatarImage}
         alt={altText}
         sizes={responsiveSizes[responsive]}

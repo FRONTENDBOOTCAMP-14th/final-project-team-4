@@ -3,6 +3,7 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  border-block-start: 1px solid var(--divider);
 
   p {
     text-align: center;
