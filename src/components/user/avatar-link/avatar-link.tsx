@@ -1,19 +1,21 @@
 import Link from "next/link"
+import type { Database } from "@/utils/supabase/database.types"
 import Avatar from "../avatar/avatar"
 import styles from "./avatar-link.module.css"
 
+export type User = Database["public"]["Tables"]["users"]["Row"]
+
 interface AvatarLinkProps {
-  imageUrl: string
-  userName: string
+  userData: User
 }
 
-export default function AvatarLink({ imageUrl, userName }: AvatarLinkProps) {
+export default function AvatarLink({ userData }: AvatarLinkProps) {
   return (
-    <Link href="/" className={styles.link}>
+    <Link href={`/user/${userData.id}`} className={styles.link}>
       <Avatar
-        imageUrl={imageUrl}
+        imageUrl={userData.profile_image}
         responsive="linkSizes"
-        altText={`${userName}의 프로필 보기`}
+        altText={`${userData.username}의 프로필 보기`}
       />
     </Link>
   )

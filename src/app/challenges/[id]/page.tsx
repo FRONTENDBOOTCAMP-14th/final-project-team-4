@@ -107,7 +107,6 @@ export default async function ChallengeDetailPage({
           </div>
           <div className={styles.userAvatar}>
             <AvatarLink userData={users} />
-
             <span className={styles.userName}>{users.username}</span>
           </div>
           <div className={styles.buttonWrapper}>

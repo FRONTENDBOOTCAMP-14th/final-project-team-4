@@ -1,4 +1,6 @@
 .userInfoCustomSection {
+  border-block-start: 1px solid var(--divider);
+
   .toggleContainer {
     display: flex;
     flex-flow: column nowrap;

@@ -34,6 +34,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "img1.kakaocdn.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "lh3.googleusercontent.com",
         pathname: "/**",
       },
@@ -46,6 +51,21 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "ssl.pstatic.net",
+      },
+      {
+        protocol: "https",
+        hostname: "ssl.pstatic.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "phinf.pstatic.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "pstatic.net",
+        pathname: "/**",
       },
     ],
   },

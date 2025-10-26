@@ -35,8 +35,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
-  console.log("[AuthProvider] mounted")
-
   useEffect(() => {
     const getSession = async () => {
       const {
