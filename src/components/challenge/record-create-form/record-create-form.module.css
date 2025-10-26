@@ -60,11 +60,6 @@
   }
 }
 
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
 .error {
   color: #da3d3d;
   font-size: 14px;
