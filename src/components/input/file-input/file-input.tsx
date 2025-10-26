@@ -55,7 +55,13 @@ export default function FileInput({
         이미지 등록
       </label>
 
-      <input type="file" id={id} name={id} onChange={handleFileChange} />
+      <input
+        type="file"
+        id={id}
+        name={id}
+        onChange={handleFileChange}
+        accept=".jpg, .jpeg, .png, .webp"
+      />
 
       {defaultImages.length > 0 && (
         <div className={styles.defaultImages}>
