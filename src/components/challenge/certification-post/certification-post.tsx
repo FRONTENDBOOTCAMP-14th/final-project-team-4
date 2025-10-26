@@ -33,12 +33,8 @@ export default function CertificationPost({ recordId, userId }: Props) {
     <div className={styles.container}>
       <div className={styles.userWrapper}>
         <Avatar
-          imageUrl={
-            data.user?.profile_image
-              ? data.user.profile_image
-              : "/fallback/fallback-user.png"
-          }
-          altText={data.user?.username ?? "user avatar"}
+          imageUrl={data.user?.profile_image ? data.user.profile_image : ""}
+          altText={data.user?.username ?? ""}
           responsive="profileSizes"
           className={styles.userAvatar}
         />
