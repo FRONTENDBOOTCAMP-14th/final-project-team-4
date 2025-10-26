@@ -106,13 +106,22 @@
       justify-content: space-between;
       gap: 20px;
 
-      button:nth-of-type(1) {
-        inline-size: 100%;
-      }
-
       button {
         inline-size: calc(50% - 10px);
         padding: 15px;
+      }
+
+      > button:first-child {
+        inline-size: 100%;
+        background: var(--brand-main);
+        color: var(--text-color-main);
+        font-weight: 600;
+        border-radius: 10px;
+        transition: background 0.3s ease;
+      }
+
+      > button:first-child:hover {
+        background: var(--main-highLight);
       }
     }
   }
@@ -145,14 +154,14 @@
       }
 
       .buttonWrapper {
+        flex-flow: row nowrap;
         gap: 15px;
 
-        button {
-          inline-size: calc(30% - 10px);
+        a {
+          inline-size: 50%;
         }
-
-        button:nth-of-type(1) {
-          inline-size: calc(40% - 10px);
+        button {
+          inline-size: calc(25% - 10px);
         }
       }
     }
@@ -219,12 +228,8 @@
         max-inline-size: 484px;
         gap: 15px;
 
-        button {
-          inline-size: calc(30% - 10px);
-        }
-
-        button:nth-of-type(1) {
-          inline-size: calc(40% - 10px);
+        > button:first-child {
+          inline-size: 50%;
         }
       }
     }
@@ -258,6 +263,13 @@
     .infoSection {
       .buttonWrapper {
         max-inline-size: 584px;
+
+        a {
+          inline-size: 50%;
+        }
+        button {
+          inline-size: calc(30% - 10px);
+        }
       }
     }
   }
