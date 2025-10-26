@@ -4,7 +4,6 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import Button from "@/components/common/button/button"
 import browserClient from "@/utils/supabase/client"
 import styles from "./challenge-cta.module.css"
 
