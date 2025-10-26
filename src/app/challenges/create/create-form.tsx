@@ -38,6 +38,7 @@ type FormValues = Pick<
   | "end_at"
   | "success_threshold_percent"
   | "uploading_type"
+  | "participants_count"
 > & { thumbnail: File | string }
 
 export default function CreateForm() {
@@ -53,6 +54,7 @@ export default function CreateForm() {
       success_threshold_percent: 90,
       category: "건강 / 운동",
       uploading_type: "사진 인증",
+      participants_count: 1,
     },
   })
 
