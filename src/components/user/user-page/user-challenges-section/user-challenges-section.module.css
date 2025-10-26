@@ -1,4 +1,6 @@
 .userChallengesSection {
+  border-block-start: 1px solid var(--divider);
+
   .tabs {
     display: flex;
     flex-flow: row nowrap;
