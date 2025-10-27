@@ -43,8 +43,6 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  console.log("내 아이디", user.id)
-
   const restrictedPaths = ["/challenges/create", "/wishlist"]
 
   if (
