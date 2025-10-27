@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation"
 import EmptyChallenge from "@/components/challenge/empty-challenge/empty-challenge"
 import NoSearchResult from "@/components/challenge/no-search-result/no-search-result"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
+import LoadingSpinner from "@/components/common/loading-spinner/loading-spinner"
 import SortButton from "@/components/common/sort-button/sort-button"
 import {
   useSearch,
@@ -100,9 +101,7 @@ export default function ChallengeSearch() {
     return (
       <div className={styles.pageWrapper}>
         <main className={styles.main}>
-          <div className={styles.loadingWrapper}>
-            <p>검색 중...</p>
-          </div>
+          <LoadingSpinner message="검색 중..." fullScreen />
         </main>
       </div>
     )
@@ -147,9 +146,7 @@ export default function ChallengeSearch() {
           </div>
 
           {isPhotoLoading ? (
-            <div className={styles.loadingWrapper}>
-              <p>사진 인증 챌린지를 불러오는 중...</p>
-            </div>
+            <LoadingSpinner message="사진 인증 챌린지를 불러오는 중..." />
           ) : sortedPhotoChallenges().length > 0 ? (
             <div className={styles.swiperContainer}>
               <ChallengeCardList challenges={sortedPhotoChallenges()} />
@@ -178,9 +175,7 @@ export default function ChallengeSearch() {
           </div>
 
           {isWritingLoading ? (
-            <div className={styles.loadingWrapper}>
-              <p>텍스트 인증 챌린지를 불러오는 중...</p>
-            </div>
+            <LoadingSpinner message="텍스트 인증 챌린지를 불러오는 중..." />
           ) : sortedWritingChallenges().length > 0 ? (
             <div className={styles.swiperContainer}>
               <ChallengeCardList challenges={sortedWritingChallenges()} />
@@ -209,9 +204,7 @@ export default function ChallengeSearch() {
           </div>
 
           {isAttendanceLoading ? (
-            <div className={styles.loadingWrapper}>
-              <p>출석체크 인증 챌린지를 불러오는 중...</p>
-            </div>
+            <LoadingSpinner message="출석체크 인증 챌린지를 불러오는 중..." />
           ) : sortedAttendanceChallenges().length > 0 ? (
             <div className={styles.swiperContainer}>
               <ChallengeCardList challenges={sortedAttendanceChallenges()} />

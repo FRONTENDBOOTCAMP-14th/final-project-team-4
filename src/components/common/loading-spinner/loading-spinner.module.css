@@ -1,0 +1,56 @@
+.loadingIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  color: var(--text-color-sub);
+  font-size: 0.875rem;
+}
+
+.fullScreen {
+  min-block-size: 60vh;
+  inline-size: 100%;
+}
+
+.spinner {
+  border: 2px solid var(--divider);
+  border-top: 2px solid var(--brand-main);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner.small {
+  inline-size: 1rem;
+  block-size: 1rem;
+  border-width: 2px;
+}
+
+.spinner.medium {
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-width: 3px;
+}
+
+.spinner.large {
+  inline-size: 3rem;
+  block-size: 3rem;
+  border-width: 4px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.message {
+  margin: 0;
+  color: var(--text-color-sub);
+  font-size: 0.875rem;
+}
+

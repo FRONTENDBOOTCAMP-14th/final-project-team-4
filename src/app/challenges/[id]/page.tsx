@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Image from "next/image"
 import CertificationCarousel from "@/components/challenge/certification-carousel/certification-carousel"
 import ChallengeCTA from "@/components/challenge/challenge-cta/challenge-cta"
@@ -13,6 +14,64 @@ import styles from "./page.module.css"
 
 export type Challenge = Database["public"]["Tables"]["challenges"]["Row"]
 export type User = Database["public"]["Tables"]["users"]["Row"]
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
+  const { id } = await params
+  const supabase = await createClient()
+
+  const { data: challenge } = await supabase
+    .from("challenges")
+    .select("*")
+    .eq("id", id)
+    .single<Challenge>()
+
+  if (!challenge) {
+    return {
+      title: "챌린지 | Minimo",
+      description: "챌린지를 찾을 수 없습니다.",
+    }
+  }
+
+  const description =
+    challenge.description.length > 150
+      ? `${challenge.description.substring(0, 150)}...`
+      : challenge.description
+
+  return {
+    title: `${challenge.title} | Minimo`,
+    description,
+    keywords: [
+      challenge.category,
+      challenge.uploading_type,
+      ...(challenge.tags || []),
+      "챌린지",
+      "습관 형성",
+    ],
+    openGraph: {
+      title: `${challenge.title} - Minimo 챌린지`,
+      description,
+      type: "website",
+      images: [
+        {
+          url: challenge.thumbnail,
+          width: 1200,
+          height: 630,
+          alt: challenge.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${challenge.title} - Minimo 챌린지`,
+      description,
+      images: [challenge.thumbnail],
+    },
+  }
+}
 
 export default async function ChallengeDetailPage({
   params,

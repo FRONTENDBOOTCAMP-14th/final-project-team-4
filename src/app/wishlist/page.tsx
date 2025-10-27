@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import ChallengeCard from "@/components/common/challenge-card/challenge-card"
 import FilterButton from "@/components/common/filter-button/filter-button"
+import LoadingSpinner from "@/components/common/loading-spinner/loading-spinner"
 import TwoSortButton from "@/components/common/two-sort-button/two-sort-button"
 import type { TwoSortType } from "@/components/common/two-sort-button/two-sort-button"
 import { useAuth } from "@/contexts/AuthContext"
@@ -129,10 +130,7 @@ export default function Wishlist() {
     return (
       <div className={styles.pageWrapper}>
         <main className={styles.main}>
-          <div className={styles.loadingIndicator}>
-            <div className={styles.spinner} />
-            로딩 중...
-          </div>
+          <LoadingSpinner message="인증 상태를 확인하는 중..." fullScreen />
         </main>
       </div>
     )
@@ -243,12 +241,7 @@ export default function Wishlist() {
           </div>
         ) : null}
 
-        {isLoading && (
-          <div className={styles.loadingIndicator}>
-            <div className={styles.spinner} />
-            챌린지 정보를 불러오는 중..
-          </div>
-        )}
+        {isLoading && <LoadingSpinner message="챌린지 정보를 불러오는 중..." />}
 
         <div ref={observerTarget} className={styles.observerTarget} />
       </main>

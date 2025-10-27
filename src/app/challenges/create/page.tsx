@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import Link from "next/link"
+import LoadingSpinner from "@/components/common/loading-spinner/loading-spinner"
 import browserClient from "@/utils/supabase/client"
 import useUserStore from "store/userStore"
 import CreateForm from "./create-form"
@@ -22,15 +23,39 @@ export default function ChallengeCreatePage() {
     return () => listener.subscription.unsubscribe()
   }, [fetchLoggedInUser])
 
-  if (isLoading) return <div>로딩중...</div>
-
-  if (!loggedInUser)
+  if (isLoading) {
     return (
       <div className={styles.pageWrapper}>
-        <h1>로그인이 필요합니다.</h1>
-        <Link href="/auth/login">로그인 하러 가기</Link>
+        <LoadingSpinner message="정보를 불러오는 중..." fullScreen />
       </div>
     )
+  }
+
+  if (!loggedInUser) {
+    return (
+      <div className={styles.pageWrapper}>
+        <div style={{ textAlign: "center", padding: "4rem" }}>
+          <h1 style={{ marginBlockEnd: "1rem" }}>로그인이 필요합니다</h1>
+          <p style={{ marginBlockEnd: "2rem", color: "var(--text-color-sub)" }}>
+            챌린지를 생성하려면 로그인이 필요합니다.
+          </p>
+          <Link
+            href="/auth/login"
+            style={{
+              display: "inline-block",
+              padding: "0.75rem 1.5rem",
+              backgroundColor: "var(--brand-main)",
+              color: "var(--text-color-reverse)",
+              borderRadius: "0.5rem",
+              textDecoration: "none",
+            }}
+          >
+            로그인 하러 가기
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.pageWrapper}>

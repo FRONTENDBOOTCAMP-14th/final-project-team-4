@@ -6,6 +6,7 @@ import RankedChallengeCard from "@/components/challenge/ranked-challenge-card/ra
 import ChallengeCard from "@/components/common/challenge-card/challenge-card"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import FilterButton from "@/components/common/filter-button/filter-button"
+import LoadingSpinner from "@/components/common/loading-spinner/loading-spinner"
 import SortButton from "@/components/common/sort-button/sort-button"
 import type { SortType } from "@/components/common/sort-button/sort-button"
 import type { Challenge } from "@/utils/supabase"
@@ -253,12 +254,7 @@ export default function CategoryContent({
         ))}
       </section>
 
-      {isLoading && (
-        <div className={styles.loadingIndicator}>
-          <div className={styles.spinner} />
-          챌린지 정보를 불러오는 중..
-        </div>
-      )}
+      {isLoading && <LoadingSpinner message="챌린지 정보를 불러오는 중..." />}
 
       {displayedChallenges.length === 0 && !isLoading && (
         <div className={styles.emptyState}>
