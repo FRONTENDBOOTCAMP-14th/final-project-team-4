@@ -21,7 +21,6 @@ export default function CertificationCarousel({ recordIds, userId }: Props) {
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>오늘의 인증!</h2>
-
       <Swiper
         modules={[Navigation, Pagination]}
         spaceBetween={20}
