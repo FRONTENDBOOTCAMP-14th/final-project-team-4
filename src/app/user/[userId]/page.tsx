@@ -1,7 +1,6 @@
 import {
   UserInfoSection,
   UserInfoCustomSection,
-  UserStaticsSection,
   UserAccountSection,
 } from "@/components/user/user-page/index"
 import UserChallengesSectionWrapper from "@/components/user/user-page/user-challenges-section/user-challenges-section-wrapper"

@@ -1,7 +1,7 @@
 // import Button from "@/components/common/button/button"
 // import BadgeList from "@/components/user/badge-list/badge-list"
 import styles from "./user-statics-section.module.css"
-import { UserStatics } from "../user-challenges-section/user-challenges-section-wrapper"
+import type { UserStatics } from "../user-challenges-section/user-challenges-section-wrapper"
 
 interface UserStaticsSectionProps {
   statics: UserStatics

@@ -2,8 +2,8 @@ import type { UserPageComponentsProps } from "@/app/user/[userId]/types"
 import recordedToday from "@/utils/recordedToday"
 import type { Database } from "@/utils/supabase/database.types"
 import { createClient } from "@/utils/supabase/server"
-import UserChallengesSection from "./user-challenges-section"
 import UserStaticsSection from "../user-statics-section/user-statics-section"
+import UserChallengesSection from "./user-challenges-section"
 
 type Challenge = Database["public"]["Tables"]["challenges"]["Row"]
 
