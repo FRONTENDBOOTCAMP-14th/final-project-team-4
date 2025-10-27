@@ -50,13 +50,7 @@ export default async function UserPage({ params }: UserPageProps) {
         <UserInfoCustomSection pageUser={pageUser} isMyPage={isMyPage} />
       ) : null}
       {renderPrivateSections ? (
-        <>
-          <UserStaticsSection />
-          <UserChallengesSectionWrapper
-            pageUser={pageUser}
-            isMyPage={isMyPage}
-          />
-        </>
+        <UserChallengesSectionWrapper pageUser={pageUser} isMyPage={isMyPage} />
       ) : (
         <p>비공개 회원입니다.</p>
       )}
