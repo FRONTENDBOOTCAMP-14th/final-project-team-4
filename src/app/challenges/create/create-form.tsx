@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 import Button from "@/components/common/button/button"
 import ToggleSwitch from "@/components/common/toggle-switch/toggle-switch"
@@ -38,9 +39,11 @@ type FormValues = Pick<
   | "end_at"
   | "success_threshold_percent"
   | "uploading_type"
+  | "participants_count"
 > & { thumbnail: File | string }
 
 export default function CreateForm() {
+  const router = useRouter()
   const { control, handleSubmit, watch, setValue } = useForm<FormValues>({
     mode: "onChange",
     defaultValues: {
@@ -53,6 +56,7 @@ export default function CreateForm() {
       success_threshold_percent: 90,
       category: "건강 / 운동",
       uploading_type: "사진 인증",
+      participants_count: 1,
     },
   })
 
@@ -94,6 +98,7 @@ export default function CreateForm() {
       await createChallenge(payload)
 
       alert("챌린지 생성 완료.")
+      router.push("/")
     } catch (err: unknown) {
       console.error("onSubmit 에러:", err)
       alert(`오류 발생: ${(err as Error).message}`)
