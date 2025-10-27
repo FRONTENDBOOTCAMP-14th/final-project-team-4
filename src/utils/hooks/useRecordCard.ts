@@ -74,6 +74,11 @@ export function useRecordCard(recordId: string, userId?: string | null) {
       isReportedByMe = !!reported
     }
 
+    const { count: likeCount } = await supabase
+      .from("record_likes")
+      .select("*", { count: "exact", head: true })
+      .eq("record_id", recordId)
+
     const imgs = (record.image_urls as unknown as string[] | null) ?? null
     const firstImage = Array.isArray(imgs) && imgs.length > 0 ? imgs[0] : null
 
@@ -90,7 +95,7 @@ export function useRecordCard(recordId: string, userId?: string | null) {
             completed_days: participant.completed_days,
           }
         : null,
-      likesCount: typeof record.like_count === "number" ? record.like_count : 0,
+      likesCount: likeCount ?? 0,
       commentsCount:
         typeof record.comment_count === "number" ? record.comment_count : 0,
       isLikedByMe,
