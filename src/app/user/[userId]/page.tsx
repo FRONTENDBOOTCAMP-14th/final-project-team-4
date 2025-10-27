@@ -2,8 +2,8 @@ import {
   UserInfoSection,
   UserInfoCustomSection,
   UserAccountSection,
+  UserChallengesSectionWrapper,
 } from "@/components/user/user-page/index"
-import UserChallengesSectionWrapper from "@/components/user/user-page/user-challenges-section/user-challenges-section-wrapper"
 import { createClient } from "@/utils/supabase/server"
 import styles from "./page.module.css"
 
