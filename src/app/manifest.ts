@@ -16,12 +16,12 @@ export default function manifest(): MetadataRoute.Manifest {
     icons: [
       // 유저 디바이스에 다운로드 될 아이콘
       {
-        src: "/pwa-icon.svg",
+        src: "/pwa-icon.png",
         sizes: "192x192",
         type: "image/png",
       },
       {
-        src: "/pwa-icon.svg",
+        src: "/pwa-icon.png",
         sizes: "512x512",
         type: "image/png",
       },
