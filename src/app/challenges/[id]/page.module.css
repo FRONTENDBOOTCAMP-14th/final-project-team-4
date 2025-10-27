@@ -111,6 +111,10 @@
         padding: 15px;
       }
 
+      > a:nth-of-type(2) {
+        inline-size: calc(50% - 10px);
+      }
+
       > button:first-child {
         inline-size: 100%;
         background: var(--brand-main);
@@ -160,6 +164,8 @@
         a {
           inline-size: 50%;
         }
+
+        > a:nth-of-type(2),
         button {
           inline-size: calc(25% - 10px);
         }
@@ -228,6 +234,10 @@
         max-inline-size: 484px;
         gap: 15px;
 
+        > a:first-child {
+          inline-size: 50%;
+        }
+
         > button:first-child {
           inline-size: 50%;
         }
@@ -267,6 +277,7 @@
         a {
           inline-size: 50%;
         }
+        > a:nth-of-type(2),
         button {
           inline-size: calc(30% - 10px);
         }
