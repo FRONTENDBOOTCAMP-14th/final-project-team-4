@@ -40,7 +40,7 @@ export default async function ChallengeDetailPage({
     .from("users")
     .select("*")
     .eq("id", challenge.created_by_id)
-    .single<User>()
+    .maybeSingle<User>()
   if (userError || !users) {
     console.error("유저 정보를 불러오지 못했습니다:", userError)
     return <p>유저 데이터를 불러올 수 없습니다 😢</p>
