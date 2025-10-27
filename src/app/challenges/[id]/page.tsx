@@ -2,6 +2,7 @@ import Image from "next/image"
 import CertificationCarousel from "@/components/challenge/certification-carousel/certification-carousel"
 import ChallengeCTA from "@/components/challenge/challenge-cta/challenge-cta" // ✅ 추가
 import RecordCreateForm from "@/components/challenge/record-create-form/record-create-form"
+import WishlistButton from "@/components/challenge/wishlistButton/wishlistButton"
 import Button from "@/components/common/button/button"
 import CategoryTag from "@/components/common/category-tag/category-tag"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
@@ -69,6 +70,17 @@ export default async function ChallengeDetailPage({
 
   const loginHref = `/login?redirect=/challenges/${id}`
 
+  let isWishlisted = false
+  if (isLoggedIn) {
+    const { data: wish, error: wishErr } = await supabase
+      .from("challenge_wishlist")
+      .select("id")
+      .eq("challenge_id", id)
+      .eq("user_id", user.id)
+      .maybeSingle()
+    if (!wishErr && wish) isWishlisted = true
+  }
+
   const getDateDiff = (
     startDate: string | number,
     endDate: string | number
@@ -125,9 +137,11 @@ export default async function ChallengeDetailPage({
               userId={user?.id ?? null}
               loginHref={loginHref}
             />
-            <Button className="like" type="button">
-              찜하기
-            </Button>
+            <WishlistButton
+              challengeId={challenge.id}
+              userId={user?.id ?? null}
+              initialChecked={isWishlisted}
+            />
             <Button className="share" type="button">
               공유하기
             </Button>
