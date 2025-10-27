@@ -1,4 +1,5 @@
 .button {
+  --report-highLight: #b52630;
   inline-size: 100%;
   max-block-size: 40px;
   display: flex;
@@ -19,11 +20,14 @@
   &:hover {
     background: var(--main-highLight);
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 .report {
-  --report-highLight: #b52630;
-
   background: var(--report);
   color: var(--text-default-sub3);
 
@@ -55,12 +59,11 @@
 }
 
 .like {
-  border: 1px solid var(--report);
-  color: var(--report);
+  color: var(--text-default-sub3);
+  background: var(--report);
 
   &:hover {
-    background: var(--report);
-    color: var(--text-default-sub3);
+    background: var(--report-highLight);
   }
 }
 

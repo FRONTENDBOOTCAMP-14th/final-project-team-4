@@ -12,6 +12,7 @@
 .controls {
   > input,
   > datalist {
+    block-size: 25px;
     inline-size: 400px;
   }
 
@@ -20,6 +21,8 @@
   }
   > datalist {
     display: flex;
+    position: relative;
+    top: 0;
     flex-direction: column;
     justify-content: space-between;
     writing-mode: vertical-lr;

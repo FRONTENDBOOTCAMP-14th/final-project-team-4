@@ -3,6 +3,7 @@
   border: 1px solid var(--divider);
   border-radius: 20px;
   max-inline-size: 360px;
+  min-inline-size: 320px;
   background: var(--surface-bg-main);
   font-size: 0.875rem;
   color: var(--text-color-sub);
@@ -27,15 +28,22 @@
     padding-inline-end: 6px;
   }
 
-  .iamgeWrapper {
+  .imageWrapper {
+    position: relative;
+    aspect-ratio: 2.3 / 1;
     border-radius: 10px;
     overflow: hidden;
-    aspect-ratio: 2.3 / 1;
 
-    img {
-      object-fit: contain;
-      object-position: top left;
+    .image {
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      translate: 0 -25%;
     }
+  }
+
+  .caption {
+    padding-block-start: 16px;
   }
 
   .buttonWrapper {

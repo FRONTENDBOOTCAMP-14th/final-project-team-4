@@ -16,19 +16,40 @@ const responsiveSizes: Record<ResponsiveSizeType, string> = {
   profileSizes: "(max-width: 360px) 124px, (max-width: 1024px) 140px",
 }
 
+const userFallbackImage = "/fallback/fallback-user.png"
+const kakaoDefaultImage =
+  "http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"
+const naverDefaultImage =
+  "https://ssl.pstatic.net/static/pwe/address/img_profile.png"
+
 export default function Avatar({
   imageUrl,
   responsive,
   altText,
   className,
 }: AvatarProps) {
+  let safeImageUrl: string
+
+  if (
+    !imageUrl ||
+    imageUrl === kakaoDefaultImage ||
+    imageUrl === naverDefaultImage
+  ) {
+    safeImageUrl = userFallbackImage
+  } else if (imageUrl.startsWith("http:")) {
+    safeImageUrl = imageUrl.replace(/^http:/, "https:")
+  } else {
+    safeImageUrl = imageUrl
+  }
+
   return (
     <figure className={`${styles.avatar} ${styles[responsive]} ${className}`}>
       <Image
-        src={imageUrl}
+        src={safeImageUrl}
         className={styles.avatarImage}
         alt={altText}
         sizes={responsiveSizes[responsive]}
+        priority
         fill
       />
     </figure>

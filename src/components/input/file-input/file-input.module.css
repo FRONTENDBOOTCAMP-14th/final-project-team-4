@@ -6,66 +6,10 @@
   gap: 16px;
   inline-size: 500px;
   block-size: 100vh;
-  overflow: auto;
+  overflow: hidden;
   background-color: var(--surface-bg-sub);
   border-inline-end: 1px solid var(--divider);
   padding: 16px;
-
-  > label {
-    inline-size: 140px;
-    padding: 12px 16px;
-    border-radius: 10px;
-    text-align: center;
-    background: var(--brand-main);
-    cursor: pointer;
-    color: white;
-  }
-
-  > input {
-    display: contents;
-  }
-
-  .preview {
-    inline-size: 500px;
-    block-size: 600px;
-    border: 1px solid var(--divider);
-    border-radius: 10px;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-  }
-
-  .defaultImages {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-
-    button {
-      inline-size: 80px;
-      block-size: 80px;
-      border: 1px solid var(--divider);
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      padding: 0;
-      background: none;
-
-      &.selected {
-        border: 2px solid var(--brand-main);
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-  }
 
   small {
     color: var(--text-sub);
@@ -75,22 +19,102 @@
     color: var(--feedback-error);
     font-size: 0.875rem;
   }
+
+  &:focus-within {
+    outline: 1px solid var(--brand-main);
+    outline-offset: -2px;
+  }
+}
+
+.preview {
+  display: inherit;
+  flex-flow: column nowrap;
+  gap: 16px;
+  align-items: center;
+  inline-size: 500px;
+  block-size: 650px;
+
+  > label {
+    margin-top: auto;
+    inline-size: 140px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    text-align: center;
+    background: var(--brand-main);
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--text-default-main);
+  }
+
+  > input {
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  > img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    overflow: hidden;
+  }
+}
+
+.defaultImages {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  > button {
+    inline-size: 80px;
+    block-size: 80px;
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+
+    &.selected {
+      border: 2px solid var(--brand-main);
+    }
+  }
+  img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
 }
 
 @media (max-width: 1200px) {
   .thumbnail {
-    inline-size: 400px;
-    block-size: 600px;
-    border-inline-end: none;
-    border-block-end: none;
+    inline-size: 600px;
+    block-size: 800px;
+  }
+  .preview {
+    block-size: 630px;
   }
 }
 
 @media (max-width: 580px) {
   .thumbnail {
-    inline-size: 250px;
-    block-size: 350px;
+    inline-size: 300px;
+    block-size: 450px;
     border-inline-end: none;
     border-block-end: none;
+  }
+  .preview {
+    overflow: hidden;
+    block-size: 400px;
+    > img {
+      object-fit: contain;
+    }
+  }
+  .defaultImages {
+    > button {
+      inline-size: 40px;
+      block-size: 40px;
+    }
   }
 }

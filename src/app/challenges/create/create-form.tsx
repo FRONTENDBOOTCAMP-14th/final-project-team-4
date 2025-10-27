@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 import Button from "@/components/common/button/button"
 import ToggleSwitch from "@/components/common/toggle-switch/toggle-switch"
@@ -12,35 +12,18 @@ import {
   TagInput,
   TextInput,
 } from "@/components/input"
-import type { Challenge } from "@/utils/supabase"
-import { createChallenge } from "@/utils/supabase/api/challenges"
-import { uploadFile } from "@/utils/supabase/api/storage"
+import { DEFAULT_IMAGES } from "@/components/input/file-input/const"
+import { getMaxEndDate, getSuccessDays, getTotalDays } from "@/utils/getDate"
 import styles from "./create-form.module.css"
+import { handleChallengeSubmit } from "./utils/handleChallengeSubmit"
+import { useUpload } from "./utils/useUpload"
+import type { FormValues } from "./type"
+import type { FieldErrors } from "react-hook-form"
 
 const todayStr = new Date().toLocaleDateString("sv-SE")
 
-const DEFAULT_IMAGES = [
-  "/images/thumbnail/default1.png",
-  "/images/thumbnail/default2.png",
-  "/images/thumbnail/default3.png",
-  "/images/thumbnail/default4.png",
-  "/images/thumbnail/default5.png",
-]
-
-type FormValues = Pick<
-  Challenge,
-  | "category"
-  | "title"
-  | "description"
-  | "is_public"
-  | "tags"
-  | "start_at"
-  | "end_at"
-  | "success_threshold_percent"
-  | "uploading_type"
-> & { thumbnail: File | string }
-
 export default function CreateForm() {
+  const router = useRouter()
   const { control, handleSubmit, watch, setValue } = useForm<FormValues>({
     mode: "onChange",
     defaultValues: {
@@ -53,61 +36,27 @@ export default function CreateForm() {
       success_threshold_percent: 90,
       category: "건강 / 운동",
       uploading_type: "사진 인증",
+      participants_count: 1,
     },
   })
 
   const startDate = watch("start_at")
   const endDate = watch("end_at")
-  const [uploading, setUploading] = useState(false)
+  const maxEndDate = startDate ? getMaxEndDate(startDate) : undefined
+  const totalDays = startDate && endDate ? getTotalDays(startDate, endDate) : 0
+  const successDays = (percent: number) => getSuccessDays(percent, totalDays)
 
-  const maxEndDate = startDate
-    ? new Date(new Date(startDate).getTime() + 30 * 24 * 60 * 60 * 1000)
-        .toISOString()
-        .split("T")[0]
-    : undefined
+  const { uploading, upload } = useUpload()
 
-  const totalDays =
-    startDate && endDate
-      ? Math.ceil(
-          (new Date(endDate).getTime() - new Date(startDate).getTime()) /
-            (1000 * 60 * 60 * 24)
-        ) + 1
-      : 0
+  const onSubmit = (data: FormValues) =>
+    handleChallengeSubmit({ data, upload, router })
 
-  const successDays = (percent: number) =>
-    Math.ceil((percent / 100) * totalDays)
-
-  const onSubmit = async (data: FormValues) => {
-    let thumbnailUrl = ""
-
-    try {
-      if (!data.thumbnail) throw new Error("썸네일 선택 필요")
-
-      setUploading(true)
-
-      thumbnailUrl =
-        data.thumbnail instanceof File
-          ? await uploadFile(data.thumbnail)
-          : data.thumbnail
-
-      const payload = { ...data, thumbnail: thumbnailUrl }
-      await createChallenge(payload)
-
-      alert("챌린지 생성 완료.")
-    } catch (err: unknown) {
-      console.error("onSubmit 에러:", err)
-      alert(`오류 발생: ${(err as Error).message}`)
-    } finally {
-      setUploading(false)
-    }
-  }
-
-  const onError = (errors: unknown) => {
-    const firstErrorField = Object.keys(errors)[0]
+  const onError = (errors: FieldErrors<FormValues>) => {
+    const firstErrorField = Object.keys(errors)[0] as keyof FormValues
     const el = document.querySelector<HTMLInputElement>(
       `[name="${firstErrorField}"]`
     )
-    if (el) el.focus()
+    el?.focus()
   }
 
   return (
@@ -134,7 +83,7 @@ export default function CreateForm() {
           name="title"
           control={control}
           rules={{
-            required: "타이틀을 입력해주세요.",
+            required: "챌린지 생성을 위한 타이틀을 입력해주세요.",
             maxLength: { value: 40, message: "40자 이내로 입력해주세요." },
           }}
           render={({ field, fieldState }) => (

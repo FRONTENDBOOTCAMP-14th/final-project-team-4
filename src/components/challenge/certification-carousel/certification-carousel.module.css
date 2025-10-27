@@ -1,0 +1,64 @@
+.section {
+  max-inline-size: 800px;
+  position: relative;
+  z-index: 999;
+  overflow: hidden;
+}
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-block-end: 12px;
+}
+
+.cardWrap {
+  width: 100%;
+}
+
+.swiper {
+  width: 100%;
+  overflow: visible;
+  position: relative;
+}
+
+.swiper {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.swiper :global(.swiper-button-lock) {
+  display: flex !important;
+}
+.slide {
+  width: 100%;
+  height: auto;
+  padding-block: 4px;
+  min-height: 120px;
+}
+
+.navigationButton {
+  inline-size: 36px;
+  block-size: 36px;
+  border-radius: 50px;
+  border: 1px solid var(--border, #ddd);
+  background: #fff;
+  cursor: pointer;
+
+  svg {
+    scale: 0.7;
+    color: var(--text-color-main);
+  }
+
+  path {
+    color: transparent;
+  }
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+.cardCell {
+  min-height: 120px;
+}

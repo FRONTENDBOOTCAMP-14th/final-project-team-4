@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import type { UserPageComponentsProps } from "@/app/user/[userId]/types"
 import Button from "@/components/common/button/button"
 import AvatarProfile from "@/components/user/avatar-profile/avatar-profile"
 import {
@@ -9,29 +10,48 @@ import {
   removeProfileStorage,
   updateUserInfo,
 } from "@/utils/supabase/api/profiles"
-import type { Database } from "@/utils/supabase/database.types"
 import useUserStore from "store/userStore"
 import styles from "./user-info-section.module.css"
-
-export type User = Database["public"]["Tables"]["users"]["Row"]
 
 interface ProfileFormValues {
   username: string
   bio?: string
 }
 
-export default function UserInfoSection() {
+export default function UserInfoSection({
+  pageUser,
+  isMyPage,
+  pageUserOauth,
+}: UserPageComponentsProps) {
   const [isEditing, setIsEditing] = useState(false)
 
   const loggedInUser = useUserStore((state) => state.loggedInUser)
   const updateUserInStore = useUserStore((state) => state.updateUserInStore)
+
+  const displayUser = isMyPage ? loggedInUser : pageUser
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<ProfileFormValues>({ defaultValues: loggedInUser })
+  } = useForm<ProfileFormValues>({ defaultValues: displayUser ?? {} })
+
+  if (loggedInUser === undefined) {
+    return <main className={styles.myPage}>로딩 중</main>
+  }
+
+  switch (pageUserOauth) {
+    case "kakao":
+      pageUserOauth = "Kakao"
+      break
+    case "google":
+      pageUserOauth = "Google"
+      break
+    case "email":
+      pageUserOauth = "Naver"
+      break
+  }
 
   const handleRemoveAvatar = async (
     e: React.MouseEvent<HTMLElement, MouseEvent>
@@ -39,8 +59,8 @@ export default function UserInfoSection() {
     e.preventDefault()
 
     try {
-      await removeProfileImageUrl(loggedInUser)
-      await removeProfileStorage(loggedInUser)
+      await removeProfileImageUrl(pageUser)
+      await removeProfileStorage(pageUser)
       updateUserInStore({ profile_image: null })
     } catch (error) {
       console.error("프로필 사진 삭제 실패: ", error)
@@ -48,7 +68,7 @@ export default function UserInfoSection() {
   }
 
   const onSubmit = async (data: ProfileFormValues) => {
-    await updateUserInfo(loggedInUser, data.username, data.bio)
+    await updateUserInfo(pageUser, data.username, data.bio)
     updateUserInStore({ username: data.username, bio: data.bio })
     reset(data)
     setIsEditing(false)
@@ -59,8 +79,8 @@ export default function UserInfoSection() {
     e.stopPropagation()
     setIsEditing(true)
     reset({
-      username: loggedInUser?.username,
-      bio: loggedInUser?.bio,
+      username: displayUser?.username,
+      bio: displayUser?.bio,
     })
   }
 
@@ -76,16 +96,18 @@ export default function UserInfoSection() {
         <h3>회원정보</h3>
         <div className={styles.userInfoWrapper}>
           <div className={styles.userProfileImage}>
-            <AvatarProfile userData={loggedInUser} />
-            <div className={styles.button}>
-              <Button
-                onClick={handleRemoveAvatar}
-                className="imageUpload"
-                type="button"
-              >
-                이미지 제거
-              </Button>
-            </div>
+            <AvatarProfile userData={displayUser} isMyPage={isMyPage} />
+            {isMyPage ? (
+              <div className={styles.button}>
+                <Button
+                  onClick={handleRemoveAvatar}
+                  className="imageUpload"
+                  type="button"
+                >
+                  이미지 제거
+                </Button>
+              </div>
+            ) : null}
           </div>
           <div className={styles.userInfoContents}>
             <form id="profileForm" onSubmit={handleSubmit(onSubmit)}>
@@ -120,7 +142,7 @@ export default function UserInfoSection() {
                       )}
                     </div>
                   ) : (
-                    <span>{loggedInUser.username}</span>
+                    <span>{displayUser.username}</span>
                   )}
                 </div>
                 <div className={styles.userInfoDetail}>
@@ -145,42 +167,49 @@ export default function UserInfoSection() {
                       )}
                     </div>
                   ) : (
-                    <span>{loggedInUser.bio}</span>
+                    <span>{displayUser.bio}</span>
                   )}
                 </div>
-                <div className={styles.userInfoDetail}>
-                  <label>계정:</label>
-                  <span>카카오</span>
-                </div>
+                {isMyPage ? (
+                  <div className={styles.userInfoDetail}>
+                    <label>계정:</label>
+                    <span>{pageUserOauth}</span>
+                  </div>
+                ) : null}
               </div>
             </form>
           </div>
         </div>
-        {isEditing ? (
-          <div className={styles.editButtonsWrapper}>
-            <Button
-              onClick={handleCancelEdit}
-              className="imageUpload"
-              type="button"
-            >
-              취소
-            </Button>
-            <Button
-              className="primary"
-              type="submit"
-              form="profileForm"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "저장 중..." : "프로필 저장"}
-            </Button>
-          </div>
-        ) : (
-          <div className={styles.button}>
-            <Button onClick={handleEditClick} className="primary" type="button">
-              프로필 수정
-            </Button>
-          </div>
-        )}
+        {isMyPage &&
+          (isEditing ? (
+            <div className={styles.editButtonsWrapper}>
+              <Button
+                onClick={handleCancelEdit}
+                className="imageUpload"
+                type="button"
+              >
+                취소
+              </Button>
+              <Button
+                className="primary"
+                type="submit"
+                form="profileForm"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "저장 중..." : "프로필 저장"}
+              </Button>
+            </div>
+          ) : (
+            <div className={styles.button}>
+              <Button
+                onClick={handleEditClick}
+                className="primary"
+                type="button"
+              >
+                프로필 수정
+              </Button>
+            </div>
+          ))}
       </div>
     </section>
   )

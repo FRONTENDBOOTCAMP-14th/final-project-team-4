@@ -1,6 +1,9 @@
 import Image from "next/image"
-import CertificationPost from "@/components/challenge/certification-post/certification-post"
-import Button from "@/components/common/button/button"
+import CertificationCarousel from "@/components/challenge/certification-carousel/certification-carousel"
+import ChallengeCTA from "@/components/challenge/challenge-cta/challenge-cta"
+import RecordCreateForm from "@/components/challenge/record-create-form/record-create-form"
+import ShareButton from "@/components/challenge/share-button/share-button"
+import WishlistButton from "@/components/challenge/wishlistButton/wishlistButton"
 import CategoryTag from "@/components/common/category-tag/category-tag"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import AvatarLink from "@/components/user/avatar-link/avatar-link"
@@ -24,7 +27,6 @@ export default async function ChallengeDetailPage({
     .select(`*`)
     .eq("id", id)
     .single<Challenge>()
-
   if (challengeError || !challenge) {
     return <p>챌린지 정보를 불러오지 못했습니다 😢</p>
   }
@@ -32,13 +34,13 @@ export default async function ChallengeDetailPage({
   const {
     data: { user },
   } = await supabase.auth.getUser()
+  const isLoggedIn = !!user
 
   const { data: users, error: userError } = await supabase
     .from("users")
     .select("*")
     .eq("id", challenge.created_by_id)
     .single<User>()
-
   if (userError || !users) {
     console.error("유저 정보를 불러오지 못했습니다:", userError)
     return <p>유저 데이터를 불러올 수 없습니다 😢</p>
@@ -46,15 +48,37 @@ export default async function ChallengeDetailPage({
 
   const { data: recordData, error: recordError } = await supabase
     .from("challenge_records")
-    .select("id, user_id, image_urls, content")
+    .select("id")
     .eq("challenge_id", id)
     .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle()
-
+    .limit(20)
   if (recordError) {
     console.error("인증 게시글 데이터를 불러오지 못했습니다:", recordError)
     return <p>인증 게시글 데이터를 불러올 수 없습니다 😢</p>
+  }
+
+  let isParticipating = false
+  if (isLoggedIn) {
+    const { data: participant } = await supabase
+      .from("challenge_participants")
+      .select("id,is_progress")
+      .eq("challenge_id", id)
+      .eq("user_id", user.id)
+      .maybeSingle()
+    isParticipating = !!participant && participant.is_progress === true
+  }
+
+  const loginHref = `/login?redirect=/challenges/${id}`
+
+  let isWishlisted = false
+  if (isLoggedIn) {
+    const { data: wish, error: wishErr } = await supabase
+      .from("challenge_wishlist")
+      .select("id")
+      .eq("challenge_id", id)
+      .eq("user_id", user.id)
+      .maybeSingle()
+    if (!wishErr && wish) isWishlisted = true
   }
 
   const getDateDiff = (
@@ -63,11 +87,7 @@ export default async function ChallengeDetailPage({
   ) => {
     const date1 = new Date(startDate)
     const date2 = new Date(endDate)
-
     const diffDate = date2.getTime() - date1.getTime()
-
-    if (diffDate) {
-    }
     return Math.floor(diffDate / (1000 * 60 * 60 * 24))
   }
 
@@ -79,6 +99,7 @@ export default async function ChallengeDetailPage({
             src={challenge.thumbnail}
             alt={challenge.title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             priority
             aria-hidden
           />
@@ -105,34 +126,39 @@ export default async function ChallengeDetailPage({
             <span>{`성공 기준: ${challenge.success_threshold_percent}%`}</span>
           </div>
           <div className={styles.userAvatar}>
-            <AvatarLink
-              imageUrl={users.profile_image}
-              userName={users.username}
-            />
+            <AvatarLink userData={users} />
             <span className={styles.userName}>{users.username}</span>
           </div>
           <div className={styles.buttonWrapper}>
-            <Button className="primary" type="button">
-              참여하기
-            </Button>
-            <Button className="like" type="button">
-              찜하기
-            </Button>
-            <Button className="share" type="button">
-              공유하기
-            </Button>
+            <ChallengeCTA
+              isLoggedIn={isLoggedIn}
+              isParticipating={isParticipating}
+              challengeId={challenge.id}
+              userId={user?.id ?? null}
+              loginHref={loginHref}
+            />
+            <WishlistButton
+              challengeId={challenge.id}
+              userId={user?.id ?? null}
+              initialChecked={isWishlisted}
+            />
+            <ShareButton />
           </div>
         </section>
-        {user ? (
-          <CertificationPost
-            recordId={recordData.id}
-            userId={user?.id ?? null}
-          />
-        ) : null}
-        <ChallengeCardList
-          title={`${challenge.category}의 다른 챌린지`}
-          challenges={[challenge]}
+        <CertificationCarousel
+          recordIds={recordData?.map((r) => r.id) ?? []}
+          userId={user?.id ?? null}
         />
+        {isLoggedIn ? (
+          <div id="record-create">
+            <RecordCreateForm challengeId={challenge.id} userId={user.id} />
+          </div>
+        ) : (
+          <ChallengeCardList
+            title={`${challenge.category}의 다른 챌린지`}
+            challenges={[challenge]}
+          />
+        )}
       </div>
     </div>
   )

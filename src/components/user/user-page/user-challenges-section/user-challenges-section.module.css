@@ -1,7 +1,10 @@
 .userChallengesSection {
+  border-block-start: 1px solid var(--divider);
+
   .tabs {
     display: flex;
     flex-flow: row nowrap;
+    padding-block-end: 34px;
   }
 
   .tab {
@@ -26,16 +29,29 @@
   .tabContent {
     display: none;
     border-block-end: none;
-    padding: 26px 16px;
+    padding: 0;
 
     &.isSelected {
       display: block;
     }
   }
 
+  .challengeList {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .listItem {
+    height: 242px;
+  }
+
   .viewMoreButton {
     width: 140px;
     margin: 0 auto;
+    padding-block-start: 34px;
   }
 }
 
@@ -61,8 +77,8 @@
 
 @media (min-width: 1201px) {
   .userChallengesSection {
-    .tabContent {
-      padding: 26px 0 38px 0;
+    .challengeList {
+      justify-content: center;
     }
   }
 }

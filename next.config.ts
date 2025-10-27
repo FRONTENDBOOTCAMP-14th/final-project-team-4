@@ -14,10 +14,27 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "k.kakaocdn.net",
+        pathname: "/**",
+      },
+
+      {
+        protocol: "https",
+        hostname: "img1.kakaocdn.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "t1.kakaocdn.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "img1.kakaocdn.net",
         pathname: "/**",
       },
       {
@@ -29,6 +46,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "fdzlnftvhekjhabnugrl.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ssl.pstatic.net",
       },
       {
         protocol: "https",

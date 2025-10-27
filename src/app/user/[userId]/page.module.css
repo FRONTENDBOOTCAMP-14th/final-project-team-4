@@ -7,13 +7,11 @@
   margin: 0 auto;
   min-width: 300px;
   max-width: 580px;
-  /* background-color: var(--myPage-info-bg); */
   background-color: var(--surface-bg-main);
 
   section {
     width: 100%;
     padding: 38px 20px 38px 20px;
-    border-block-end: 1px solid var(--divider);
   }
 
   h3 {
@@ -25,6 +23,10 @@
   .button {
     font-weight: 400;
   }
+}
+
+.errorMessage {
+  padding-top: 140px;
 }
 
 @media (min-width: 581px) {
