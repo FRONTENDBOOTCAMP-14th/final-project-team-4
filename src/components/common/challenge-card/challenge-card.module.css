@@ -7,11 +7,12 @@
   cursor: pointer;
   block-size: 100%;
   min-block-size: 20rem;
-  transition: transform 0.3s ease;
 }
 
 .card:hover {
-  transform: scale(1.02);
+  .thumbnail {
+    scale: 1.06;
+  }
 }
 
 .imageWrapper {
@@ -26,6 +27,7 @@
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
+  transition: scale 0.3s ease;
 }
 
 .gradient {
@@ -124,7 +126,9 @@
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
   box-shadow: 0 4px 12px rgba(246, 201, 68, 0.3);
 }
 
@@ -393,4 +397,3 @@
     font-size: 0.66rem;
   }
 }
-

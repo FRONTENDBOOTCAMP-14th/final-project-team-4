@@ -1,9 +1,9 @@
 import Image from "next/image"
 import CertificationCarousel from "@/components/challenge/certification-carousel/certification-carousel"
-import ChallengeCTA from "@/components/challenge/challenge-cta/challenge-cta" // ✅ 추가
+import ChallengeCTA from "@/components/challenge/challenge-cta/challenge-cta"
 import RecordCreateForm from "@/components/challenge/record-create-form/record-create-form"
+import ShareButton from "@/components/challenge/share-button/share-button"
 import WishlistButton from "@/components/challenge/wishlistButton/wishlistButton"
-import Button from "@/components/common/button/button"
 import CategoryTag from "@/components/common/category-tag/category-tag"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import AvatarLink from "@/components/user/avatar-link/avatar-link"
@@ -142,9 +142,7 @@ export default async function ChallengeDetailPage({
               userId={user?.id ?? null}
               initialChecked={isWishlisted}
             />
-            <Button className="share" type="button">
-              공유하기
-            </Button>
+            <ShareButton />
           </div>
         </section>
         <CertificationCarousel
