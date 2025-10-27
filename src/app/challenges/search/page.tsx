@@ -6,12 +6,12 @@ import EmptyChallenge from "@/components/challenge/empty-challenge/empty-challen
 import NoSearchResult from "@/components/challenge/no-search-result/no-search-result"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import SortButton from "@/components/common/sort-button/sort-button"
-import { useSearchStore } from "@/store/useSearchStore"
 import {
   useSearch,
   useSearchByAuthType,
   useSortedChallenges,
 } from "@/utils/hooks/useSearch"
+import { useSearchStore } from "store/useSearchStore"
 import styles from "./page.module.css"
 
 export default function ChallengeSearch() {
@@ -47,21 +47,21 @@ export default function ChallengeSearch() {
   const { challenges: photoChallenges, isLoading: isPhotoLoading } =
     useSearchByAuthType({
       query: keyword,
-      authType: "사진",
+      authType: "사진 인증",
       enabled: shouldSearch,
     })
 
   const { challenges: writingChallenges, isLoading: isWritingLoading } =
     useSearchByAuthType({
       query: keyword,
-      authType: "글쓰기",
+      authType: "텍스트 인증",
       enabled: shouldSearch,
     })
 
   const { challenges: attendanceChallenges, isLoading: isAttendanceLoading } =
     useSearchByAuthType({
       query: keyword,
-      authType: "출석체크",
+      authType: "출석체크 인증",
       enabled: shouldSearch,
     })
 
@@ -167,7 +167,7 @@ export default function ChallengeSearch() {
 
         <section className={styles.authSection}>
           <div className={styles.authHeader}>
-            <h2 className={styles.sectionTitle}>글쓰기 인증</h2>
+            <h2 className={styles.sectionTitle}>텍스트 인증</h2>
             <hr className={styles.divider} />
             <div className={styles.sortButtonWrapper}>
               <SortButton
@@ -179,7 +179,7 @@ export default function ChallengeSearch() {
 
           {isWritingLoading ? (
             <div className={styles.loadingWrapper}>
-              <p>글쓰기 인증 챌린지를 불러오는 중...</p>
+              <p>텍스트 인증 챌린지를 불러오는 중...</p>
             </div>
           ) : sortedWritingChallenges().length > 0 ? (
             <div className={styles.swiperContainer}>
@@ -189,7 +189,7 @@ export default function ChallengeSearch() {
             <div className={styles.emptyChallengeWrapper}>
               <EmptyChallenge
                 keyword={keyword}
-                challengeType="글쓰기 인증"
+                challengeType="텍스트 인증"
                 onCreateClick={handleCreateClick}
               />
             </div>

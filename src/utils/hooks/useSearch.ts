@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from "react"
 import useSWR from "swr"
-import { useSearchStore } from "@/store/useSearchStore"
 import type { ChallengeWithOwner } from "@/utils/supabase/api/search"
 import {
   searchChallenges,
   searchChallengesByAuthType,
 } from "@/utils/supabase/api/search"
+import { useSearchStore } from "store/useSearchStore"
 
 interface UseSearchOptions {
   query: string
@@ -14,7 +14,7 @@ interface UseSearchOptions {
 
 interface UseSearchByAuthTypeOptions {
   query: string
-  authType: "사진" | "글쓰기" | "출석체크"
+  authType: "사진 인증" | "텍스트 인증" | "출석체크 인증"
   enabled?: boolean
 }
 
@@ -110,13 +110,13 @@ export function useSearchByAuthType({
   useEffect(() => {
     if (data) {
       switch (authType) {
-        case "사진":
+        case "사진 인증":
           setPhotoChallenges(data.challenges)
           break
-        case "글쓰기":
+        case "텍스트 인증":
           setWritingChallenges(data.challenges)
           break
-        case "출석체크":
+        case "출석체크 인증":
           setAttendanceChallenges(data.challenges)
           break
       }
@@ -131,13 +131,13 @@ export function useSearchByAuthType({
 
   useEffect(() => {
     switch (authType) {
-      case "사진":
+      case "사진 인증":
         setPhotoLoading(swrLoading)
         break
-      case "글쓰기":
+      case "텍스트 인증":
         setWritingLoading(swrLoading)
         break
-      case "출석체크":
+      case "출석체크 인증":
         setAttendanceLoading(swrLoading)
         break
     }
@@ -157,11 +157,11 @@ export function useSearchByAuthType({
 
   const getChallenges = () => {
     switch (authType) {
-      case "사진":
+      case "사진 인증":
         return photoChallenges
-      case "글쓰기":
+      case "텍스트 인증":
         return writingChallenges
-      case "출석체크":
+      case "출석체크 인증":
         return attendanceChallenges
       default:
         return []
@@ -170,11 +170,11 @@ export function useSearchByAuthType({
 
   const getLoading = () => {
     switch (authType) {
-      case "사진":
+      case "사진 인증":
         return isPhotoLoading
-      case "글쓰기":
+      case "텍스트 인증":
         return isWritingLoading
-      case "출석체크":
+      case "출석체크 인증":
         return isAttendanceLoading
       default:
         return false
