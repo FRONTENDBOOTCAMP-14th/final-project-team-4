@@ -19,6 +19,8 @@ const responsiveSizes: Record<ResponsiveSizeType, string> = {
 const userFallbackImage = "/fallback/fallback-user.png"
 const kakaoDefaultImage =
   "http://img1.kakaocdn.net/thumb/R640x640.q70/?fname=http://t1.kakaocdn.net/account_images/default_profile.jpeg"
+const naverDefaultImage =
+  "https://ssl.pstatic.net/static/pwe/address/img_profile.png"
 
 export default function Avatar({
   imageUrl,
@@ -28,7 +30,11 @@ export default function Avatar({
 }: AvatarProps) {
   let safeImageUrl: string
 
-  if (!imageUrl || imageUrl === kakaoDefaultImage) {
+  if (
+    !imageUrl ||
+    imageUrl === kakaoDefaultImage ||
+    imageUrl === naverDefaultImage
+  ) {
     safeImageUrl = userFallbackImage
   } else if (imageUrl.startsWith("http:")) {
     safeImageUrl = imageUrl.replace(/^http:/, "https:")
@@ -43,6 +49,7 @@ export default function Avatar({
         className={styles.avatarImage}
         alt={altText}
         sizes={responsiveSizes[responsive]}
+        priority
         fill
       />
     </figure>
