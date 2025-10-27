@@ -12,7 +12,7 @@ interface ShareButton {
 export default function ShareButton({
   url,
   className = "share",
-  children = "링크 복사",
+  children = "공유하기",
 }: ShareButton) {
   const handleClick = async () => {
     const target =
