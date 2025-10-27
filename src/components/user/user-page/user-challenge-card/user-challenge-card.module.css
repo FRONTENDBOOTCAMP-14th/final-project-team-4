@@ -3,12 +3,18 @@
   border-radius: 18px;
   padding: 16px;
   width: 242px;
+  height: 100%;
 }
 
 .title {
   font-size: 18px;
   font-weight: 700;
   padding-block-end: 8px;
+  word-break: keep-all;
+}
+
+.smallTitle {
+  font-size: 16px;
 }
 
 .categoryHashtags {
@@ -30,12 +36,17 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     padding-block: 10px;
+    block-size: 45px;
     align-items: center;
 
     .todaysCheck {
       border-radius: 20px;
       background-color: var(--shadow-color);
       padding: 4px 12px;
+    }
+
+    .todaysCheckDone {
+      background-color: var(--brand-main);
     }
   }
 
@@ -60,10 +71,15 @@
   }
 }
 
-.buttons {
+.links {
   display: flex;
   flex-flow: row nowrap;
   gap: 6px;
+
+  .link {
+    padding: 14px 10px;
+    text-decoration: none;
+  }
 }
 
 @media (min-width: 581px) and (max-width: 1200px) {
