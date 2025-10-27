@@ -6,12 +6,12 @@ import EmptyChallenge from "@/components/challenge/empty-challenge/empty-challen
 import NoSearchResult from "@/components/challenge/no-search-result/no-search-result"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import SortButton from "@/components/common/sort-button/sort-button"
-import { useSearchStore } from "@/store/useSearchStore"
 import {
   useSearch,
   useSearchByAuthType,
   useSortedChallenges,
 } from "@/utils/hooks/useSearch"
+import { useSearchStore } from "store/useSearchStore"
 import styles from "./page.module.css"
 
 export default function ChallengeSearch() {

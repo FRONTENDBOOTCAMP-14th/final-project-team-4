@@ -3,7 +3,7 @@
 import type { ReactNode } from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import supabase from "@/utils/supabase"
+import browserClient from "@/utils/supabase/client"
 import type { User, Session } from "@supabase/supabase-js"
 
 export interface AuthContextType {
@@ -36,6 +36,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
 
   useEffect(() => {
+    const supabase = browserClient()
+    
     const getSession = async () => {
       const {
         data: { session },
@@ -68,6 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [router])
 
   const signUp = async (email: string, password: string) => {
+    const supabase = browserClient()
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -78,6 +81,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const signIn = async (email: string, password: string) => {
+    const supabase = browserClient()
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -88,6 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const signOut = async () => {
+    const supabase = browserClient()
     const { error } = await supabase.auth.signOut()
     if (error) throw error
   }

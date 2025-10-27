@@ -136,6 +136,7 @@ export default function Wishlist() {
     )
   }
 
+  // 유저가 없으면 로그인 필요 메시지 표시
   if (!user) {
     return (
       <div className={styles.pageWrapper}>
@@ -153,7 +154,8 @@ export default function Wishlist() {
     )
   }
 
-  if (error) {
+  // 에러가 발생했을 때 처리 (유저가 있고 로딩이 완료된 경우만)
+  if (error && user && !authLoading) {
     return (
       <div className={styles.pageWrapper}>
         <main className={styles.main}>

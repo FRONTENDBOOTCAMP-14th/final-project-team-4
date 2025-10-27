@@ -70,7 +70,7 @@ export default function ChallengeCard({
           <div className={styles.categoryTags}>
             {challenge.tags.map((tag, index) => (
               <span key={index} className={styles.categoryTag}>
-                #{tag}
+                {tag}
               </span>
             ))}
           </div>

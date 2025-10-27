@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from "react"
 import useSWR from "swr"
-import { useSearchStore } from "@/store/useSearchStore"
 import type { ChallengeWithOwner } from "@/utils/supabase/api/search"
 import {
   searchChallenges,
   searchChallengesByAuthType,
 } from "@/utils/supabase/api/search"
+import { useSearchStore } from "store/useSearchStore"
 
 interface UseSearchOptions {
   query: string
