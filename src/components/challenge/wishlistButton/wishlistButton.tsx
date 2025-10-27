@@ -1,8 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
+import { toast } from "sonner"
 import Button from "@/components/common/button/button"
 import browserClient from "@/utils/supabase/client"
+import styles from "./wishlistButton.module.css"
 
 interface WishlistButton {
   userId: string | null
@@ -19,40 +23,45 @@ export default function WishlistButton({
   const [checked, setChecked] = useState(initialChecked)
   const [loading, setLoading] = useState(false)
 
-  const onToggle = async () => {
-    if (!userId) {
-      window.location.href = `/login?redirect=/challenges/${challengeId}`
-      return
-    }
+  if (!userId) {
+    return (
+      <Link
+        href={`/auth/login?redirect=/challenges/${challengeId}`}
+        className={styles.link}
+      >
+        찜하기
+      </Link>
+    )
+  }
 
+  const onToggle = async () => {
     setLoading(true)
     try {
       if (checked) {
-        const { data: row, error: selErr } = await supabase
+        const { error: delErr } = await supabase
           .from("challenge_wishlist")
-          .select("id")
-          .eq("challenge_id", challengeId)
+          .delete()
           .eq("user_id", userId)
-          .maybeSingle()
-        if (selErr) throw selErr
+          .eq("challenge_id", challengeId)
+        if (delErr) throw delErr
 
-        if (row) {
-          const { error: delErr } = await supabase
-            .from("challenge_wishlist")
-            .delete()
-            .eq("id", row.id)
-          if (delErr) throw delErr
-        }
         setChecked(false)
+        toast.success("찜을 해제했어요.")
       } else {
-        const { error } = await supabase
+        const { error: upErr } = await supabase
           .from("challenge_wishlist")
-          .insert({ user_id: userId, challenge_id: challengeId })
-        if (error) throw error
+          .upsert([{ user_id: userId, challenge_id: challengeId }], {
+            onConflict: "user_id,challenge_id",
+            ignoreDuplicates: true,
+          })
+        if (upErr) throw upErr
+
         setChecked(true)
+        toast.success("찜목록에 추가했어요!")
       }
-    } catch (error) {
-      console.error(error)
+    } catch (err: any) {
+      console.error(err)
+      toast.error(err?.message ?? "처리 중 오류가 발생했어요.")
     } finally {
       setLoading(false)
     }
