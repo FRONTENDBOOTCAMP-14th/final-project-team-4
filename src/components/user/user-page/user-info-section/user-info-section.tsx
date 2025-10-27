@@ -11,8 +11,8 @@ import {
   updateUserInfo,
 } from "@/utils/supabase/api/profiles"
 import useUserStore from "store/userStore"
-import styles from "./user-info-section.module.css"
 import OtherUserInfoSection from "./other-user-info-section"
+import styles from "./user-info-section.module.css"
 
 interface ProfileFormValues {
   username: string
@@ -90,6 +90,7 @@ export default function UserInfoSection({
   }
 
   return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {!isMyPage ? (
         <OtherUserInfoSection pageUser={pageUser} isMyPage={isMyPage} />
