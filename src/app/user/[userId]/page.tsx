@@ -1,7 +1,6 @@
 import {
   UserInfoSection,
   UserInfoCustomSection,
-  UserStaticsSection,
   UserAccountSection,
 } from "@/components/user/user-page/index"
 import UserChallengesSectionWrapper from "@/components/user/user-page/user-challenges-section/user-challenges-section-wrapper"
@@ -50,13 +49,7 @@ export default async function UserPage({ params }: UserPageProps) {
         <UserInfoCustomSection pageUser={pageUser} isMyPage={isMyPage} />
       ) : null}
       {renderPrivateSections ? (
-        <>
-          <UserStaticsSection />
-          <UserChallengesSectionWrapper
-            pageUser={pageUser}
-            isMyPage={isMyPage}
-          />
-        </>
+        <UserChallengesSectionWrapper pageUser={pageUser} isMyPage={isMyPage} />
       ) : (
         <p>비공개 회원입니다.</p>
       )}

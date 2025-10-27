@@ -1,14 +1,15 @@
-import Button from "@/components/common/button/button"
-import BadgeList from "@/components/user/badge-list/badge-list"
+// import Button from "@/components/common/button/button"
+// import BadgeList from "@/components/user/badge-list/badge-list"
 import styles from "./user-statics-section.module.css"
+import type { UserStatics } from "../user-challenges-section/user-challenges-section-wrapper"
 
-const statics = {
-  onGoingChallenges: 5,
-  succeededChallenges: 12,
-  achievedBadges: 8,
+interface UserStaticsSectionProps {
+  statics: UserStatics
 }
 
-export default function UserStaticsSection() {
+export default function UserStaticsSection({
+  statics,
+}: UserStaticsSectionProps) {
   return (
     <section className={styles.userStaticsSection}>
       <h3>나의 통계</h3>
@@ -20,10 +21,14 @@ export default function UserStaticsSection() {
           성공한 챌린지<span>{statics.succeededChallenges}</span>
         </li>
         <li className={styles.staticsListItem}>
-          획득한 뱃지<span>{statics.achievedBadges}</span>
+          도전한 모든 챌린지<span>{statics.totalChallenges}</span>
         </li>
+        {/* 뱃지 - 추후 기능 구현 */}
+        {/* <li className={styles.staticsListItem}>
+          획득한 뱃지<span>{statics.achievedBadges}</span>
+        </li> */}
       </ul>
-      <div className={styles.badgeList}>
+      {/* <div className={styles.badgeList}>
         <h4>획득한 뱃지</h4>
         <BadgeList />
         <div className={styles.viewMoreButton}>
@@ -31,7 +36,7 @@ export default function UserStaticsSection() {
             더보기
           </Button>
         </div>
-      </div>
+      </div> */}
     </section>
   )
 }

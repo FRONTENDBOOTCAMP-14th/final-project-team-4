@@ -2,6 +2,7 @@ import type { UserPageComponentsProps } from "@/app/user/[userId]/types"
 import recordedToday from "@/utils/recordedToday"
 import type { Database } from "@/utils/supabase/database.types"
 import { createClient } from "@/utils/supabase/server"
+import UserStaticsSection from "../user-statics-section/user-statics-section"
 import UserChallengesSection from "./user-challenges-section"
 
 type Challenge = Database["public"]["Tables"]["challenges"]["Row"]
@@ -11,6 +12,12 @@ export interface ChallengeWithStatus {
   recorded: boolean
   isFinished?: boolean
   isMyPage?: boolean
+}
+
+export interface UserStatics {
+  onGoingChallenges: number
+  succeededChallenges: number
+  totalChallenges: number
 }
 
 export default async function UserChallengesSectionData({
@@ -75,13 +82,27 @@ export default async function UserChallengesSectionData({
     isFinished: challenge.is_finished,
   }))
 
+  // 통계 계산
+  const statics: UserStatics = {
+    onGoingChallenges: ongoingParticipants?.length || 0,
+
+    succeededChallenges:
+      pastParticipants?.filter((p) => p.is_successful === true).length || 0,
+
+    totalChallenges:
+      (ongoingParticipants?.length || 0) + (pastParticipants?.length || 0),
+  }
+
   return (
-    <UserChallengesSection
-      pageUser={pageUser}
-      isMyPage={isMyPage}
-      ongoingChallenges={ongoingChallenges}
-      pastChallenges={pastChallenges}
-      createdChallenges={createdChallenges}
-    />
+    <>
+      <UserStaticsSection statics={statics} />
+      <UserChallengesSection
+        pageUser={pageUser}
+        isMyPage={isMyPage}
+        ongoingChallenges={ongoingChallenges}
+        pastChallenges={pastChallenges}
+        createdChallenges={createdChallenges}
+      />
+    </>
   )
 }
