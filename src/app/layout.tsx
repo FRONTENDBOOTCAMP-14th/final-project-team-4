@@ -4,6 +4,7 @@ import Footer from "@/components/layout/footer/footer"
 import Header from "@/components/layout/header/header"
 import { AuthProvider } from "@/contexts/AuthContext"
 import { createClient } from "@/utils/supabase/server"
+import ToasterProvider from "./toast-provider"
 import UserProvider from "./user-providers"
 
 export const metadata: Metadata = {
@@ -55,6 +56,7 @@ export default async function RootLayout({
           <UserProvider initialUser={userData}>
             <Header />
             <main>{children}</main>
+            <ToasterProvider />
             <Footer />
           </UserProvider>
         </AuthProvider>
