@@ -7,6 +7,7 @@ import WishlistButton from "@/components/challenge/wishlistButton/wishlistButton
 import CategoryTag from "@/components/common/category-tag/category-tag"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import AvatarLink from "@/components/user/avatar-link/avatar-link"
+import { getTodaysPostISO } from "@/utils/getTodaysPost"
 import type { Database } from "@/utils/supabase/database.types"
 import { createClient } from "@/utils/supabase/server"
 import styles from "./page.module.css"
@@ -46,12 +47,16 @@ export default async function ChallengeDetailPage({
     return <p>유저 데이터를 불러올 수 없습니다 😢</p>
   }
 
+  const { startISO, endISO } = getTodaysPostISO()
   const { data: recordData, error: recordError } = await supabase
     .from("challenge_records")
     .select("id")
     .eq("challenge_id", id)
+    .gte("created_at", startISO)
+    .lt("created_at", endISO)
     .order("created_at", { ascending: false })
     .limit(20)
+
   if (recordError) {
     console.error("인증 게시글 데이터를 불러오지 못했습니다:", recordError)
     return <p>인증 게시글 데이터를 불러올 수 없습니다 😢</p>
