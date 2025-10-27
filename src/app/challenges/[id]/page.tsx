@@ -103,6 +103,7 @@ export default async function ChallengeDetailPage({
           <Image
             src={challenge.thumbnail}
             alt={challenge.title}
+            className={styles.thumbnailImage}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             priority
@@ -119,7 +120,7 @@ export default async function ChallengeDetailPage({
           <p className={styles.description}>{challenge.description}</p>
           <div className={styles.tagWrapper}>
             {challenge.tags.map((tag, index) => (
-              <span key={index}>{tag}</span>
+              <span key={index}>#{tag}</span>
             ))}
           </div>
         </section>
@@ -155,7 +156,7 @@ export default async function ChallengeDetailPage({
           recordIds={recordData?.map((r) => r.id) ?? []}
           userId={user?.id ?? null}
         />
-        {isLoggedIn ? (
+        {isLoggedIn && isParticipating ? (
           <div id="record-create">
             <RecordCreateForm challengeId={challenge.id} userId={user.id} />
           </div>
