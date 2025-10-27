@@ -20,6 +20,7 @@
 
   > li:last-child {
     margin-top: auto;
+    align-self: center;
   }
 
   a {
