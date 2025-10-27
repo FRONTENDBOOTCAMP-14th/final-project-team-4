@@ -46,22 +46,20 @@ export default function FileInput({
 
   return (
     <div className={styles[id]}>
-      {preview && (
-        <div className={styles.preview}>
-          <Image src={preview} alt="미리보기" width={400} height={800} />
-        </div>
-      )}
-      <label htmlFor={id} tabIndex={50}>
-        이미지 등록
-      </label>
+      <div className={styles.preview}>
+        {preview && (
+          <Image src={preview} alt="챌린지 썸네일" width={400} height={800} />
+        )}
+        <label htmlFor={id}>이미지 업로드</label>
 
-      <input
-        type="file"
-        id={id}
-        name={id}
-        onChange={handleFileChange}
-        accept=".jpg, .jpeg, .png, .webp"
-      />
+        <input
+          type="file"
+          id={id}
+          name={id}
+          onChange={handleFileChange}
+          accept=".jpg, .jpeg, .png, .webp"
+        />
+      </div>
 
       {defaultImages.length > 0 && (
         <div className={styles.defaultImages}>
@@ -86,9 +84,11 @@ export default function FileInput({
         </div>
       )}
 
-      <small>썸네일 권장 크기: 400 x 800</small>
-
-      {error && <p className={styles.error}>{error}</p>}
+      {error ? (
+        <p className={styles.error}>{error}</p>
+      ) : (
+        <small>썸네일 권장 크기: 400 x 800</small>
+      )}
     </div>
   )
 }
