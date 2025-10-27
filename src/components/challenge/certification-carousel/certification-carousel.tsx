@@ -33,6 +33,7 @@ export default function CertificationCarousel({ recordIds, userId }: Props) {
         slidesPerView={1}
         breakpoints={{
           518: { slidesPerView: 1.4, spaceBetween: 40 },
+          1200: { slidesPerView: 2, spaceBetween: 40 },
         }}
         className={styles.swiper}
       >

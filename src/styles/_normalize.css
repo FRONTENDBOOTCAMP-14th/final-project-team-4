@@ -2,7 +2,9 @@
   html {
     -webkit-text-size-adjust: 100%;
     tab-size: 2;
+    scroll-behavior: smooth;
   }
+
   body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
