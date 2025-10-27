@@ -51,6 +51,7 @@
   .viewMoreButton {
     width: 140px;
     margin: 0 auto;
+    padding-block-start: 34px;
   }
 }
 
