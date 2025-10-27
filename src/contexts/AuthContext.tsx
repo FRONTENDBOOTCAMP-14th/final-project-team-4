@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const supabase = browserClient()
-    
+
     const getSession = async () => {
       const {
         data: { session },
