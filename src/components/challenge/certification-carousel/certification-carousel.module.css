@@ -62,3 +62,6 @@
 .cardCell {
   min-height: 120px;
 }
+.nonePost {
+  padding-block-start: 20px;
+}
