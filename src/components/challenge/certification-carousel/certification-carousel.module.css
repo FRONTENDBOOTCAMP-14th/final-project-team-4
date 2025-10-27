@@ -1,5 +1,5 @@
 .section {
-  max-inline-size: 800px;
+  max-inline-size: 896px;
   position: relative;
   z-index: 999;
   overflow: hidden;
@@ -43,9 +43,10 @@
   border: 1px solid var(--border, #ddd);
   background: #fff;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
   svg {
-    scale: 0.7;
+    scale: 1.2;
     color: var(--text-color-main);
   }
 
