@@ -68,7 +68,7 @@ export default async function ChallengeDetailPage({
     isParticipating = !!participant && participant.is_progress === true
   }
 
-  const loginHref = `/login?redirect=/challenges/${id}`
+  const loginHref = `/auth/login?redirect=${encodeURIComponent(`/challenges/${id}`)}`
 
   let isWishlisted = false
   if (isLoggedIn) {
@@ -114,7 +114,7 @@ export default async function ChallengeDetailPage({
           <p className={styles.description}>{challenge.description}</p>
           <div className={styles.tagWrapper}>
             {challenge.tags.map((tag, index) => (
-              <span key={index}>#{tag}</span>
+              <span key={index}>{tag}</span>
             ))}
           </div>
         </section>
@@ -136,6 +136,7 @@ export default async function ChallengeDetailPage({
               challengeId={challenge.id}
               userId={user?.id ?? null}
               loginHref={loginHref}
+              requiredSuccessRate={challenge.success_threshold_percent}
             />
             <WishlistButton
               challengeId={challenge.id}
