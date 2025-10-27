@@ -1,3 +1,4 @@
+import { Lock } from "lucide-react"
 import {
   UserInfoSection,
   UserInfoCustomSection,
@@ -6,7 +7,6 @@ import {
 import UserChallengesSectionWrapper from "@/components/user/user-page/user-challenges-section/user-challenges-section-wrapper"
 import { createClient } from "@/utils/supabase/server"
 import styles from "./page.module.css"
-import { Lock } from "lucide-react"
 
 interface UserPageProps {
   params: Promise<{ userId: string }>
