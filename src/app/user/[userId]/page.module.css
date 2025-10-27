@@ -5,6 +5,7 @@
   justify-content: center;
   font-size: 14px;
   margin: 0 auto;
+  padding: 134px 0 60px 0;
   min-width: 300px;
   max-width: 580px;
   background-color: var(--surface-bg-main);
@@ -32,6 +33,7 @@
 @media (min-width: 581px) {
   .myPage {
     font-size: 16px;
+    padding: 128px 0 0 0;
 
     h3 {
       font-size: 22px;
@@ -42,6 +44,7 @@
 @media (min-width: 1201px) {
   .myPage {
     max-width: 760px;
+    padding: 0;
 
     section:nth-child(2) {
       padding: 20px;
