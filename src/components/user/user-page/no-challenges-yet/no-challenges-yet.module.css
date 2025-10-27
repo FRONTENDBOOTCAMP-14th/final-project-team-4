@@ -6,6 +6,7 @@
   color: var(--text-color-main);
   background-color: var(--surface-bg-sub);
   padding-block: 40px;
+  border-radius: 10px;
 
   .mainMessage {
     font-size: 16px;
