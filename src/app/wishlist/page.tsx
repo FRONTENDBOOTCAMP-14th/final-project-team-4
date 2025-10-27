@@ -11,8 +11,10 @@ import styles from "./page.module.css"
 
 export default function Wishlist() {
   const { user, loading: authLoading } = useAuth()
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const [selectedAuthTypes, setSelectedAuthTypes] = useState<string[]>([])
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    "전체",
+  ])
+  const [selectedAuthTypes, setSelectedAuthTypes] = useState<string[]>(["전체"])
   const [sortType, setSortType] = useState<TwoSortType>("latest")
 
   const observerTarget = useRef<HTMLDivElement>(null)

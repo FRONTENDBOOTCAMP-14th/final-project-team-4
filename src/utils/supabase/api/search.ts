@@ -107,7 +107,7 @@ export async function searchChallengesByAuthType({
   limit = 20,
   offset = 0,
 }: SearchParams & {
-  authType: "사진" | "글쓰기" | "출석체크"
+  authType: "사진 인증" | "텍스트 인증" | "출석체크 인증"
 }): Promise<SearchResult> {
   if (!query?.trim()) {
     return { challenges: [], totalCount: 0 }
