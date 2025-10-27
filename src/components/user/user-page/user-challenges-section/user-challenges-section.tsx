@@ -16,6 +16,9 @@ interface UserChallengesSectionProps extends UserPageComponentsProps {
   createdChallenges: ChallengeWithStatus[]
 }
 
+const INITIAL_CHALLENGE_COUNT = 6
+const LOAD_MORE_COUNT = 6
+
 export default function UserChallengesSection({
   isMyPage,
   ongoingChallenges,
@@ -23,6 +26,12 @@ export default function UserChallengesSection({
   createdChallenges,
 }: UserChallengesSectionProps) {
   const [activeTab, setActiveTab] = useState<TabType>("ongoing")
+  const [displayCount, setDisplayCount] = useState(INITIAL_CHALLENGE_COUNT)
+
+  const handleTabChange = (tab: TabType) => {
+    setActiveTab(tab)
+    setDisplayCount(INITIAL_CHALLENGE_COUNT)
+  }
 
   const getCurrentChallenges = () => {
     switch (activeTab) {
@@ -39,6 +48,15 @@ export default function UserChallengesSection({
 
   const currentChallenges = getCurrentChallenges()
 
+  const handleLoadMore = () => {
+    setDisplayCount((prevCount) => prevCount + LOAD_MORE_COUNT)
+  }
+
+  const challengesToDisplay = currentChallenges.slice(0, displayCount)
+
+  const shouldShowViewMore =
+    currentChallenges.length > challengesToDisplay.length
+
   return (
     <section className={styles.userChallengesSection}>
       <h3>내 챌린지 보기</h3>
@@ -49,7 +67,7 @@ export default function UserChallengesSection({
             className={`${styles.tab} ${activeTab === "ongoing" ? styles.isSelected : ""}`}
             role="tab"
             aria-selected={activeTab === "ongoing"}
-            onClick={() => setActiveTab("ongoing")}
+            onClick={() => handleTabChange("ongoing")}
             aria-controls="content-ongoing"
           >
             진행 중인 챌린지
@@ -59,7 +77,7 @@ export default function UserChallengesSection({
             className={`${styles.tab} ${activeTab === "past" ? styles.isSelected : ""}`}
             role="tab"
             aria-selected={activeTab === "past"}
-            onClick={() => setActiveTab("past")}
+            onClick={() => handleTabChange("past")}
             aria-controls="content-created"
           >
             지난 챌린지
@@ -69,7 +87,7 @@ export default function UserChallengesSection({
             className={`${styles.tab} ${activeTab === "created" ? styles.isSelected : ""}`}
             role="tab"
             aria-selected={activeTab === "created"}
-            onClick={() => setActiveTab("created")}
+            onClick={() => handleTabChange("created")}
             aria-controls="content3"
           >
             내가 만든 챌린지
@@ -86,7 +104,7 @@ export default function UserChallengesSection({
               aria-labelledby={`tab-${activeTab}`}
             >
               <ul className={styles.challengeList}>
-                {currentChallenges.map(
+                {challengesToDisplay.map(
                   ({ challenge, recorded, isFinished }) => (
                     <li className={styles.listItem} key={challenge.id}>
                       <UserChallengeCard
@@ -103,9 +121,9 @@ export default function UserChallengesSection({
           )}
         </div>
       </div>
-      {currentChallenges.length > 6 && (
+      {shouldShowViewMore && (
         <div className={styles.viewMoreButton}>
-          <Button className="primary" type="button">
+          <Button className="primary" type="button" onClick={handleLoadMore}>
             더보기
           </Button>
         </div>
