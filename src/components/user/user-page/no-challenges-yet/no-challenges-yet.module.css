@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color-main);
+  background-color: var(--surface-bg-sub);
+  padding-block: 40px;
+
+  .mainMessage {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .subMessage {
+    font-size: 12px;
+  }
+}

@@ -2,9 +2,9 @@ import {
   UserInfoSection,
   UserInfoCustomSection,
   UserStaticsSection,
-  UserChallengesSection,
   UserAccountSection,
 } from "@/components/user/user-page/index"
+import UserChallengesSectionWrapper from "@/components/user/user-page/user-challenges-section/user-challenges-section-wrapper"
 import { createClient } from "@/utils/supabase/server"
 import styles from "./page.module.css"
 
@@ -52,7 +52,10 @@ export default async function UserPage({ params }: UserPageProps) {
       {renderPrivateSections ? (
         <>
           <UserStaticsSection />
-          <UserChallengesSection />
+          <UserChallengesSectionWrapper
+            pageUser={pageUser}
+            isMyPage={isMyPage}
+          />
         </>
       ) : (
         <p>비공개 회원입니다.</p>

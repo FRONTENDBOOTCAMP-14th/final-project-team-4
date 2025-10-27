@@ -114,7 +114,9 @@ export default function RecordCreateForm({ challengeId, userId }: Props) {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>인증하기</h2>
+      <h2 id="recordCreate" className={styles.title}>
+        인증하기
+      </h2>
       <form className={styles.form} onSubmit={onSubmit}>
         <label className={styles.dropzone}>
           {previewUrl ? (

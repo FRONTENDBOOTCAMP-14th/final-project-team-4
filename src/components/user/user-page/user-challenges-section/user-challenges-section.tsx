@@ -1,8 +1,44 @@
-import Button from "@/components/common/button/button"
-import UserChallengeList from "../user-challenge-list/user-challenge-list"
-import styles from "./user-challenges-section.module.css"
+"use client"
 
-export default function UserChallengesSection() {
+import { useState } from "react"
+import type { UserPageComponentsProps } from "@/app/user/[userId]/types"
+import Button from "@/components/common/button/button"
+import NoChallengesYet from "../no-challenges-yet/no-challenges-yet"
+import UserChallengeCard from "../user-challenge-card/user-challenge-card"
+import styles from "./user-challenges-section.module.css"
+import type { ChallengeWithStatus } from "./user-challenges-section-wrapper"
+
+export type TabType = "ongoing" | "past" | "created"
+
+interface UserChallengesSectionProps extends UserPageComponentsProps {
+  ongoingChallenges: ChallengeWithStatus[]
+  pastChallenges: ChallengeWithStatus[]
+  createdChallenges: ChallengeWithStatus[]
+}
+
+export default function UserChallengesSection({
+  isMyPage,
+  ongoingChallenges,
+  pastChallenges,
+  createdChallenges,
+}: UserChallengesSectionProps) {
+  const [activeTab, setActiveTab] = useState<TabType>("ongoing")
+
+  const getCurrentChallenges = () => {
+    switch (activeTab) {
+      case "ongoing":
+        return ongoingChallenges
+      case "past":
+        return pastChallenges
+      case "created":
+        return createdChallenges
+      default:
+        return []
+    }
+  }
+
+  const currentChallenges = getCurrentChallenges()
+
   return (
     <section className={styles.userChallengesSection}>
       <h3>내 챌린지 보기</h3>
@@ -10,73 +46,70 @@ export default function UserChallengesSection() {
         <div className={styles.tabs} role="tablist">
           <button
             type="button"
-            id="tab1"
-            className={`${styles.tab} ${styles.isSelected}`}
+            className={`${styles.tab} ${activeTab === "ongoing" ? styles.isSelected : ""}`}
             role="tab"
-            aria-selected="true"
-            aria-controls="content1"
-            data-primary-type="ongoingChallenges"
+            aria-selected={activeTab === "ongoing"}
+            onClick={() => setActiveTab("ongoing")}
+            aria-controls="content-ongoing"
           >
             진행 중인 챌린지
           </button>
           <button
             type="button"
-            id="tab2"
-            className={styles.tab}
+            className={`${styles.tab} ${activeTab === "past" ? styles.isSelected : ""}`}
             role="tab"
-            aria-selected="false"
-            aria-controls="content2"
-            data-primary-type="pastChallenges"
+            aria-selected={activeTab === "past"}
+            onClick={() => setActiveTab("past")}
+            aria-controls="content-created"
           >
             지난 챌린지
           </button>
           <button
             type="button"
-            id="tab3"
-            className={styles.tab}
+            className={`${styles.tab} ${activeTab === "created" ? styles.isSelected : ""}`}
             role="tab"
-            aria-selected="false"
+            aria-selected={activeTab === "created"}
+            onClick={() => setActiveTab("created")}
             aria-controls="content3"
-            data-primary-type="challengesICreated"
           >
             내가 만든 챌린지
           </button>
         </div>
         <div className={styles.contents}>
-          <section
-            id="content1"
-            className={`${styles.tabContent} ${styles.isSelected}`}
-            role="tabpanel"
-            aria-labelledby="tab1"
-            data-primary-type="tourist_attraction"
-          >
-            <UserChallengeList />
-          </section>
-          <section
-            id="content2"
-            className={styles.tabContent}
-            role="tabpanel"
-            aria-labelledby="tab2"
-            data-primary-type="restaurant"
-          >
-            <UserChallengeList />
-          </section>
-          <section
-            id="content3"
-            className={styles.tabContent}
-            role="tabpanel"
-            aria-labelledby="tab3"
-            data-primary-type="cafe"
-          >
-            <UserChallengeList />
-          </section>
+          {currentChallenges.length === 0 ? (
+            <NoChallengesYet activeTab={activeTab} />
+          ) : (
+            <section
+              id={`content-${activeTab}`}
+              className={`${styles.tabContent} ${styles.isSelected}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${activeTab}`}
+            >
+              <ul className={styles.challengeList}>
+                {currentChallenges.map(
+                  ({ challenge, recorded, isFinished }) => (
+                    <li className={styles.listItem} key={challenge.id}>
+                      <UserChallengeCard
+                        challenge={challenge}
+                        recorded={recorded}
+                        isFinished={isFinished}
+                        isMyPage={isMyPage}
+                      />
+                    </li>
+                  )
+                )}
+              </ul>
+            </section>
+          )}
         </div>
       </div>
-      <div className={styles.viewMoreButton}>
-        <Button className="primary" type="button">
-          더보기
-        </Button>
-      </div>
+      {currentChallenges.length > 6 && (
+        <div className={styles.viewMoreButton}>
+          <Button className="primary" type="button">
+            더보기
+          </Button>
+        </div>
+      )}
     </section>
   )
 }
