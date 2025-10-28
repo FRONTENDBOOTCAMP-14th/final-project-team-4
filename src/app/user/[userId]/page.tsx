@@ -1,3 +1,4 @@
+import { Lock } from "lucide-react"
 import {
   UserInfoSection,
   UserInfoCustomSection,
@@ -51,7 +52,10 @@ export default async function UserPage({ params }: UserPageProps) {
       {renderPrivateSections ? (
         <UserChallengesSectionWrapper pageUser={pageUser} isMyPage={isMyPage} />
       ) : (
-        <p>비공개 회원입니다.</p>
+        <div className={styles.privateUser}>
+          <Lock className={styles.icon} />
+          <p>비공개 회원입니다.</p>
+        </div>
       )}
 
       <UserAccountSection isMyPage={isMyPage} />
