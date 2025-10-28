@@ -143,6 +143,8 @@ export default async function ChallengeDetailPage({
               userId={user?.id ?? null}
               loginHref={loginHref}
               requiredSuccessRate={challenge.success_threshold_percent}
+              startAt={challenge.start_at}
+              endAt={challenge.end_at}
             />
             <WishlistButton
               challengeId={challenge.id}
