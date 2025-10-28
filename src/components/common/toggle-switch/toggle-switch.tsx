@@ -29,7 +29,6 @@ export default function ToggleSwitch({
         name={name}
         checked={checked}
         onChange={handleToggle}
-        aria-checked={checked}
         value={String(checked)}
       />
     </label>

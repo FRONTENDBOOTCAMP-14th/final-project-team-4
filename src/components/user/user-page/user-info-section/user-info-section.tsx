@@ -37,7 +37,7 @@ export default function UserInfoSection({
   } = useForm<ProfileFormValues>({ defaultValues: loggedInUser ?? {} })
 
   if (loggedInUser === undefined) {
-    return <main className={styles.myPage}>로딩 중</main>
+    return <p className={styles.myPage}>로딩 중</p>
   }
 
   switch (pageUserOauth) {

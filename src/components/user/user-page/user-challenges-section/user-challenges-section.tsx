@@ -68,7 +68,6 @@ export default function UserChallengesSection({
             role="tab"
             aria-selected={activeTab === "ongoing"}
             onClick={() => handleTabChange("ongoing")}
-            aria-controls="content-ongoing"
           >
             진행 중인 챌린지
           </button>
@@ -78,7 +77,6 @@ export default function UserChallengesSection({
             role="tab"
             aria-selected={activeTab === "past"}
             onClick={() => handleTabChange("past")}
-            aria-controls="content-created"
           >
             지난 챌린지
           </button>
@@ -88,7 +86,6 @@ export default function UserChallengesSection({
             role="tab"
             aria-selected={activeTab === "created"}
             onClick={() => handleTabChange("created")}
-            aria-controls="content3"
           >
             {isMyPage ? "내" : "유저"}가 만든 챌린지
           </button>
