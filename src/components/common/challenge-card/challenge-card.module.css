@@ -2,6 +2,8 @@
   display: block;
   text-decoration: none;
   color: inherit;
+  height: 100%;
+  width: 100%;
 }
 
 .card {
@@ -13,6 +15,8 @@
   cursor: pointer;
   block-size: 100%;
   min-block-size: 20rem;
+  height: 100%;
+  width: 100%;
 }
 
 .card:hover {

@@ -22,11 +22,11 @@ const fetcher = async (url: string) => {
     case "new":
       return getNewChallengesClient(limitNum)
     case "photo":
-      return getChallengesByTypeClient("사진", limitNum)
+      return getChallengesByTypeClient("사진 인증", limitNum)
     case "writing":
-      return getChallengesByTypeClient("글쓰기", limitNum)
+      return getChallengesByTypeClient("텍스트 인증", limitNum)
     case "attendance":
-      return getChallengesByTypeClient("출석체크", limitNum)
+      return getChallengesByTypeClient("출석체크 인증", limitNum)
     default:
       return []
   }
@@ -101,7 +101,7 @@ export default function HomeChallenges({
         challenges={photoChallenges}
       />
       <ChallengeCardList
-        title="글쓰기 인증 챌린지"
+        title="텍스트 인증 챌린지"
         challenges={writingChallenges}
       />
       <ChallengeCardList

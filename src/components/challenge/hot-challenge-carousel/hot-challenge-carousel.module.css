@@ -22,11 +22,15 @@
   gap: 1.25rem;
   block-size: 100%;
   min-block-size: 32rem;
+  height: 100%;
 }
 
 .mainCard {
   inline-size: 100%;
   block-size: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .mainCard article > div {
@@ -72,12 +76,16 @@
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem;
+  height: 100%;
 }
 
 .subCard {
   inline-size: 100%;
   block-size: 100%;
   min-block-size: 10rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .swiper {
@@ -86,9 +94,14 @@
   padding-block-end: 1.5rem;
 }
 
+.swiper :global(.swiper-wrapper) {
+  align-items: stretch;
+}
+
 .slide {
   block-size: auto;
   inline-size: 100%;
+  align-self: stretch;
 }
 
 .swiper :global(.swiper-button-next),
@@ -183,21 +196,20 @@
   .gridLayout {
     grid-template-columns: 1.5fr 1fr;
     gap: 1rem;
-    min-block-size: 28rem;
+    min-block-size: 32rem;
+    align-items: stretch;
   }
 
   .subCardsContainer {
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: 1fr;
     gap: 1rem;
+    height: 100%;
   }
 
   .subCard {
     min-block-size: 9rem;
-  }
-
-  .subCard:nth-child(n + 3) {
-    display: none;
+    height: 100%;
   }
 
   .mainCard article > div {

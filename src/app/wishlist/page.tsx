@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import ChallengeCard from "@/components/common/challenge-card/challenge-card"
 import FilterButton from "@/components/common/filter-button/filter-button"
+import LoadingSpinner from "@/components/common/loading-spinner/loading-spinner"
 import TwoSortButton from "@/components/common/two-sort-button/two-sort-button"
 import type { TwoSortType } from "@/components/common/two-sort-button/two-sort-button"
 import { useAuth } from "@/contexts/AuthContext"
@@ -33,12 +34,14 @@ export default function Wishlist() {
   })
 
   const categories = ["전체", "건강 / 운동", "학습", "습관", "취미"]
-  const authTypes = ["전체", "사진 인증", "글쓰기 인증", "출석 체크 인증"]
+  const authTypes = ["전체", "사진 인증", "텍스트 인증", "출석체크 인증"]
 
   function handleCategoryToggle(category: string) {
     if (category === "전체") {
+      // 전체 버튼은 항상 선택된 상태를 유지해야 함
       if (selectedCategories.includes("전체")) {
-        setSelectedCategories([])
+        // 전체가 선택된 상태에서 클릭하면 아무것도 하지 않음
+        return
       } else {
         setSelectedCategories(["전체", "건강 / 운동", "학습", "습관", "취미"])
       }
@@ -57,21 +60,34 @@ export default function Wishlist() {
           "취미",
         ].every((cat) => withoutAll.includes(cat))
 
-        return allIndividualSelected ? [...withoutAll, "전체"] : withoutAll
+        // 모든 개별 필터가 선택되면 전체도 선택
+        if (allIndividualSelected) {
+          return [...withoutAll, "전체"]
+        }
+
+        // 개별 필터가 하나라도 선택되면 전체 해제
+        if (withoutAll.length > 0) {
+          return withoutAll
+        }
+
+        // 아무것도 선택되지 않으면 전체 선택 유지
+        return ["전체"]
       })
     }
   }
 
   function handleAuthTypeToggle(authType: string) {
     if (authType === "전체") {
+      // 전체 버튼은 항상 선택된 상태를 유지해야 함
       if (selectedAuthTypes.includes("전체")) {
-        setSelectedAuthTypes([])
+        // 전체가 선택된 상태에서 클릭하면 아무것도 하지 않음
+        return
       } else {
         setSelectedAuthTypes([
           "전체",
           "사진 인증",
-          "글쓰기 인증",
-          "출석 체크 인증",
+          "텍스트 인증",
+          "출석체크 인증",
         ])
       }
     } else {
@@ -84,11 +100,22 @@ export default function Wishlist() {
 
         const allIndividualSelected = [
           "사진 인증",
-          "글쓰기 인증",
-          "출석 체크 인증",
+          "텍스트 인증",
+          "출석체크 인증",
         ].every((auth) => withoutAll.includes(auth))
 
-        return allIndividualSelected ? [...withoutAll, "전체"] : withoutAll
+        // 모든 개별 필터가 선택되면 전체도 선택
+        if (allIndividualSelected) {
+          return [...withoutAll, "전체"]
+        }
+
+        // 개별 필터가 하나라도 선택되면 전체 해제
+        if (withoutAll.length > 0) {
+          return withoutAll
+        }
+
+        // 아무것도 선택되지 않으면 전체 선택 유지
+        return ["전체"]
       })
     }
   }
@@ -129,10 +156,7 @@ export default function Wishlist() {
     return (
       <div className={styles.pageWrapper}>
         <main className={styles.main}>
-          <div className={styles.loadingIndicator}>
-            <div className={styles.spinner} />
-            로딩 중...
-          </div>
+          <LoadingSpinner message="인증 상태를 확인하는 중..." fullScreen />
         </main>
       </div>
     )
@@ -212,7 +236,7 @@ export default function Wishlist() {
 
         {displayedChallenges.length > 0 ? (
           <section className={styles.challengeGrid}>
-            {displayedChallenges.map((challenge, index) => {
+            {displayedChallenges.map((challenge) => {
               // 남은 일수 계산
               const now = new Date()
               const endDate = new Date(challenge.end_at)
@@ -222,7 +246,7 @@ export default function Wishlist() {
 
               return (
                 <ChallengeCard
-                  key={`${challenge.id}-${index}`}
+                  key={challenge.id}
                   challenge={challenge}
                   participantCount={challenge.participants_count}
                   daysLeft={Math.max(0, daysLeft)}
@@ -243,12 +267,7 @@ export default function Wishlist() {
           </div>
         ) : null}
 
-        {isLoading && (
-          <div className={styles.loadingIndicator}>
-            <div className={styles.spinner} />
-            챌린지 정보를 불러오는 중..
-          </div>
-        )}
+        {isLoading && <LoadingSpinner message="챌린지 정보를 불러오는 중..." />}
 
         <div ref={observerTarget} className={styles.observerTarget} />
       </main>
