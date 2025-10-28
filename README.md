@@ -8,18 +8,18 @@
 
 ## 목차
 
-- [소개](#-소개-introduction)
-- [주요 기능](#-주요-기능-features)
-- [기술 스택](#-기술-스택-tech-stack)
-- [시작하기](#-시작하기-getting-started)
-- [프로젝트 구조](#-프로젝트-구조-project-structure)
-- [트러블 슈팅](#-트러블슈팅-troubleshooting)
-- [구현 예정 기능](#-구현-예정-기능-future-enhancements)
-- [팀원](#-팀원-team-members)
+- [소개](#소개-introduction)
+- [주요 기능](#주요-기능-features)
+- [기술 스택](#기술-스택-tech-stack)
+- [설치 및 실행](#설치-및-실행-getting-started)
+- [프로젝트 구조](#프로젝트-구조-project-structure)
+- [트러블 슈팅](#트러블슈팅-troubleshooting)
+- [구현 예정 기능](#구현-예정-기능-future-enhancements)
+- [팀원](#팀원-team-members)
 
 ---
 
-## 소개(Introduction)
+## 소개 (Introduction)
 
 **Minimo**는 사용자가 작은 챌린지를 만들고, 참여하며, 인증을 통해 성취감을 쌓을 수 있고, 작은 습관을 꾸준히 실천할 수 있도록 돕는 **참여형 SNS 플랫폼**입니다.
 
@@ -79,7 +79,7 @@
 
 ---
 
-## 🛠️ 기술 스택 (Tech Stack)
+## 기술 스택 (Tech Stack)
 
 | 분류                   | 사용 기술                  |
 | ---------------------- | -------------------------- |
