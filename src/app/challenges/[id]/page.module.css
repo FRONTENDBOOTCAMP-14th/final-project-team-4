@@ -267,8 +267,7 @@
 
 @media (min-width: 1201px) {
   .main {
-    padding-block-start: 0px;
-    translate: 200px 0;
+    padding: 0 0 0 200px;
 
     .thumbnailWrapper {
       max-inline-size: min(40vw, 500px);
