@@ -19,7 +19,6 @@ export async function handleChallengeSubmit({
     alert("챌린지 생성 완료.")
     router.push("/")
   } catch (err: unknown) {
-    console.error("onSubmit 에러:", err)
     alert(`오류 발생: ${(err as Error).message}`)
   }
 }
