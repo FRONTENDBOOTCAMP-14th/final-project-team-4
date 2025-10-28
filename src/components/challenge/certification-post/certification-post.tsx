@@ -1,5 +1,4 @@
 "use client"
-import { useState } from "react"
 import Image from "next/image"
 import Avatar from "@/components/user/avatar/avatar"
 import { getTimeAgo } from "@/utils/hooks/getTimeAgo"
@@ -8,17 +7,17 @@ import { useRecordCard } from "@/utils/hooks/useRecordCard"
 import useRecordCardStore from "store/useRecordCardStore"
 import styles from "./certification-post.module.css"
 
-interface Props {
+interface CertificationPost {
   recordId: string
   userId?: string | null
 }
 
-export default function CertificationPost({ recordId, userId }: Props) {
-  const [isFilled, setIsFilled] = useState(false)
+export default function CertificationPost({
+  recordId,
+  userId,
+}: CertificationPost) {
   const { data, error, isLoading, mutate } = useRecordCard(recordId, userId)
-
   const { likeMut, reportMut } = useRecordActions(recordId, userId)
-
   const { isLiked, likesCount, commentsCount, isReported } =
     useRecordCardStore()
 
@@ -29,19 +28,42 @@ export default function CertificationPost({ recordId, userId }: Props) {
     ? `${data.participant.completed_days}일차`
     : ""
 
+  const onToggleLike = async () => {
+    useRecordCardStore.setState((s) => {
+      const nextLiked = !s.isLiked
+      return {
+        isLiked: nextLiked,
+        likesCount: Math.max(0, s.likesCount + (nextLiked ? 1 : -1)),
+      }
+    })
+
+    try {
+      await likeMut.trigger()
+      await mutate()
+    } catch (error) {
+      console.error(error)
+      useRecordCardStore.setState((state) => {
+        const nextLiked = !state.isLiked
+        return {
+          isLiked: nextLiked,
+          likesCount: Math.max(0, state.likesCount + (nextLiked ? 1 : -1)),
+        }
+      })
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.userWrapper}>
         <Avatar
-          imageUrl={data.user?.profile_image ? data.user.profile_image : ""}
+          imageUrl={data.user?.profile_image ?? ""}
           altText={data.user?.username ?? ""}
           responsive="profileSizes"
           className={styles.userAvatar}
         />
-
         <div>
           <strong className={styles.userName}>
-            {data.user?.username ? data.user?.username : "익명"}
+            {data.user?.username ?? "익명"}
           </strong>
           <span className={styles.date}>{date}</span>
           <span>{getTimeAgo(data.created_at)}</span>
@@ -50,8 +72,7 @@ export default function CertificationPost({ recordId, userId }: Props) {
 
       <figure className={styles.imageWrapper}>
         <Image
-          src={data.image_url ? data.image_url : "/fallback/fallback-image.png"}
-          // alt={data.content}
+          src={data.image_url || "/fallback/fallback-image.png"}
           alt="챌린지 인증"
           width={720}
           height={480}
@@ -59,29 +80,15 @@ export default function CertificationPost({ recordId, userId }: Props) {
           aria-hidden
         />
       </figure>
-      <p className={styles.caption}>
-        {data.content ? data.content : "기본 텍스트입니다"}
-      </p>
-
+      <p className={styles.caption}>{data.content || "기본 텍스트입니다"}</p>
       <div className={styles.buttonWrapper}>
         <button
           type="button"
           aria-pressed={isLiked}
-          onClick={async () => {
-            setIsFilled((prev) => !prev)
-            useRecordCardStore.setState((s) => ({
-              likesCount: s.likesCount + (isFilled ? -1 : 1),
-              isLiked: !s.isLiked,
-            }))
-            try {
-              await likeMut.trigger()
-              await mutate()
-            } catch (error) {
-              console.error(error)
-            }
-          }}
+          onClick={onToggleLike}
           aria-label="좋아요"
           className={styles.like}
+          disabled={likeMut.isMutating}
         >
           <svg
             width="22"
@@ -96,10 +103,9 @@ export default function CertificationPost({ recordId, userId }: Props) {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              fill={isFilled ? "#F6C944" : "none"}
+              fill={isLiked ? "#F6C944" : "none"}
             />
           </svg>
-
           <span>{likesCount}</span>
         </button>
 
@@ -113,6 +119,7 @@ export default function CertificationPost({ recordId, userId }: Props) {
           />
           <span>{commentsCount}</span>
         </button>
+
         <button
           type="button"
           disabled={isReported}
