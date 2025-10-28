@@ -17,6 +17,7 @@ export async function getTopChallengesByCategoryClient(
     .lte("start_at", now)
     .gte("end_at", now)
     .order("participants_count", { ascending: false })
+    .order("id", { ascending: false })
     .limit(limit)
 
   if (error) {
@@ -50,13 +51,19 @@ export async function getChallengesByCategoryClient(
   }
 
   if (sortType === "popular") {
-    query = query.order("participants_count", { ascending: false })
+    query = query
+      .order("participants_count", { ascending: false })
+      .order("id", { ascending: false })
   } else if (sortType === "period-desc") {
-    query = query.order("end_at", { ascending: false })
+    query = query
+      .order("end_at", { ascending: false })
+      .order("id", { ascending: false })
   } else if (sortType === "period-asc") {
-    query = query.order("end_at", { ascending: true })
+    query = query
+      .order("end_at", { ascending: true })
+      .order("id", { ascending: false })
   } else {
-    query = query.order("start_at", { ascending: false })
+    query = query.order("id", { ascending: false })
   }
 
   query = query.limit(limit)

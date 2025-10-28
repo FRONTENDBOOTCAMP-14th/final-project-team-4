@@ -61,13 +61,13 @@ export default function CategoryContent({
     void fetchLoggedInUser()
   }, [fetchLoggedInUser])
 
-  const authTypes = ["전체", "사진 인증", "글쓰기 인증", "출석 체크 인증"]
+  const authTypes = ["전체", "사진 인증", "텍스트 인증", "출석체크 인증"]
 
   const uploadingTypeMap = useMemo(
     () => ({
-      "사진 인증": "사진",
-      "글쓰기 인증": "글쓰기",
-      "출석 체크 인증": "출석체크",
+      "사진 인증": "사진 인증",
+      "텍스트 인증": "텍스트 인증",
+      "출석체크 인증": "출석체크 인증",
     }),
     []
   )
@@ -75,7 +75,9 @@ export default function CategoryContent({
   const uploadingTypeForQuery =
     selectedFilters.length === 0 || selectedFilters.includes("전체")
       ? "all"
-      : uploadingTypeMap[selectedFilters[0]] || "all"
+      : selectedFilters.length === 1
+        ? uploadingTypeMap[selectedFilters[0]] || "all"
+        : "all"
 
   const { data: topChallenges = initialTopChallenges } = useSWR(
     `top|${category}|||10`,
@@ -167,14 +169,16 @@ export default function CategoryContent({
 
   function handleFilterToggle(filter: string) {
     if (filter === "전체") {
+      // 전체 버튼은 항상 선택된 상태를 유지해야 함
       if (selectedFilters.includes("전체")) {
-        setSelectedFilters([])
+        // 전체가 선택된 상태에서 클릭하면 아무것도 하지 않음
+        return
       } else {
         setSelectedFilters([
           "전체",
           "사진 인증",
-          "글쓰기 인증",
-          "출석 체크 인증",
+          "텍스트 인증",
+          "출석체크 인증",
         ])
       }
     } else {
@@ -187,11 +191,22 @@ export default function CategoryContent({
 
         const allIndividualSelected = [
           "사진 인증",
-          "글쓰기 인증",
-          "출석 체크 인증",
+          "텍스트 인증",
+          "출석체크 인증",
         ].every((auth) => withoutAll.includes(auth))
 
-        return allIndividualSelected ? [...withoutAll, "전체"] : withoutAll
+        // 모든 개별 필터가 선택되면 전체도 선택
+        if (allIndividualSelected) {
+          return [...withoutAll, "전체"]
+        }
+
+        // 개별 필터가 하나라도 선택되면 전체 해제
+        if (withoutAll.length > 0) {
+          return withoutAll
+        }
+
+        // 아무것도 선택되지 않으면 전체 선택 유지
+        return ["전체"]
       })
     }
   }
