@@ -36,6 +36,13 @@
       width: 26px;
       height: 26px;
     }
+
+    figure {
+      width: 28px;
+      height: 28px;
+      justify-content: center;
+      border: 1px solid var(--text-color-main);
+    }
   }
 }
 

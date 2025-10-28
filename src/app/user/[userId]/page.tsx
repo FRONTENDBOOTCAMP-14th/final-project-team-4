@@ -1,10 +1,12 @@
 import type { Metadata } from "next"
+import { Lock } from "lucide-react"
+
 import {
   UserInfoSection,
   UserInfoCustomSection,
   UserAccountSection,
+  UserChallengesSectionWrapper,
 } from "@/components/user/user-page/index"
-import UserChallengesSectionWrapper from "@/components/user/user-page/user-challenges-section/user-challenges-section-wrapper"
 import { createClient } from "@/utils/supabase/server"
 import styles from "./page.module.css"
 
@@ -99,7 +101,10 @@ export default async function UserPage({ params }: UserPageProps) {
       {renderPrivateSections ? (
         <UserChallengesSectionWrapper pageUser={pageUser} isMyPage={isMyPage} />
       ) : (
-        <p>비공개 회원입니다.</p>
+        <div className={styles.privateUser}>
+          <Lock className={styles.icon} />
+          <p>비공개 회원입니다.</p>
+        </div>
       )}
 
       <UserAccountSection isMyPage={isMyPage} />

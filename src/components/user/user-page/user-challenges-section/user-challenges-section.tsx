@@ -59,7 +59,7 @@ export default function UserChallengesSection({
 
   return (
     <section className={styles.userChallengesSection}>
-      <h3>내 챌린지 보기</h3>
+      <h3>{isMyPage ? "내" : "유저"} 챌린지 보기</h3>
       <div className={styles.tabsContainer}>
         <div className={styles.tabs} role="tablist">
           <button
@@ -68,7 +68,6 @@ export default function UserChallengesSection({
             role="tab"
             aria-selected={activeTab === "ongoing"}
             onClick={() => handleTabChange("ongoing")}
-            aria-controls="content-ongoing"
           >
             진행 중인 챌린지
           </button>
@@ -78,7 +77,6 @@ export default function UserChallengesSection({
             role="tab"
             aria-selected={activeTab === "past"}
             onClick={() => handleTabChange("past")}
-            aria-controls="content-created"
           >
             지난 챌린지
           </button>
@@ -88,14 +86,13 @@ export default function UserChallengesSection({
             role="tab"
             aria-selected={activeTab === "created"}
             onClick={() => handleTabChange("created")}
-            aria-controls="content3"
           >
-            내가 만든 챌린지
+            {isMyPage ? "내" : "유저"}가 만든 챌린지
           </button>
         </div>
         <div className={styles.contents}>
           {currentChallenges.length === 0 ? (
-            <NoChallengesYet activeTab={activeTab} />
+            <NoChallengesYet activeTab={activeTab} isMyPage={isMyPage} />
           ) : (
             <section
               id={`content-${activeTab}`}

@@ -5,6 +5,7 @@
   justify-content: center;
   font-size: 14px;
   margin: 0 auto;
+  padding: 134px 0 60px 0;
   min-width: 300px;
   max-width: 580px;
   background-color: var(--surface-bg-main);
@@ -25,6 +26,22 @@
   }
 }
 
+.privateUser {
+  display: flex;
+  flex-flow: column nowrap;
+  color: var(--text-color-main);
+  align-items: center;
+  justify-content: center;
+  block-size: 200px;
+
+  .icon {
+    width: 60px;
+    height: 60px;
+    color: var(--shadow-color);
+    margin-block-end: 20px;
+  }
+}
+
 .errorMessage {
   padding-top: 140px;
 }
@@ -32,9 +49,14 @@
 @media (min-width: 581px) {
   .myPage {
     font-size: 16px;
+    padding: 128px 0 0 0;
 
     h3 {
       font-size: 22px;
+    }
+
+    .privateUser {
+      padding-block-end: 38px;
     }
   }
 }
@@ -42,10 +64,15 @@
 @media (min-width: 1201px) {
   .myPage {
     max-width: 760px;
+    padding: 0;
 
     section:nth-child(2) {
       padding: 20px;
       border: none;
+    }
+
+    .privateUser {
+      padding-block-end: 20px;
     }
   }
 }
