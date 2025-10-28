@@ -1,7 +1,7 @@
 "use client"
 
-import browserClient from "@/utils/supabase/client"
 import { redirect } from "next/navigation"
+import browserClient from "@/utils/supabase/client"
 
 export async function handleSignOut() {
   const supabase = browserClient()
