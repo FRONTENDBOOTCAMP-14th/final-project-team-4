@@ -26,6 +26,7 @@ export async function searchChallenges({
   }
 
   const searchTerm = `%${query.trim().replace(/[%_\\]/g, "\\$&")}%`
+  const now = new Date().toISOString()
 
   try {
     const supabase = browserClient()
@@ -37,7 +38,9 @@ export async function searchChallenges({
       )
       .eq("is_public", true)
       .eq("is_finished", false)
-      .order("start_at", { ascending: false })
+      .lte("start_at", now)
+      .gte("end_at", now)
+      .order("id", { ascending: false })
       .range(offset, offset + limit - 1)
 
     if (error) {
@@ -53,6 +56,8 @@ export async function searchChallenges({
       )
       .eq("is_public", true)
       .eq("is_finished", false)
+      .lte("start_at", now)
+      .gte("end_at", now)
 
     if (countError) {
       console.error("검색 개수 조회 오류:", countError)
@@ -114,6 +119,7 @@ export async function searchChallengesByAuthType({
   }
 
   const searchTerm = `%${query.trim().replace(/[%_\\]/g, "\\$&")}%`
+  const now = new Date().toISOString()
 
   try {
     const supabase = browserClient()
@@ -126,7 +132,9 @@ export async function searchChallengesByAuthType({
       .eq("is_public", true)
       .eq("is_finished", false)
       .eq("uploading_type", authType)
-      .order("start_at", { ascending: false })
+      .lte("start_at", now)
+      .gte("end_at", now)
+      .order("id", { ascending: false })
       .range(offset, offset + limit - 1)
 
     if (error) {
@@ -143,6 +151,8 @@ export async function searchChallengesByAuthType({
       .eq("is_public", true)
       .eq("is_finished", false)
       .eq("uploading_type", authType)
+      .lte("start_at", now)
+      .gte("end_at", now)
 
     if (countError) {
       console.error("인증방법별 검색 개수 조회 오류:", countError)

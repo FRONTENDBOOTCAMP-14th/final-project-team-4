@@ -199,10 +199,7 @@ export function useSortedChallenges(
 
     switch (sortType) {
       case "latest":
-        return sortedChallenges.sort(
-          (a, b) =>
-            new Date(b.start_at).getTime() - new Date(a.start_at).getTime()
-        )
+        return sortedChallenges.sort((a, b) => b.id.localeCompare(a.id))
       case "popular":
         return sortedChallenges.sort(
           (a, b) => (b.participants_count || 0) - (a.participants_count || 0)
