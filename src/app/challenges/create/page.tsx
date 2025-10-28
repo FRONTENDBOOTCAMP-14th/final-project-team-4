@@ -22,20 +22,20 @@ export default function ChallengeCreatePage() {
     return () => listener.subscription.unsubscribe()
   }, [fetchLoggedInUser])
 
-  if (isLoading) return <div>로딩중...</div>
+  if (isLoading) return <main>로딩중...</main>
 
   if (!loggedInUser)
     return (
-      <div className={styles.pageWrapper}>
+      <main className={styles.pageWrapper}>
         <h1>로그인이 필요합니다.</h1>
         <Link href="/auth/login">로그인 하러 가기</Link>
-      </div>
+      </main>
     )
 
   return (
-    <div className={styles.pageWrapper}>
+    <main className={styles.pageWrapper}>
       <h1 className="sr-only">챌린지 생성하기</h1>
       <CreateForm />
-    </div>
+    </main>
   )
 }
