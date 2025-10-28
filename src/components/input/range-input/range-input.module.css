@@ -2,6 +2,7 @@
   display: flex;
   flex-flow: column nowrap;
   gap: 20px;
+  block-size: 130px;
 
   > label {
     font-size: 1.5rem;
@@ -21,10 +22,10 @@
   }
   > datalist {
     display: flex;
-    position: relative;
-    top: 0;
     flex-direction: column;
+    block-size: 400px;
     justify-content: space-between;
+    inline-size: 20px;
     writing-mode: vertical-lr;
   }
 
@@ -39,9 +40,12 @@
   }
 
   .controls {
-    > input,
-    > datalist {
+    > input {
       inline-size: 250px;
+    }
+
+    > datalist {
+      block-size: 250px;
     }
   }
 }
