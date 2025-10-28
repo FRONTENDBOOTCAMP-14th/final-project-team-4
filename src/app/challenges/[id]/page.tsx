@@ -187,7 +187,7 @@ export default async function ChallengeDetailPage({
           <h2>챌린지 정보</h2>
           <div className={styles.info}>
             <span>{`${getDateDiff(challenge.start_at, challenge.end_at)}일 챌린지`}</span>
-            <span>{`${challenge.participants_count}명 참여중`}</span>
+            <span>{`${challenge.participants_count}명 참여 중`}</span>
             <span>{`성공 기준: ${challenge.success_threshold_percent}%`}</span>
           </div>
           <div className={styles.userAvatar}>
