@@ -139,7 +139,7 @@
   .main {
     margin-inline-start: 0;
     max-inline-size: 100vw;
-    padding-block-start: 140px;
+    padding-block-start: 180px;
     padding-inline: 0;
   }
 
@@ -164,7 +164,7 @@
 @media (max-width: 580px) {
   .main {
     padding-block: 1rem;
-    padding-block-start: 120px;
+    padding-block-start: 160px;
     padding-block-end: 80px;
     padding-inline: 0;
   }
