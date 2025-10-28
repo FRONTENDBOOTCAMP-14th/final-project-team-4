@@ -45,11 +45,11 @@
 
   .textarea {
     width: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid var(--divider);
     border-radius: 16px;
     padding: 16px;
     resize: vertical;
-    background: #fff;
+    background: var(--text-color-reverse);
   }
   .length {
     position: absolute;
