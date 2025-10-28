@@ -97,7 +97,7 @@ export default async function ChallengeDetailPage({
   }
 
   return (
-    <div className={styles.main}>
+    <main className={styles.main}>
       <div className={styles.thumbnailWrapper}>
         <figure className={styles.thumbnail}>
           <Image
@@ -167,6 +167,6 @@ export default async function ChallengeDetailPage({
           />
         )}
       </div>
-    </div>
+    </main>
   )
 }
