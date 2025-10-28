@@ -9,7 +9,7 @@
   > span {
     float: inline-end;
     margin-block-start: 8px;
-    color: var(--divider);
+    color: var(--text-color-sub);
   }
 
   > input,
