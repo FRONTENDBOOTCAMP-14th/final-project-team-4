@@ -1,5 +1,6 @@
 "use client"
 
+import { redirect } from "next/navigation"
 import browserClient from "@/utils/supabase/client"
 
 export async function handleSignOut() {
@@ -12,5 +13,5 @@ export async function handleSignOut() {
     return
   }
 
-  window.location.href = "/"
+  redirect("/")
 }
