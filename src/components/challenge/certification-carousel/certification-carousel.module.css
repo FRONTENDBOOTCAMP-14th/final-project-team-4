@@ -46,7 +46,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
   svg {
-    scale: 1.2;
+    scale: 0.8;
     color: var(--text-color-main);
   }
 
@@ -65,4 +65,20 @@
 }
 .nonePost {
   padding-block-start: 20px;
+}
+
+@media (min-width: 768px) {
+  .navigationButton {
+    svg {
+      scale: 0.9;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .navigationButton {
+    svg {
+      scale: 1;
+    }
+  }
 }
