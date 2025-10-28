@@ -52,7 +52,7 @@ export default function SearchNav() {
           className={showError ? styles.errorInput : ""}
         />
         <button type="submit" disabled={!searchQuery.trim()}>
-          <Search />
+          <Search aria-label="검색하기" />
         </button>
       </div>
       {showError && (

@@ -23,9 +23,9 @@
   > datalist {
     display: flex;
     flex-direction: column;
-    block-size: 400px;
+    width: 400px;
+    height: 20px;
     justify-content: space-between;
-    inline-size: 20px;
     writing-mode: vertical-lr;
   }
 
@@ -45,7 +45,7 @@
     }
 
     > datalist {
-      block-size: 250px;
+      width: 250px;
     }
   }
 }
