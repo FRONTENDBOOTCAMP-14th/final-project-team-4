@@ -29,26 +29,11 @@ export default function CertificationPost({
     : ""
 
   const onToggleLike = async () => {
-    useRecordCardStore.setState((s) => {
-      const nextLiked = !s.isLiked
-      return {
-        isLiked: nextLiked,
-        likesCount: Math.max(0, s.likesCount + (nextLiked ? 1 : -1)),
-      }
-    })
-
     try {
       await likeMut.trigger()
       await mutate()
     } catch (error) {
       console.error(error)
-      useRecordCardStore.setState((state) => {
-        const nextLiked = !state.isLiked
-        return {
-          isLiked: nextLiked,
-          likesCount: Math.max(0, state.likesCount + (nextLiked ? 1 : -1)),
-        }
-      })
     }
   }
 
