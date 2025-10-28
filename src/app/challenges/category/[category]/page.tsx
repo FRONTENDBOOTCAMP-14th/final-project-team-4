@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import {
   getTopChallengesByCategory,
   getChallengesByCategory,
@@ -7,6 +8,29 @@ import styles from "./page.module.css"
 
 interface PageProps {
   params: Promise<{ category: string }>
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { category } = await params
+  const decodedCategory = decodeURIComponent(category)
+
+  return {
+    title: `${decodedCategory} 챌린지 | Minimo`,
+    description: `${decodedCategory} 카테고리의 챌린지를 탐색하고 참여하세요.`,
+    keywords: [decodedCategory, "챌린지", "습관 형성", "자기계발"],
+    openGraph: {
+      title: `${decodedCategory} 챌린지 - Minimo`,
+      description: `${decodedCategory} 카테고리의 챌린지를 탐색하고 참여하세요.`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${decodedCategory} 챌린지 - Minimo`,
+      description: `${decodedCategory} 카테고리의 챌린지를 탐색하고 참여하세요.`,
+    },
+  }
 }
 
 export default async function ChallengeCategory({ params }: PageProps) {
