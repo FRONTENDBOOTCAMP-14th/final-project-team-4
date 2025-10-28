@@ -59,9 +59,9 @@ export async function getWishlistChallenges({
     // 인증 타입 필터링
     if (authTypes.length > 0 && !authTypes.includes("전체")) {
       const uploadingTypeMap: Record<string, string> = {
-        "사진 인증": "사진",
-        "글쓰기 인증": "글쓰기",
-        "출석 체크 인증": "출석체크",
+        "사진 인증": "사진 인증",
+        "텍스트 인증": "텍스트 인증",
+        "출석체크 인증": "출석체크 인증",
       }
       const mappedTypes = authTypes
         .map((type) => uploadingTypeMap[type])
@@ -73,9 +73,9 @@ export async function getWishlistChallenges({
 
     // 정렬
     if (sortType === "oldest") {
-      query = query.order("start_at", { ascending: true })
+      query = query.order("id", { ascending: true })
     } else {
-      query = query.order("start_at", { ascending: false })
+      query = query.order("id", { ascending: false })
     }
 
     // 페이지네이션
@@ -101,9 +101,9 @@ export async function getWishlistChallenges({
 
     if (authTypes.length > 0 && !authTypes.includes("전체")) {
       const uploadingTypeMap: Record<string, string> = {
-        "사진 인증": "사진",
-        "글쓰기 인증": "글쓰기",
-        "출석 체크 인증": "출석체크",
+        "사진 인증": "사진 인증",
+        "텍스트 인증": "텍스트 인증",
+        "출석체크 인증": "출석체크 인증",
       }
       const mappedTypes = authTypes
         .map((type) => uploadingTypeMap[type])
