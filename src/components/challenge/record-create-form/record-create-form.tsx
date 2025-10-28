@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
+import { useEffect, useRef } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import Button from "@/components/common/button/button"
 import browserClient from "@/utils/supabase/client"
 import { useRecordCreateStore } from "store/useRecordCreateStore"
@@ -14,20 +16,17 @@ interface Props {
 }
 
 const BUCKET_NAME = "challenge-records"
-
 const ALLOWED_MIME = new Set([
   "image/jpeg",
   "image/png",
   "image/webp",
   "image/avif",
 ])
-
 const MAX_SIZE = 5 * 1024 * 1024
 
 export default function RecordCreateForm({ challengeId, userId }: Props) {
   const router = useRouter()
   const supabase = browserClient()
-
   const {
     file,
     previewUrl,
@@ -43,6 +42,106 @@ export default function RecordCreateForm({ challengeId, userId }: Props) {
     reset,
   } = useRecordCreateStore()
 
+  const dirtyRef = useRef(false)
+  dirtyRef.current = !!file || (content?.trim()?.length ?? 0) > 0
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (!dirtyRef.current) return
+      const a = (e.target as HTMLElement).closest("a")
+      if (!a) return
+      const href = a.getAttribute("href")
+      if (!href || href.startsWith("#") || /^https?:\/\//.test(href)) return
+
+      e.preventDefault()
+      toast.warning("작성된 내용은 저장되지 않습니다.", {
+        description: "계속 이동하시겠어요?",
+        icon: null,
+        action: {
+          label: "나가기",
+          onClick: () => {
+            dirtyRef.current = false
+            reset()
+            window.location.href = href
+          },
+        },
+        cancel: (
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              toast.dismiss()
+            }}
+            style={{
+              background: "none",
+              border: "none",
+              borderRadius: 5,
+              padding: 4,
+              color: "var(--text-default-main)",
+              fontWeight: 500,
+              cursor: "pointer",
+            }}
+          >
+            머무르기
+          </button>
+        ),
+        duration: 5000,
+      })
+    }
+
+    const handlePopState = (e: PopStateEvent) => {
+      if (!dirtyRef.current) return
+      e.preventDefault()
+      history.pushState(null, "", location.href)
+      toast.warning("작성된 내용은 저장되지 않습니다.", {
+        description: "이전 페이지로 이동할까요?",
+        icon: null,
+        action: {
+          label: "이동",
+          onClick: () => {
+            dirtyRef.current = false
+            reset()
+            history.back()
+          },
+        },
+        cancel: (
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              toast.dismiss()
+            }}
+            style={{
+              background: "none",
+              border: "none",
+              borderRadius: 5,
+              padding: 4,
+              color: "var(--text-default-main)",
+              fontWeight: 500,
+              cursor: "pointer",
+            }}
+          >
+            머무르기
+          </button>
+        ),
+        duration: 5000,
+      })
+    }
+
+    document.addEventListener("click", handleClick, true)
+    history.pushState(null, "", location.href)
+    window.addEventListener("popstate", handlePopState)
+
+    return () => {
+      document.removeEventListener("click", handleClick, true)
+      window.removeEventListener("popstate", handlePopState)
+    }
+  }, [file, content, reset])
+
+  useEffect(() => {
+    return () => {
+      reset()
+    }
+  }, [reset])
+
   const onPickFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0]
     if (!f) return
@@ -51,12 +150,10 @@ export default function RecordCreateForm({ challengeId, userId }: Props) {
       setError("허용되지 않은 이미지 형식입니다. (jpeg/png/webp/avif)")
       return
     }
-
     if (f.size > MAX_SIZE) {
       setError("파일 용량은 최대 5MB까지만 업로드할 수 있어요.")
       return
     }
-
     setError(null)
     setFile(f)
   }
@@ -103,10 +200,12 @@ export default function RecordCreateForm({ challengeId, userId }: Props) {
 
       setDone(true)
       reset()
+      toast.success("업로드가 완료되었습니다!")
       router.refresh()
     } catch (err: any) {
       console.error(err)
       setError(err?.message ?? "업로드 중 오류가 발생했습니다.")
+      toast.error(err?.message ?? "업로드 중 오류가 발생했습니다.")
     } finally {
       setSubmitting(false)
     }
