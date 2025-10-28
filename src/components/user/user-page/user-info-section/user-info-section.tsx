@@ -11,6 +11,7 @@ import {
   updateUserInfo,
 } from "@/utils/supabase/api/profiles"
 import useUserStore from "store/userStore"
+import OtherUserInfoSection from "./other-user-info-section"
 import styles from "./user-info-section.module.css"
 
 interface ProfileFormValues {
@@ -28,14 +29,12 @@ export default function UserInfoSection({
   const loggedInUser = useUserStore((state) => state.loggedInUser)
   const updateUserInStore = useUserStore((state) => state.updateUserInStore)
 
-  const displayUser = isMyPage ? loggedInUser : pageUser
-
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<ProfileFormValues>({ defaultValues: displayUser ?? {} })
+  } = useForm<ProfileFormValues>({ defaultValues: loggedInUser ?? {} })
 
   if (loggedInUser === undefined) {
     return <main className={styles.myPage}>로딩 중</main>
@@ -79,8 +78,8 @@ export default function UserInfoSection({
     e.stopPropagation()
     setIsEditing(true)
     reset({
-      username: displayUser?.username,
-      bio: displayUser?.bio,
+      username: loggedInUser?.username,
+      bio: loggedInUser?.bio,
     })
   }
 
@@ -91,126 +90,130 @@ export default function UserInfoSection({
   }
 
   return (
-    <section className={styles.userInfoSection}>
-      <div className={styles.userInfoBg}>
-        <h3>회원정보</h3>
-        <div className={styles.userInfoWrapper}>
-          <div className={styles.userProfileImage}>
-            <AvatarProfile userData={displayUser} isMyPage={isMyPage} />
-            {isMyPage ? (
-              <div className={styles.button}>
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>
+      {!isMyPage ? (
+        <OtherUserInfoSection pageUser={pageUser} isMyPage={isMyPage} />
+      ) : (
+        <section className={styles.userInfoSection}>
+          <div className={styles.userInfoBg}>
+            <h3>회원정보</h3>
+            <div className={styles.userInfoWrapper}>
+              <div className={styles.userProfileImage}>
+                <AvatarProfile userData={loggedInUser} isMyPage={isMyPage} />
+                <div className={styles.button}>
+                  <Button
+                    onClick={handleRemoveAvatar}
+                    className="imageUpload"
+                    type="button"
+                  >
+                    이미지 제거
+                  </Button>
+                </div>
+              </div>
+              <div className={styles.userInfoContents}>
+                <form id="profileForm" onSubmit={handleSubmit(onSubmit)}>
+                  <div className={styles.userInfoDetails}>
+                    <div className={styles.userInfoDetail}>
+                      <label htmlFor={isEditing ? "username" : undefined}>
+                        닉네임:
+                      </label>
+                      {isEditing ? (
+                        <div className={styles.nicknameArea}>
+                          <input
+                            name="username"
+                            id="username"
+                            {...register("username", {
+                              required: "닉네임을 입력해주세요.",
+                              minLength: {
+                                value: 1,
+                                message: "1자 이상 입력해주세요.",
+                              },
+                              maxLength: {
+                                value: 6,
+                                message: "최대 6자까지 가능합니다.",
+                              },
+                            })}
+                            type="text"
+                            autoFocus
+                          />
+                          {errors.username && (
+                            <p className={styles.formErrorMessage}>
+                              {errors.username.message}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <span>{loggedInUser.username}</span>
+                      )}
+                    </div>
+                    <div className={styles.userInfoDetail}>
+                      <label htmlFor={isEditing ? "bio" : undefined}>
+                        소개:
+                      </label>
+                      {isEditing ? (
+                        <div className={styles.bioArea}>
+                          <textarea
+                            name="bio"
+                            id="bio"
+                            {...register("bio", {
+                              maxLength: {
+                                value: 200,
+                                message: "200자 내로 입력해주세요.",
+                              },
+                            })}
+                            rows={3}
+                          />
+                          {errors.bio && (
+                            <p className={styles.formErrorMessage}>
+                              {errors.bio.message}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <span>{loggedInUser.bio}</span>
+                      )}
+                    </div>
+                    <div className={styles.userInfoDetail}>
+                      <label>계정:</label>
+                      <span>{pageUserOauth}</span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            {isEditing ? (
+              <div className={styles.editButtonsWrapper}>
                 <Button
-                  onClick={handleRemoveAvatar}
+                  onClick={handleCancelEdit}
                   className="imageUpload"
                   type="button"
                 >
-                  이미지 제거
+                  취소
+                </Button>
+                <Button
+                  className="primary"
+                  type="submit"
+                  form="profileForm"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "저장 중..." : "프로필 저장"}
                 </Button>
               </div>
-            ) : null}
-          </div>
-          <div className={styles.userInfoContents}>
-            <form id="profileForm" onSubmit={handleSubmit(onSubmit)}>
-              <div className={styles.userInfoDetails}>
-                <div className={styles.userInfoDetail}>
-                  <label htmlFor={isEditing ? "username" : undefined}>
-                    닉네임:
-                  </label>
-                  {isEditing ? (
-                    <div className={styles.nicknameArea}>
-                      <input
-                        name="username"
-                        id="username"
-                        {...register("username", {
-                          required: "닉네임을 입력해주세요.",
-                          minLength: {
-                            value: 1,
-                            message: "1자 이상 입력해주세요.",
-                          },
-                          maxLength: {
-                            value: 6,
-                            message: "최대 6자까지 가능합니다.",
-                          },
-                        })}
-                        type="text"
-                        autoFocus
-                      />
-                      {errors.username && (
-                        <p className={styles.formErrorMessage}>
-                          {errors.username.message}
-                        </p>
-                      )}
-                    </div>
-                  ) : (
-                    <span>{displayUser.username}</span>
-                  )}
-                </div>
-                <div className={styles.userInfoDetail}>
-                  <label htmlFor={isEditing ? "bio" : undefined}>소개:</label>
-                  {isEditing ? (
-                    <div className={styles.bioArea}>
-                      <textarea
-                        name="bio"
-                        id="bio"
-                        {...register("bio", {
-                          maxLength: {
-                            value: 200,
-                            message: "200자 내로 입력해주세요.",
-                          },
-                        })}
-                        rows={3}
-                      />
-                      {errors.bio && (
-                        <p className={styles.formErrorMessage}>
-                          {errors.bio.message}
-                        </p>
-                      )}
-                    </div>
-                  ) : (
-                    <span>{displayUser.bio}</span>
-                  )}
-                </div>
-                {isMyPage ? (
-                  <div className={styles.userInfoDetail}>
-                    <label>계정:</label>
-                    <span>{pageUserOauth}</span>
-                  </div>
-                ) : null}
+            ) : (
+              <div className={styles.button}>
+                <Button
+                  onClick={handleEditClick}
+                  className="primary"
+                  type="button"
+                >
+                  프로필 수정
+                </Button>
               </div>
-            </form>
+            )}
           </div>
-        </div>
-        {isMyPage &&
-          (isEditing ? (
-            <div className={styles.editButtonsWrapper}>
-              <Button
-                onClick={handleCancelEdit}
-                className="imageUpload"
-                type="button"
-              >
-                취소
-              </Button>
-              <Button
-                className="primary"
-                type="submit"
-                form="profileForm"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "저장 중..." : "프로필 저장"}
-              </Button>
-            </div>
-          ) : (
-            <div className={styles.button}>
-              <Button
-                onClick={handleEditClick}
-                className="primary"
-                type="button"
-              >
-                프로필 수정
-              </Button>
-            </div>
-          ))}
-      </div>
-    </section>
+        </section>
+      )}
+    </>
   )
 }

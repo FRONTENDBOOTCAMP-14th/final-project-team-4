@@ -1,0 +1,94 @@
+.userInfoSection {
+  background-color: var(--surface-bg-sub);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  padding-block-end: 36px;
+  border-block-end: none;
+  border: none;
+  border-radius: 0;
+  padding: 20px;
+
+  .userInfoBg {
+    content: none;
+    width: 100%;
+  }
+
+  .userProfileImage {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    padding-block-end: 10px;
+  }
+
+  .userInfoDetails {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 14px;
+    width: 100%;
+
+    .userInfoDetail {
+      word-break: keep-all;
+      text-align: center;
+    }
+
+    .userInfoName {
+      font-weight: 600;
+    }
+  }
+}
+
+@media (min-width: 581px) and (max-width: 1200px) {
+  .userInfoSection {
+    background: none;
+
+    .userInfoBg {
+      width: 100%;
+      content: normal;
+      background-color: var(--surface-bg-sub);
+      border: 1px solid var(--divider);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .userInfoDetails {
+      padding: 0 6px 6px 6px;
+    }
+  }
+
+  .button {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .userInfoSection {
+    background: none;
+
+    .userInfoBg {
+      width: 100%;
+      content: normal;
+      background-color: var(--surface-bg-sub);
+      border: 1px solid var(--divider);
+      border-radius: 10px;
+      margin-block-start: 44px;
+      padding: 20px;
+    }
+
+    .userInfoWrapper {
+      width: 100%;
+      justify-content: space-between;
+      font-size: 16px;
+    }
+  }
+
+  .userProfileImage {
+    align-self: flex-start;
+  }
+
+  .userInfoDetails {
+    padding: 0 20px 20px 20px;
+  }
+}

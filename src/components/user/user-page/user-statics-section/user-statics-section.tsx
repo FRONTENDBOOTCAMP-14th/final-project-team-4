@@ -5,14 +5,16 @@ import type { UserStatics } from "../user-challenges-section/user-challenges-sec
 
 interface UserStaticsSectionProps {
   statics: UserStatics
+  isMyPage?: boolean
 }
 
 export default function UserStaticsSection({
   statics,
+  isMyPage,
 }: UserStaticsSectionProps) {
   return (
     <section className={styles.userStaticsSection}>
-      <h3>나의 통계</h3>
+      <h3>{isMyPage ? "나" : "유저"}의 통계</h3>
       <ul className={styles.staticsList}>
         <li className={styles.staticsListItem}>
           진행 중인 챌린지<span>{statics.onGoingChallenges}</span>
