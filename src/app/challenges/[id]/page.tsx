@@ -226,7 +226,10 @@ export default async function ChallengeDetailPage({
         />
         {isLoggedIn && isParticipating ? (
           <div id="record-create">
-            <RecordCreateForm challengeId={challenge.id} userId={user.id} />
+            <RecordCreateForm
+              challengeId={challenge.id}
+              userId={user?.id ?? null}
+            />
           </div>
         ) : (
           <ChallengeCardList
