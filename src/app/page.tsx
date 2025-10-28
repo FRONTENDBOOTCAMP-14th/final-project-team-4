@@ -11,7 +11,7 @@ import styles from "./page.module.css"
 export const metadata: Metadata = {
   title: "Minimo - 작은 챌린지, 큰 변화를 만들어가요",
   description:
-    "일상을 변화시키는 새로운 챌린지에 참여하고, 다양한 사람들과 함께 성장하세요. 사진 인증, 글쓰기 인증, 출석체크로 매일 조금씩 달성하세요.",
+    "일상을 변화시키는 새로운 챌린지에 참여하고, 다양한 사람들과 함께 성장하세요. 사진 인증, 텍스트 인증, 출석체크로 매일 조금씩 달성하세요.",
   keywords: [
     "챌린지",
     "일상 습관",
@@ -47,9 +47,9 @@ export default async function Home() {
   ] = await Promise.all([
     getHotChallenges(20),
     getNewChallenges(20),
-    getChallengesByType("사진", 20),
-    getChallengesByType("글쓰기", 20),
-    getChallengesByType("출석체크", 20),
+    getChallengesByType("사진 인증", 20),
+    getChallengesByType("텍스트 인증", 20),
+    getChallengesByType("출석체크 인증", 20),
   ])
 
   return (
