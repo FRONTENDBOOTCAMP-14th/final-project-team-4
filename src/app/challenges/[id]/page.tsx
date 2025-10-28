@@ -7,6 +7,7 @@ import WishlistButton from "@/components/challenge/wishlistButton/wishlistButton
 import CategoryTag from "@/components/common/category-tag/category-tag"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import AvatarLink from "@/components/user/avatar-link/avatar-link"
+import { getTodaysPostISO } from "@/utils/getTodaysPost"
 import type { Database } from "@/utils/supabase/database.types"
 import { createClient } from "@/utils/supabase/server"
 import styles from "./page.module.css"
@@ -40,18 +41,22 @@ export default async function ChallengeDetailPage({
     .from("users")
     .select("*")
     .eq("id", challenge.created_by_id)
-    .single<User>()
+    .maybeSingle<User>()
   if (userError || !users) {
     console.error("유저 정보를 불러오지 못했습니다:", userError)
     return <p>유저 데이터를 불러올 수 없습니다 😢</p>
   }
 
+  const { startISO, endISO } = getTodaysPostISO()
   const { data: recordData, error: recordError } = await supabase
     .from("challenge_records")
     .select("id")
     .eq("challenge_id", id)
+    .gte("created_at", startISO)
+    .lt("created_at", endISO)
     .order("created_at", { ascending: false })
     .limit(20)
+
   if (recordError) {
     console.error("인증 게시글 데이터를 불러오지 못했습니다:", recordError)
     return <p>인증 게시글 데이터를 불러올 수 없습니다 😢</p>
@@ -68,7 +73,7 @@ export default async function ChallengeDetailPage({
     isParticipating = !!participant && participant.is_progress === true
   }
 
-  const loginHref = `/login?redirect=/challenges/${id}`
+  const loginHref = `/auth/login?redirect=${encodeURIComponent(`/challenges/${id}`)}`
 
   let isWishlisted = false
   if (isLoggedIn) {
@@ -92,12 +97,13 @@ export default async function ChallengeDetailPage({
   }
 
   return (
-    <div className={styles.main}>
+    <main className={styles.main}>
       <div className={styles.thumbnailWrapper}>
         <figure className={styles.thumbnail}>
           <Image
             src={challenge.thumbnail}
             alt={challenge.title}
+            className={styles.thumbnailImage}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             priority
@@ -114,7 +120,7 @@ export default async function ChallengeDetailPage({
           <p className={styles.description}>{challenge.description}</p>
           <div className={styles.tagWrapper}>
             {challenge.tags.map((tag, index) => (
-              <span key={index}>#{tag}</span>
+              <span key={index}>{tag}</span>
             ))}
           </div>
         </section>
@@ -136,6 +142,7 @@ export default async function ChallengeDetailPage({
               challengeId={challenge.id}
               userId={user?.id ?? null}
               loginHref={loginHref}
+              requiredSuccessRate={challenge.success_threshold_percent}
             />
             <WishlistButton
               challengeId={challenge.id}
@@ -149,7 +156,7 @@ export default async function ChallengeDetailPage({
           recordIds={recordData?.map((r) => r.id) ?? []}
           userId={user?.id ?? null}
         />
-        {isLoggedIn ? (
+        {isLoggedIn && isParticipating ? (
           <div id="record-create">
             <RecordCreateForm challengeId={challenge.id} userId={user.id} />
           </div>
@@ -160,6 +167,6 @@ export default async function ChallengeDetailPage({
           />
         )}
       </div>
-    </div>
+    </main>
   )
 }

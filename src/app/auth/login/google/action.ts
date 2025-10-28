@@ -6,7 +6,7 @@ export default async function handleGoogleLogin(): Promise<void> {
     const supabase = browserClient()
     const redirectURL =
       process.env.NODE_ENV === "production"
-        ? "https://final-project-team-4-ruby.vercel.app/auth/callback"
+        ? "https://minimo-project.vercel.app/auth/callback"
         : "http://localhost:3000/auth/callback"
 
     const { data, error } = await supabase.auth.signInWithOAuth({

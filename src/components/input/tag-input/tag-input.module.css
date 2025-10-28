@@ -9,7 +9,7 @@
     margin-inline-start: 10px;
     font-size: 1rem;
     font-weight: 400;
-    color: var(--divider);
+    color: var(--text-color-sub);
   }
 
   .highlight {

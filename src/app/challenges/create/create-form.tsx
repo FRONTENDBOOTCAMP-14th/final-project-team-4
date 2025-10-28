@@ -24,21 +24,23 @@ const todayStr = new Date().toLocaleDateString("sv-SE")
 
 export default function CreateForm() {
   const router = useRouter()
-  const { control, handleSubmit, watch, setValue } = useForm<FormValues>({
-    mode: "onChange",
-    defaultValues: {
-      thumbnail: "",
-      description: "",
-      start_at: todayStr,
-      end_at: todayStr,
-      tags: [],
-      is_public: true,
-      success_threshold_percent: 90,
-      category: "건강 / 운동",
-      uploading_type: "사진 인증",
-      participants_count: 1,
-    },
-  })
+  const { control, handleSubmit, watch, setValue, reset } = useForm<FormValues>(
+    {
+      mode: "onChange",
+      defaultValues: {
+        thumbnail: "",
+        description: "",
+        start_at: todayStr,
+        end_at: todayStr,
+        tags: [],
+        is_public: true,
+        success_threshold_percent: 90,
+        category: "건강 / 운동",
+        uploading_type: "사진 인증",
+        participants_count: 1,
+      },
+    }
+  )
 
   const startDate = watch("start_at")
   const endDate = watch("end_at")
@@ -216,7 +218,7 @@ export default function CreateForm() {
           <Button type="submit" className="primary" disabled={uploading}>
             {uploading ? "업로드 중..." : "생성하기"}
           </Button>
-          <Button type="reset" className="edit">
+          <Button type="button" className="edit" onClick={() => reset()}>
             취소하기
           </Button>
         </div>

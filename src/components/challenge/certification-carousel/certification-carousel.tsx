@@ -16,7 +16,14 @@ interface Props {
 }
 
 export default function CertificationCarousel({ recordIds, userId }: Props) {
-  // if (!recordIds?.length) return null
+  if (!recordIds?.length) {
+    return (
+      <section className={styles.section}>
+        <h2 className={styles.title}>오늘의 인증!</h2>
+        <p className={styles.nonePost}>오늘의 첫 번째 인증을 해주세요!</p>
+      </section>
+    )
+  }
 
   return (
     <section className={styles.section}>

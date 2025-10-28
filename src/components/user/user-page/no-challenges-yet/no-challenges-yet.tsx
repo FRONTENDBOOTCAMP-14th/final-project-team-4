@@ -1,7 +1,15 @@
 import styles from "./no-challenges-yet.module.css"
 import type { TabType } from "../user-challenges-section/user-challenges-section"
 
-export default function NoChallengesYet({ activeTab }: { activeTab: TabType }) {
+interface NoChallengesYetProps {
+  activeTab: TabType
+  isMyPage: boolean
+}
+
+export default function NoChallengesYet({
+  activeTab,
+  isMyPage,
+}: NoChallengesYetProps) {
   let message = ""
 
   if (activeTab === "ongoing") {
@@ -15,7 +23,9 @@ export default function NoChallengesYet({ activeTab }: { activeTab: TabType }) {
   return (
     <div className={styles.container}>
       <p className={styles.mainMessage}>{message}</p>
-      <p className={styles.subMessage}>지금 바로! 챌린지에 도전해보세요!</p>
+      {isMyPage ?? (
+        <p className={styles.subMessage}>지금 바로! 챌린지에 도전해보세요!</p>
+      )}
     </div>
   )
 }

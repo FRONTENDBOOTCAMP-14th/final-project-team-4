@@ -4,6 +4,8 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import AvatarLink from "@/components/user/avatar-link/avatar-link"
+import useUserStore from "store/userStore"
 import { navItems, type NavItemProps } from "./navigation-config"
 import styles from "./navigation.module.css"
 
@@ -51,6 +53,7 @@ function NavItem({
 
 export default function Navigation() {
   const pathname = usePathname() || "/"
+  const { loggedInUser } = useUserStore()
 
   return (
     <>
@@ -60,15 +63,25 @@ export default function Navigation() {
           alt="홈으로 이동"
           width={100}
           height={76}
-          priority={true}
+          priority
         />
       </Link>
       <nav className={styles.container}>
         <span>사이트 네비게이션</span>
         <ul className={styles.wrapper}>
-          {navItems.map((item) => (
-            <NavItem key={item.href} {...item} pathname={pathname} />
-          ))}
+          {navItems.map((item) => {
+            if (item.href === "/auth/login") {
+              return loggedInUser ? (
+                <li key="user-avatar">
+                  <AvatarLink userData={loggedInUser} />
+                </li>
+              ) : (
+                <NavItem key={item.href} {...item} pathname={pathname} />
+              )
+            }
+
+            return <NavItem key={item.href} {...item} pathname={pathname} />
+          })}
         </ul>
       </nav>
     </>

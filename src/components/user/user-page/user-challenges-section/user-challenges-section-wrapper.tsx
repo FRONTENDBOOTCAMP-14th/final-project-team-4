@@ -95,7 +95,7 @@ export default async function UserChallengesSectionData({
 
   return (
     <>
-      <UserStaticsSection statics={statics} />
+      <UserStaticsSection isMyPage={isMyPage} statics={statics} />
       <UserChallengesSection
         pageUser={pageUser}
         isMyPage={isMyPage}

@@ -20,6 +20,12 @@
 
   > li:last-child {
     margin-top: auto;
+    align-self: center;
+
+    figure {
+      block-size: 52px;
+      inline-size: 52px;
+    }
   }
 
   a {

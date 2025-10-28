@@ -47,14 +47,17 @@ export default function UserChallengeCard({
           ) : (
             <div
               className={styles.period}
-              aria-label={`총 ${challengeDuration}일 중 ${daysElapsed}일째`}
+              aria-label={`챌린지 총 ${challengeDuration}일 중 ${daysElapsed}일째`}
+              role="status"
             >
-              <span className={styles.startDate}>{daysElapsed}일</span>
-              <span role="separator" aria-hidden="true">
-                {" "}
-                /{" "}
+              <span aria-hidden="true">
+                <span className={styles.startDate}>{daysElapsed}일</span>
+                <span role="separator" aria-hidden="true">
+                  {" "}
+                  /{" "}
+                </span>
+                <span className={styles.endDate}>{challengeDuration}일</span>
               </span>
-              <span className={styles.endDate}>{challengeDuration}일</span>
             </div>
           )}
           {isFinished ? null : recorded ? (
@@ -70,12 +73,11 @@ export default function UserChallengeCard({
           )}
         </div>
         <div className={styles.progress}>
-          <label htmlFor="progress" aria-label="챌린지 진행률" />
           <progress
-            id="progress"
             className={styles.progressBar}
             value={daysElapsed}
             max={challengeDuration}
+            aria-hidden="true"
           />
         </div>
       </div>
