@@ -23,7 +23,8 @@
   > datalist {
     display: flex;
     flex-direction: column;
-    gap: 140px;
+    block-size: 400px;
+    justify-content: space-between;
     inline-size: 20px;
     writing-mode: vertical-lr;
   }
@@ -44,7 +45,7 @@
     }
 
     > datalist {
-      gap: 60px;
+      block-size: 250px;
     }
   }
 }
