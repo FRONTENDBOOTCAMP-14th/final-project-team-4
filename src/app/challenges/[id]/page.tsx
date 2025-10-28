@@ -120,7 +120,7 @@ export default async function ChallengeDetailPage({
           <p className={styles.description}>{challenge.description}</p>
           <div className={styles.tagWrapper}>
             {challenge.tags.map((tag, index) => (
-              <span key={index}>#{tag}</span>
+              <span key={index}>{tag}</span>
             ))}
           </div>
         </section>
