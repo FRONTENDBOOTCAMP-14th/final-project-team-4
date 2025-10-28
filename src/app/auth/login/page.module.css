@@ -13,6 +13,7 @@
   color: var(--text-color-main);
   padding-block-start: 20px;
   padding-block-end: 43px;
+  block-size: 100%;
 }
 
 .loginPageContents {
@@ -107,7 +108,7 @@
   .loginSection {
     gap: 36px;
     padding-block-start: 48px;
-    padding-block-end: 54px;
+    padding-block-end: 0;
   }
 
   .loginTitle {
@@ -144,6 +145,7 @@
   .loginSection {
     inline-size: 828px;
     padding: 20px 20px 20px 34px;
+    margin-inline-start: 100px;
     border-radius: 20px;
     gap: 34px;
   }
