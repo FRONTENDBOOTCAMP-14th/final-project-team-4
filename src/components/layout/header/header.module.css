@@ -6,7 +6,7 @@
   overflow-y: auto;
   gap: 54px;
   height: 100vh;
-  padding: 96px 52px 34px 48px;
+  padding: 60px 52px 34px 48px;
   background: var(--surface-bg-main);
   border-right: 1px solid var(--divider);
 }
