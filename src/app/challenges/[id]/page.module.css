@@ -2,7 +2,7 @@
   inline-size: 100%;
   min-inline-size: 360px;
   color: var(--text-color-main);
-  translate: 0 140px;
+  padding-block-start: 140px;
   isolation: isolate;
 
   .thumbnailWrapper {
@@ -26,7 +26,7 @@
       );
     }
 
-    img {
+    .thumbnailImage {
       object-fit: cover;
       object-position: right top;
     }
@@ -48,6 +48,10 @@
     border-bottom: 1px solid var(--divider);
     padding-block: 40px;
     color: var(--text-color-sub);
+
+    &:last-child {
+      border-bottom: none;
+    }
 
     h2 {
       padding-inline: 0;
@@ -111,6 +115,10 @@
         padding: 15px;
       }
 
+      > a:nth-of-type(2) {
+        inline-size: calc(50% - 10px);
+      }
+
       > button:first-child {
         inline-size: 100%;
         background: var(--brand-main);
@@ -160,6 +168,8 @@
         a {
           inline-size: 50%;
         }
+
+        > a:nth-of-type(2),
         button {
           inline-size: calc(25% - 10px);
         }
@@ -171,23 +181,35 @@
 @media (min-width: 768px) {
   .main {
     display: flex;
-    justify-content: flex-start;
+    align-items: stretch;
+    position: relative;
+    overflow-y: auto;
 
     .thumbnailWrapper {
-      position: sticky;
-      top: 0;
-      align-self: start;
+      overflow: visible;
+      position: static;
       max-inline-size: min(40vw, 400px);
-
-      img {
-        min-block-size: calc(100dvh - 136px);
-      }
     }
 
     .thumbnail {
-      > .thumbnailGradient {
+      position: sticky;
+      top: 0;
+      bottom: 0;
+      aspect-ratio: auto;
+      block-size: 100%;
+
+      .thumbnailGradient {
         display: none;
       }
+    }
+
+    .thumbnailImage {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: right top;
     }
   }
   .contentWrapper {
@@ -195,6 +217,9 @@
     overflow-y: scroll;
     translate: 0;
     padding: 80px 20px 0 20px;
+    position: relative;
+    z-index: 1;
+    translate: none;
 
     .pageTitle {
       font-size: 2.125rem;
@@ -228,6 +253,10 @@
         max-inline-size: 484px;
         gap: 15px;
 
+        > a:first-child {
+          inline-size: 50%;
+        }
+
         > button:first-child {
           inline-size: 50%;
         }
@@ -238,13 +267,11 @@
 
 @media (min-width: 1201px) {
   .main {
+    padding-block-start: 0px;
     translate: 200px 0;
+
     .thumbnailWrapper {
       max-inline-size: min(40vw, 500px);
-
-      img {
-        min-block-size: calc(100dvh);
-      }
     }
   }
   .contentWrapper {
@@ -267,6 +294,7 @@
         a {
           inline-size: 50%;
         }
+        > a:nth-of-type(2),
         button {
           inline-size: calc(30% - 10px);
         }

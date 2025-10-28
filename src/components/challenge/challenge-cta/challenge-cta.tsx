@@ -4,6 +4,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import browserClient from "@/utils/supabase/client"
 import styles from "./challenge-cta.module.css"
 
@@ -13,6 +14,7 @@ interface CTATypes {
   challengeId: string
   userId?: string | null
   loginHref: string
+  requiredSuccessRate: number
 }
 
 export default function ChallengeCTA({
@@ -21,16 +23,18 @@ export default function ChallengeCTA({
   challengeId,
   userId,
   loginHref,
+  requiredSuccessRate,
 }: CTATypes) {
   const router = useRouter()
   const supabase = browserClient()
   const [loading, setLoading] = useState(false)
-  const [err, setErr] = useState<string | null>(null)
 
   const onJoin = async () => {
-    if (!isLoggedIn || !userId) return
+    if (!isLoggedIn || !userId) {
+      toast.error("로그인이 필요합니다.")
+      return
+    }
     setLoading(true)
-    setErr(null)
     try {
       const { error } = await supabase.from("challenge_participants").upsert(
         [
@@ -38,6 +42,7 @@ export default function ChallengeCTA({
             user_id: userId,
             challenge_id: challengeId,
             completed_days: 0,
+            required_success_rate: requiredSuccessRate,
             is_successful: false,
             is_progress: true,
           },
@@ -46,10 +51,11 @@ export default function ChallengeCTA({
       )
       if (error) throw error
 
+      toast.success("챌린지에 참여했어요!")
       router.refresh()
-    } catch (e: any) {
-      console.error(e)
-      setErr(e?.message ?? "참여 처리 중 오류가 발생했습니다.")
+    } catch (error: any) {
+      console.error(error)
+      toast.error(error?.message ?? "참여 처리 중 오류가 발생했습니다.")
     } finally {
       setLoading(false)
     }
@@ -57,29 +63,23 @@ export default function ChallengeCTA({
 
   if (!isLoggedIn) {
     return (
-      <>
-        <Link href={loginHref} className={styles.link}>
-          참여하기
-        </Link>
-        {err && <p style={{ color: "crimson" }}>{err}</p>}
-      </>
+      <Link href={loginHref} className={styles.link}>
+        참여하기
+      </Link>
     )
   }
 
   if (!isParticipating) {
     return (
-      <>
-        <button
-          className={styles.link}
-          type="button"
-          onClick={onJoin}
-          disabled={loading}
-          id="joinbutton"
-        >
-          {loading ? "참여 처리 중..." : "참여하기"}
-        </button>
-        {err && <p style={{ color: "crimson" }}>{err}</p>}
-      </>
+      <button
+        className={styles.link}
+        type="button"
+        onClick={onJoin}
+        disabled={loading}
+        id="joinbutton"
+      >
+        {loading ? "참여 처리 중..." : "참여하기"}
+      </button>
     )
   }
 
