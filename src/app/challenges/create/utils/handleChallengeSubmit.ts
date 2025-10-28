@@ -1,3 +1,4 @@
+import { toast } from "sonner"
 import { createChallenge } from "@/utils/supabase/api/challenges"
 import type { FormValues } from "../type"
 
@@ -16,7 +17,7 @@ export async function handleChallengeSubmit({
 
     await createChallenge({ ...data, thumbnail: thumbnailUrl })
 
-    alert("챌린지 생성 완료.")
+    toast("챌린지 생성 완료.", { duration: 2000 })
     router.push("/")
   } catch (err: unknown) {
     alert(`오류 발생: ${(err as Error).message}`)
