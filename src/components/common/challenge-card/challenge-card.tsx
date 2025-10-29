@@ -17,12 +17,14 @@ interface ChallengeCardProps {
   challenge: Challenge | ChallengeWithOwner
   participantCount?: number
   daysLeft?: number
+  realParticipantCount?: number
 }
 
 export default function ChallengeCard({
   challenge,
   participantCount = 0,
   daysLeft = 0,
+  realParticipantCount,
 }: ChallengeCardProps) {
   const router = useRouter()
   const { user } = useAuth()
@@ -139,8 +141,10 @@ export default function ChallengeCard({
             </div>
           )}
           <div className={styles.tags}>
-            {participantCount > 0 && (
-              <span className={styles.tag}>{participantCount}명 참여중</span>
+            {(realParticipantCount ?? participantCount) > 0 && (
+              <span className={styles.tag}>
+                {realParticipantCount ?? participantCount}명 참여중
+              </span>
             )}
             {daysLeft > 0 && (
               <span className={styles.tagDay}>{daysLeft}일</span>

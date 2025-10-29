@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import useSWR from "swr"
 import HotChallengeCarousel from "@/components/challenge/hot-challenge-carousel/hot-challenge-carousel"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
-import type { Challenge } from "@/utils/supabase"
+import type { ChallengeWithParticipants } from "@/utils/supabase"
 import {
   getHotChallengesClient,
   getNewChallengesClient,
@@ -33,11 +33,11 @@ const fetcher = async (url: string) => {
 }
 
 interface HomeChallengesProps {
-  initialHotChallenges: Challenge[]
-  initialNewChallenges: Challenge[]
-  initialPhotoChallenges: Challenge[]
-  initialWritingChallenges: Challenge[]
-  initialAttendanceChallenges: Challenge[]
+  initialHotChallenges: ChallengeWithParticipants[]
+  initialNewChallenges: ChallengeWithParticipants[]
+  initialPhotoChallenges: ChallengeWithParticipants[]
+  initialWritingChallenges: ChallengeWithParticipants[]
+  initialAttendanceChallenges: ChallengeWithParticipants[]
 }
 
 export default function HomeChallenges({

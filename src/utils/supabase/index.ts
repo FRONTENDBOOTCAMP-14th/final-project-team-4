@@ -19,5 +19,8 @@ const supabase = createClient<Database>(
 export default supabase
 
 export type Challenge = Tables<"challenges">
+export type ChallengeWithParticipants = Challenge & {
+  participants?: { count: number }[]
+}
 export type ChallengeInsert = TablesInsert<"challenges">
 export type User = Tables<"users">
