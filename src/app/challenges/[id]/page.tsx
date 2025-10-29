@@ -15,6 +15,9 @@ import styles from "./page.module.css"
 
 export type Challenge = Database["public"]["Tables"]["challenges"]["Row"]
 export type User = Database["public"]["Tables"]["users"]["Row"]
+export type ChallengeWithParticipants = Challenge & {
+  participants?: { count: number }[]
+}
 
 export async function generateMetadata({
   params,
@@ -84,9 +87,13 @@ export default async function ChallengeDetailPage({
 
   const { data: challenge, error: challengeError } = await supabase
     .from("challenges")
-    .select(`*`)
+    .select(`*, participants:challenge_participants(count)`)
     .eq("id", id)
-    .single<Challenge>()
+    .eq("challenge_participants.is_progress", true)
+    .single<ChallengeWithParticipants>()
+
+  const participantsCount = challenge?.participants?.[0]?.count ?? 0
+
   if (challengeError || !challenge) {
     return <p>챌린지 정보를 불러오지 못했습니다 😢</p>
   }
@@ -187,7 +194,7 @@ export default async function ChallengeDetailPage({
           <h2>챌린지 정보</h2>
           <div className={styles.info}>
             <span>{`${getDateDiff(challenge.start_at, challenge.end_at)}일 챌린지`}</span>
-            <span>{`${challenge.participants_count}명 참여중`}</span>
+            <span>{`${participantsCount}명 참여 중`}</span>
             <span>{`성공 기준: ${challenge.success_threshold_percent}%`}</span>
           </div>
           <div className={styles.userAvatar}>
@@ -219,7 +226,10 @@ export default async function ChallengeDetailPage({
         />
         {isLoggedIn && isParticipating ? (
           <div id="record-create">
-            <RecordCreateForm challengeId={challenge.id} userId={user.id} />
+            <RecordCreateForm
+              challengeId={challenge.id}
+              userId={user?.id ?? null}
+            />
           </div>
         ) : (
           <ChallengeCardList

@@ -4,6 +4,11 @@
 .form {
   display: grid;
   gap: 16px;
+
+  button {
+    margin-block-start: 20px;
+    padding: 20px;
+  }
 }
 .title {
   font-size: 1.25rem;
