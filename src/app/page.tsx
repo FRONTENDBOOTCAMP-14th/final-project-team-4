@@ -28,12 +28,21 @@ export const metadata: Metadata = {
       "일상을 변화시키는 새로운 챌린지에 참여하고, 다양한 사람들과 함께 성장하세요.",
     type: "website",
     siteName: "Minimo",
+    images: [
+      {
+        url: "/logo.svg",
+        width: 1200,
+        height: 630,
+        alt: "Minimo 로고",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Minimo - 작은 챌린지, 큰 변화",
     description:
       "일상을 변화시키는 새로운 챌린지에 참여하고, 다양한 사람들과 함께 성장하세요.",
+    images: ["/logo.svg"],
   },
 }
 
