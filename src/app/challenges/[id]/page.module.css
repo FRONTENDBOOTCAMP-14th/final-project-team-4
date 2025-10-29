@@ -4,10 +4,19 @@
   color: var(--text-color-main);
   padding-block-start: 140px;
   isolation: isolate;
+  position: relative;
 
   .thumbnailWrapper {
     inline-size: 100%;
     min-block-size: 550px;
+  }
+
+  .loading {
+    inline-size: 100vw;
+    block-size: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .thumbnail {
@@ -214,7 +223,6 @@
   }
   .contentWrapper {
     flex-grow: 1;
-    overflow-y: scroll;
     translate: 0;
     padding: 80px 20px 0 20px;
     position: relative;

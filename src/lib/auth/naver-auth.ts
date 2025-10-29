@@ -1,13 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID
 const NAVER_REDIRECT_URI = process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI
-
-interface NaverTokenResponse {
-  access_token: string
-  refresh_token: string
-  token_type: string
-  expires_in: number
-}
 
 interface NaverUserResponse {
   resultcode: string
@@ -37,35 +29,30 @@ export const getNaverLoginUrl = (): string => {
   return `https://nid.naver.com/oauth2.0/authorize?${params.toString()}`
 }
 
-export const getNaverTokenServerSide = async (
-  code: string,
-  state: string
-): Promise<NaverTokenResponse> => {
-  const body = new URLSearchParams({
+export async function getNaverTokenServerSide(code: string, state: string) {
+  const clientId = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID
+  const clientSecret = process.env.NAVER_CLIENT_SECRET
+  const redirectUri = process.env.NEXT_PUBLIC_SITE_URL
+    ? `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback/naver`
+    : "http://localhost:3000/auth/callback/naver"
+
+  const params = new URLSearchParams({
     grant_type: "authorization_code",
-    client_id: process.env.NAVER_CLIENT_ID,
-    client_secret: process.env.NAVER_CLIENT_SECRET,
+    client_id: clientId,
+    client_secret: clientSecret,
     code,
     state,
+    redirect_uri: redirectUri,
   })
 
-  const response = await fetch("https://nid.naver.com/oauth2.0/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body,
-  })
-
-  const text = await response.text()
-  let json: any
-  try {
-    json = JSON.parse(text)
-  } catch {
-    throw new Error(`네이버 토큰 응답 파싱 실패: ${text}`)
-  }
+  const response = await fetch(`https://nid.naver.com/oauth2.0/token?${params}`)
+  const json = await response.json()
 
   if (!response.ok || json.error) {
     throw new Error(
-      `네이버 토큰 교환 실패: ${json.error ?? "unknown"} - ${json.error_description ?? ""}`
+      `네이버 토큰 교환 실패: ${json.error ?? "unknown"} - ${
+        json.error_description ?? ""
+      }`
     )
   }
 

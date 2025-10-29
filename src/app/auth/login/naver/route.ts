@@ -1,32 +1,48 @@
-import { cookies } from "next/headers"
-import { NextResponse } from "next/server"
-import { getNaverLoginUrl } from "@/lib/auth/naver-auth"
+import { NextResponse, type NextRequest } from "next/server"
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    let url = getNaverLoginUrl()
+    const origin = req.nextUrl.origin
+    const redirectUri = `${origin}/auth/callback/naver`
 
-    const u = new URL(url)
+    const clientId = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID
+    if (!clientId) {
+      return NextResponse.redirect(
+        new URL("/auth/login?error=missing_client_id", req.url)
+      )
+    }
 
-    u.searchParams.set("scope", "name email profile_image")
-    url = u.toString()
+    const state = crypto.randomUUID()
 
-    const jar = cookies()
-    const state = u.searchParams.get("state") || ""
-    ;(await jar).set("naverOAuthState", state, {
+    const authUrl = new URL("https://nid.naver.com/oauth2.0/authorize")
+    authUrl.search = new URLSearchParams({
+      response_type: "code",
+      client_id: clientId,
+      redirect_uri: redirectUri,
+      state,
+    }).toString()
+
+    const res = NextResponse.redirect(authUrl.toString())
+
+    res.cookies.set({
+      name: "naverOAuthState",
+      value: state,
       httpOnly: true,
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
       path: "/",
-      maxAge: 60 * 10,
+      domain:
+        process.env.NODE_ENV === "production"
+          ? ".minimo-project.vercel.app"
+          : undefined,
+      maxAge: 60 * 5,
     })
 
-    return NextResponse.json({ url })
+    return res
   } catch (e) {
-    console.error(e)
-    return NextResponse.json(
-      { error: "네이버 로그인 URL 생성 실패" },
-      { status: 500 }
+    console.error("[NAVER LOGIN START ERROR]", e)
+    return NextResponse.redirect(
+      new URL("/auth/login?error=start_failed", req.url)
     )
   }
 }
