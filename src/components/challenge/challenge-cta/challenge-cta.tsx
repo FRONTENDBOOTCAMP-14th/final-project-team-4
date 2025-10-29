@@ -97,7 +97,7 @@ export default function ChallengeCTA({
   if (isExpired) {
     return (
       <button className={styles.link} type="button" disabled>
-        종료된 챌린지입니다
+        종료됐습니다
       </button>
     )
   }
@@ -105,7 +105,7 @@ export default function ChallengeCTA({
   if (isUpcoming) {
     return (
       <button className={styles.link} type="button" disabled>
-        조금만 기다려주세요!
+        시작 전입니다
       </button>
     )
   }
@@ -126,7 +126,7 @@ export default function ChallengeCTA({
 
   return (
     <a href="#record-create" className={styles.link}>
-      오늘의 챌린지를 인증해주세요
+      인증하기
     </a>
   )
 }

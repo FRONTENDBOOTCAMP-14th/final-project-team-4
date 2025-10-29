@@ -7,7 +7,9 @@ import { useRecordCard } from "@/utils/hooks/useRecordCard"
 import useRecordCardStore from "store/useRecordCardStore"
 import styles from "./certification-post.module.css"
 
-interface CertificationPost {
+type UploadingType = "사진 인증" | "텍스트 인증" | "출석체크 인증"
+
+interface CertificationPostProps {
   recordId: string
   userId?: string | null
 }
@@ -15,7 +17,7 @@ interface CertificationPost {
 export default function CertificationPost({
   recordId,
   userId,
-}: CertificationPost) {
+}: CertificationPostProps) {
   const { data, error, isLoading, mutate } = useRecordCard(recordId, userId)
   const { likeMut, reportMut } = useRecordActions(recordId, userId)
   const { isLiked, likesCount, commentsCount, isReported } =
@@ -24,33 +26,77 @@ export default function CertificationPost({
   if (error) return <p>데이터를 불러올 수 없습니다 😢</p>
   if (isLoading || !data) return <p>불러오는 중…</p>
 
-  const date = data.participant?.completed_days
-    ? `${data.participant.completed_days}일차`
-    : ""
+  const date =
+    data.participant?.completed_days != null
+      ? `${data.participant.completed_days}일차`
+      : ""
 
   const onToggleLike = async () => {
-    useRecordCardStore.setState((s) => {
-      const nextLiked = !s.isLiked
-      return {
-        isLiked: nextLiked,
-        likesCount: Math.max(0, s.likesCount + (nextLiked ? 1 : -1)),
-      }
-    })
-
     try {
       await likeMut.trigger()
       await mutate()
     } catch (error) {
       console.error(error)
-      useRecordCardStore.setState((state) => {
-        const nextLiked = !state.isLiked
-        return {
-          isLiked: nextLiked,
-          likesCount: Math.max(0, state.likesCount + (nextLiked ? 1 : -1)),
-        }
-      })
     }
   }
+
+  const renderBody = (type: UploadingType) => {
+    switch (type) {
+      case "사진 인증":
+        return (
+          <>
+            <figure className={styles.imageWrapper}>
+              <Image
+                src={data.image_url || "/fallback/fallback-image.png"}
+                alt="챌린지 인증"
+                width={720}
+                height={480}
+                className={styles.image}
+                aria-hidden
+              />
+            </figure>
+            <p className={styles.caption}>
+              {data.content || "기본 텍스트입니다"}
+            </p>
+          </>
+        )
+
+      case "텍스트 인증":
+        return (
+          <div role="group">
+            <p className={styles.caption}>
+              {data.content?.trim() || "작성된 텍스트가 없습니다."}
+            </p>
+          </div>
+        )
+
+      case "출석체크 인증":
+        return (
+          <div role="group">
+            <div className={styles.caption}>✅ 오늘 출석 완료</div>
+          </div>
+        )
+
+      default:
+        return (
+          <>
+            <figure className={styles.imageWrapper}>
+              <Image
+                src={data.image_url || "/fallback/fallback-image.png"}
+                alt="챌린지 인증"
+                width={720}
+                height={480}
+                className={styles.image}
+                aria-hidden
+              />
+            </figure>
+            {data.content && <p className={styles.caption}>{data.content}</p>}
+          </>
+        )
+    }
+  }
+
+  const type = (data.uploading_type as UploadingType) ?? "사진 인증"
 
   return (
     <div className={styles.container}>
@@ -70,17 +116,8 @@ export default function CertificationPost({
         </div>
       </div>
 
-      <figure className={styles.imageWrapper}>
-        <Image
-          src={data.image_url || "/fallback/fallback-image.png"}
-          alt="챌린지 인증"
-          width={720}
-          height={480}
-          className={styles.image}
-          aria-hidden
-        />
-      </figure>
-      <p className={styles.caption}>{data.content || "기본 텍스트입니다"}</p>
+      {renderBody(type)}
+
       <div className={styles.buttonWrapper}>
         <button
           type="button"

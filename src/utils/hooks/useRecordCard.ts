@@ -3,6 +3,22 @@ import useSWR from "swr"
 import browserClient from "@/utils/supabase/client"
 import useRecordCardStore from "store/useRecordCardStore"
 
+interface UploadingType {
+  type: "사진 인증" | "텍스트 인증" | "출석체크 인증"
+}
+
+interface RecordRow {
+  id: string
+  content: string | null
+  image_urls: string[] | null
+  created_at: string
+  user_id: string
+  challenge_id: string
+  like_count: number | null
+  comment_count: number | null
+  challenge: { uploading_type: UploadingType["type"] } | null
+}
+
 interface DbUser {
   id: string
   username: string | null
@@ -11,6 +27,7 @@ interface DbUser {
 
 interface RecordCardData {
   id: string
+  uploading_type: UploadingType["type"]
   content: string | null
   image_url: string | null
   image_urls: string[] | null
@@ -33,10 +50,22 @@ export function useRecordCard(recordId: string, userId?: string | null) {
     const { data: record, error: recErr } = await supabase
       .from("challenge_records")
       .select(
-        "id, content, image_urls, created_at, user_id, challenge_id, like_count, comment_count"
+        `
+    id,
+    content,
+    image_urls,
+    created_at,
+    user_id,
+    challenge_id,
+    like_count,
+    comment_count,
+    challenge:challenges!challenge_record_challenge_id_fkey (
+      uploading_type
+    )
+  `
       )
       .eq("id", recordId)
-      .maybeSingle()
+      .maybeSingle<RecordRow>()
     if (recErr) throw recErr
     if (!record) throw new Error("record not found")
 
@@ -74,16 +103,19 @@ export function useRecordCard(recordId: string, userId?: string | null) {
       isReportedByMe = !!reported
     }
 
-    const { count: likeCount } = await supabase
-      .from("record_likes")
-      .select("*", { count: "exact", head: true })
-      .eq("record_id", recordId)
-
     const imgs = (record.image_urls as unknown as string[] | null) ?? null
     const firstImage = Array.isArray(imgs) && imgs.length > 0 ? imgs[0] : null
 
+    const uploadingType = record.challenge?.uploading_type ?? "사진 인증"
+
+    const likesCount =
+      typeof record.like_count === "number" ? record.like_count : 0
+    const commentsCount =
+      typeof record.comment_count === "number" ? record.comment_count : 0
+
     const shaped: RecordCardData = {
       id: record.id,
+      uploading_type: uploadingType,
       content: record.content ?? null,
       image_url: firstImage,
       image_urls: imgs,
@@ -95,9 +127,8 @@ export function useRecordCard(recordId: string, userId?: string | null) {
             completed_days: participant.completed_days,
           }
         : null,
-      likesCount: likeCount ?? 0,
-      commentsCount:
-        typeof record.comment_count === "number" ? record.comment_count : 0,
+      likesCount,
+      commentsCount,
       isLikedByMe,
       isReportedByMe,
     }

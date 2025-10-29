@@ -1,11 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
 import type { Challenge } from "@/utils/supabase"
+import {
+  getUserParticipationStatus,
+  type ParticipationStatus,
+} from "@/utils/supabase/api/participation"
 import type { ChallengeWithOwner } from "@/utils/supabase/api/search"
 import styles from "./challenge-card.module.css"
 
@@ -23,6 +27,56 @@ export default function ChallengeCard({
   const router = useRouter()
   const { user } = useAuth()
   const [isJoining, setIsJoining] = useState(false)
+  const [participationStatus, setParticipationStatus] =
+    useState<ParticipationStatus>("not_participating")
+  const [isLoadingStatus, setIsLoadingStatus] = useState(true)
+
+  // 사용자 참여 상태 확인
+  useEffect(() => {
+    async function checkParticipationStatus() {
+      if (!user) {
+        setParticipationStatus("not_participating")
+        setIsLoadingStatus(false)
+        return
+      }
+
+      try {
+        const status = await getUserParticipationStatus(user.id, challenge.id)
+        setParticipationStatus(status.status)
+      } catch (error) {
+        console.error("참여 상태 확인 실패:", error)
+        setParticipationStatus("not_participating")
+      } finally {
+        setIsLoadingStatus(false)
+      }
+    }
+
+    void checkParticipationStatus()
+  }, [user, challenge.id])
+
+  const getButtonText = () => {
+    if (isLoadingStatus) return "로딩중..."
+    if (isJoining) return "참여중..."
+
+    switch (participationStatus) {
+      case "participating":
+        return "참여중"
+      case "completed":
+        return "참여완료"
+      default:
+        return "참여하기"
+    }
+  }
+
+  const getButtonClassName = () => {
+    if (
+      participationStatus === "participating" ||
+      participationStatus === "completed"
+    ) {
+      return `${styles.primaryButton} ${styles.disabledButton}`
+    }
+    return styles.primaryButton
+  }
 
   const handleJoinClick = async (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -30,6 +84,17 @@ export default function ChallengeCard({
     if (!user) {
       alert("로그인이 필요합니다.")
       router.push("/auth/login")
+      return
+    }
+
+    // 이미 참여 중이거나 완료된 경우
+    if (participationStatus === "participating") {
+      alert("이미 참여중인 챌린지입니다.")
+      return
+    }
+
+    if (participationStatus === "completed") {
+      alert("이미 참여완료한 챌린지입니다.")
       return
     }
 
@@ -82,11 +147,15 @@ export default function ChallengeCard({
             )}
           </div>
           <button
-            className={styles.primaryButton}
+            className={getButtonClassName()}
             onClick={handleJoinClick}
-            disabled={isJoining}
+            disabled={
+              isJoining ||
+              participationStatus === "participating" ||
+              participationStatus === "completed"
+            }
           >
-            {isJoining ? "참여중..." : "참여하기"}
+            {getButtonText()}
           </button>
         </div>
       </article>

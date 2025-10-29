@@ -13,6 +13,12 @@ export async function handleChallengeSubmit({
 }) {
   try {
     if (!data.thumbnail) throw new Error("썸네일 선택 필요")
+    if (data.thumbnail instanceof File) {
+      const safeName = data.thumbnail.name.replace(/[^\w.-]/g, "_")
+      data.thumbnail = new File([data.thumbnail], safeName, {
+        type: data.thumbnail.type,
+      })
+    }
     const thumbnailUrl = await upload(data.thumbnail)
 
     await createChallenge({ ...data, thumbnail: thumbnailUrl })

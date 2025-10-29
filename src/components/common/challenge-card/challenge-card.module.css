@@ -75,6 +75,7 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   margin-block-end: 0;
@@ -152,6 +153,24 @@
   transform: translateY(0);
 }
 
+.disabledButton {
+  background-color: #e6b800 !important;
+  color: var(--text-default-main) !important;
+  cursor: not-allowed !important;
+  box-shadow: 0 2px 8px rgba(230, 184, 0, 0.2) !important;
+  opacity: 0.8 !important;
+}
+
+.disabledButton:hover {
+  background-color: #e6b800 !important;
+  transform: none !important;
+  box-shadow: 0 2px 8px rgba(230, 184, 0, 0.2) !important;
+}
+
+.disabledButton:active {
+  transform: none !important;
+}
+
 .iconButtons {
   display: none;
 }
@@ -171,6 +190,7 @@
   .title {
     font-size: clamp(1rem, 2vw, 1.25rem);
     -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .categoryTag {
@@ -212,6 +232,7 @@
     font-size: 0.9375rem;
     line-height: 1.2;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .categoryTags {
@@ -265,6 +286,7 @@
     font-size: 0.875rem;
     line-height: 1.2;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .categoryTags {
@@ -318,6 +340,7 @@
     font-size: 0.8125rem;
     line-height: 1.2;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .categoryTags {
@@ -371,6 +394,7 @@
     font-size: 0.75rem;
     line-height: 1.2;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .categoryTags {
