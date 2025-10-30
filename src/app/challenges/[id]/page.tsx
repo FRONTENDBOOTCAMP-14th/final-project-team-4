@@ -4,7 +4,7 @@ import CertificationCarousel from "@/components/challenge/certification-carousel
 import ChallengeCTA from "@/components/challenge/challenge-cta/challenge-cta"
 import RecordCreateForm from "@/components/challenge/record-create-form/record-create-form"
 import ShareButton from "@/components/challenge/share-button/share-button"
-import WishlistButton from "@/components/challenge/wishlistButton/wishlistButton"
+import WishlistButton from "@/components/challenge/wishlist-button/wishlist-button"
 import CategoryTag from "@/components/common/category-tag/category-tag"
 import ChallengeCardList from "@/components/common/challenge-card-list/challenge-card-list"
 import AvatarLink from "@/components/user/avatar-link/avatar-link"

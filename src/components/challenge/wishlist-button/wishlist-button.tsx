@@ -6,7 +6,7 @@ import Link from "next/link"
 import { toast } from "sonner"
 import Button from "@/components/common/button/button"
 import browserClient from "@/utils/supabase/client"
-import styles from "./wishlistButton.module.css"
+import styles from "./wishlist-button.module.css"
 
 interface WishlistButton {
   userId: string | null
