@@ -3,7 +3,6 @@
 import { Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import type { ChallengeWithParticipants } from "@/utils/supabase"
-import type { ChallengeWithOwner } from "@/utils/supabase/api/search"
 import "swiper/css"
 import "swiper/css/navigation"
 import ChallengeCard from "../challenge-card/challenge-card"
@@ -11,10 +10,10 @@ import styles from "./challenge-card-list.module.css"
 
 interface ChallengeCardListProps {
   title?: string
-  challenges: (ChallengeWithParticipants | ChallengeWithOwner)[]
+  challenges: ChallengeWithParticipants[]
   className?: string
   renderCard?: (
-    challenge: ChallengeWithParticipants | ChallengeWithOwner,
+    challenge: ChallengeWithParticipants,
     index: number
   ) => React.ReactNode
 }
@@ -48,10 +47,7 @@ export default function ChallengeCardList({
                 <ChallengeCard
                   challenge={challenge}
                   participantCount={challenge.participants_count}
-                  realParticipantCount={
-                    "participants" in challenge &&
-                    challenge.participants?.[0]?.count
-                  }
+                  realParticipantCount={challenge.participants?.[0]?.count}
                   daysLeft={Math.ceil(
                     (new Date(challenge.end_at).getTime() -
                       new Date(challenge.start_at).getTime()) /
