@@ -1,8 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, type MouseEvent } from "react"
 import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
 import type { Challenge } from "@/utils/supabase"
@@ -80,7 +79,7 @@ export default function ChallengeCard({
     return styles.primaryButton
   }
 
-  const handleJoinClick = async (e: React.MouseEvent) => {
+  const handleJoinClick = async (e: MouseEvent) => {
     e.stopPropagation()
 
     if (!user) {
@@ -116,53 +115,63 @@ export default function ChallengeCard({
   }
 
   return (
-    <Link href={`/challenges/${challenge.id}`} className={styles.cardLink}>
-      <article className={styles.card}>
-        <div className={styles.imageWrapper}>
-          <Image
-            src={challenge.thumbnail}
-            alt={challenge.title}
-            fill
-            className={styles.thumbnail}
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-          <div className={styles.gradient} />
-        </div>
+    <article
+      className={styles.card}
+      role="link"
+      tabIndex={0}
+      onClick={() => router.push(`/challenges/${challenge.id}`)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          router.push(`/challenges/${challenge.id}`)
+        }
+      }}
+    >
+      <h2 className="sr-only">{challenge.title}</h2>
+      <div className={styles.imageWrapper}>
+        <Image
+          src={challenge.thumbnail}
+          alt={challenge.title}
+          fill
+          className={styles.thumbnail}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+        <div className={styles.gradient} />
+      </div>
 
-        <div className={styles.content}>
-          <h3 className={styles.title}>{challenge.title}</h3>
-          {challenge.tags && challenge.tags.length > 0 && (
-            <div className={styles.categoryTags}>
-              {challenge.tags.map((tag, index) => (
-                <span key={index} className={styles.categoryTag}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-          <div className={styles.tags}>
-            {(realParticipantCount ?? participantCount) > 0 && (
-              <span className={styles.tag}>
-                {realParticipantCount ?? participantCount}명 참여중
+      <div className={styles.content}>
+        <h3 className={styles.title} aria-hidden="true">
+          {challenge.title}
+        </h3>
+        {challenge.tags && challenge.tags.length > 0 && (
+          <div className={styles.categoryTags}>
+            {challenge.tags.map((tag, index) => (
+              <span key={index} className={styles.categoryTag}>
+                {tag}
               </span>
-            )}
-            {daysLeft > 0 && (
-              <span className={styles.tagDay}>{daysLeft}일</span>
-            )}
+            ))}
           </div>
-          <button
-            className={getButtonClassName()}
-            onClick={handleJoinClick}
-            disabled={
-              isJoining ||
-              participationStatus === "participating" ||
-              participationStatus === "completed"
-            }
-          >
-            {getButtonText()}
-          </button>
+        )}
+        <div className={styles.tags}>
+          {(realParticipantCount ?? participantCount) > 0 && (
+            <span className={styles.tag}>
+              {realParticipantCount ?? participantCount}명 참여중
+            </span>
+          )}
+          {daysLeft > 0 && <span className={styles.tagDay}>{daysLeft}일</span>}
         </div>
-      </article>
-    </Link>
+        <button
+          className={getButtonClassName()}
+          onClick={handleJoinClick}
+          disabled={
+            isJoining ||
+            participationStatus === "participating" ||
+            participationStatus === "completed"
+          }
+        >
+          {getButtonText()}
+        </button>
+      </div>
+    </article>
   )
 }
